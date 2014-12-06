@@ -1,0 +1,106 @@
+﻿@{
+    Layout = null;
+}
+
+@model Management.Models.Managers
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="~/lib/css/home/home.css" rel="stylesheet" type="text/css" />
+    <script src="~/lib/js/core/jquery-1.7.2.min.js" type="text/javascript"></script>
+    <title>基本信息</title>
+</head>
+<body>
+    <div id="showbase">
+        <input type="hidden" value="" id="personals" />
+        <input type="hidden" value="" id="students" />
+        <table border="1" class="t1">
+            <tr class="a1">
+                <td>用户名</td>
+                <td>@Model.UserId</td>
+                <td>姓名</td>
+                <td>@Model.Name</td>
+                <td>个人照片</td>
+            </tr>
+            <tr>
+                <td>办事处</td>
+                <td>@Model.City1.Office.Name</td>
+                <td>性别</td>
+                <td>@if(Model.Sex==true)
+                    {<div>男</div>}
+                    else
+                    {<div>女</div>}
+                </td>
+                <td rowspan="4" id="personal" style="padding: 0px">
+                    @if (Model.Photo != null && Model.Photo.Length != 0)
+                    { <a href="~/uploadImg/managerImg/personalImg/yuan/@Model.Photo" target="_blank"><img src="~/uploadImg/managerImg/personalImg/suo/@Model.Photo"  id="photo" style="width:114px;height:125px;" /></a>}
+
+                </td>
+            </tr>
+            <tr class="a1">
+                <td>城市</td>
+                <td>@Model.City1.Name</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>银行卡</td>
+                <td colspan="3">@Model.BankCard</td>
+            </tr>
+            <tr class="a1">
+                <td>账户</td>
+                <td colspan="3">@Model.Bank1.Name</td>
+            </tr>
+            <tr>
+                <td>身份证</td>
+                <td colspan="3">@Model.IDcard</td>
+            </tr>
+            <tr class="a1">
+                <td>电话号码</td>
+                <td colspan="3">@Model.Telephone</td>
+                <td>学生证</td>
+            </tr>
+            <tr>
+                <td>专业</td>
+                <td>@Model.Major
+                </td>
+                <td>学历</td>
+                <td>@Model.Academic</td>
+                <td rowspan="4" id="student" style="padding: 0">
+                    @if (Model.StudentCardPhoto != null && Model.StudentCardPhoto.Length != 0)
+                    {<a href="~/uploadImg/managerImg/StudentImg/yuan/@Model.StudentCardPhoto" target="_blank"><img src="~/uploadImg/managerImg/StudentImg/suo/@Model.StudentCardPhoto"  style="width:114px;height:125px;" /></a>}
+
+                </td>
+            </tr>
+            <tr class="a1">
+                <td>毕业时间</td>
+                <td>@DateTime.Parse(Model.Graduate.ToString()).ToString("yyyy年MM月dd日")</td>
+                <td>身高</td>
+                <td>@Model.height</td>
+            </tr>
+            <tr>
+                <td>体重</td>
+                <td>@Model.weight</td>
+                <td>三围</td>
+                <td>@Model.BWH</td>
+            </tr>
+            <tr class="a1">
+                <td>特长</td>
+                <td colspan="3">@Model.Speciality</td>
+            </tr>
+        </table>
+    </div>
+    @*        <script type="text/javascript">
+            $(document).ready(function () {
+                if ($("#personals").val().length > 0) {
+                    $("#personal").html("<img src=\"" + $("#personals").val() + "\" width=\"114px\" height=\"125px\"/>");
+                }
+                if ($("#students").val().length > 0) {
+                    $("#student").html("<img src=\"" + $("#students").val() + "\" width=\"114px\" height=\"125px\"/>");
+                }
+            })
+        </script>*@
+</body>
+</html>
+

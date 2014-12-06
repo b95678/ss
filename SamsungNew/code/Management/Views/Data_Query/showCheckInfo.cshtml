@@ -1,0 +1,56 @@
+﻿@{
+    Layout = null;
+}
+
+@model Management.Models.DianJian 
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="~/lib/css/home/home.css" rel="stylesheet" type="text/css" />
+        <title>基本信息</title>
+    </head>
+    <body>
+        <div id="showbase">
+            <table border="1" class="t1">
+                <tr>
+                    <th>唯一号</th>
+                    <td>@Model.HumanBasicFile.uniNum</td>
+                    <th>姓名</th>
+                    <td colspan="3">@Model.HumanBasicFile.Name</td>
+                </tr>
+                <tr class="a1">                 
+                    <th>办事处</th>
+                    <td>@Model.HumanBasicFile.City1.Office.Name</td>
+                    <th>城市</th>
+                    <td colspan="3">@Model.HumanBasicFile.City1.Name</td>
+                </tr>               
+                <tr>
+                    <th>等级</th>
+                    <td>@Model.HumanBasicFile.HumanLevel</td>
+                    <th>身份证号</th>
+                    <td colspan="3">@Model.HumanBasicFile.IDcardNo</td> 
+                </tr>
+                <tr class="a1">                   
+                    <th>仪容仪表</th>
+                    <td>@Model.Face</td> 
+                    <th>工作态度</th>
+                    <td>@Model.WorkAttitude</td>
+                    <th>产品知识</th>
+                    <td>@Model.KOP</td>
+                </tr>
+                <tr>
+                    <th>自检时间</th>
+                    <td >@Model.DJTime</td> 
+                      <th>点检内容</th>
+                    <td colspan="3">@Model.DJContent</td> 
+                </tr>
+                @*<tr>
+                    <th>备注</th>
+                    <td colspan="7">@Model.Remark</td> 
+                </tr>*@
+            </table>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,274 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="~/lib/css/home/home.css" rel="stylesheet" />
+        <link href="~/lib/css/validation/screen.css" rel="stylesheet" />
+        <link href="~/lib/css/core/ligerui-common.css" rel="stylesheet" />
+        <link href="~/lib/css/core/ligerui-dialog.css" rel="stylesheet" />
+        <link href="~/lib/css/core/ligerui-grid-1.css" rel="stylesheet" />
+        <link href="~/lib/css/core/ligerui-grid-2.css" rel="stylesheet" />
+        <link href="~/lib/css/core/ligerui-icons.css" rel="stylesheet" />
+        <link href="~/lib/css/core/ligerui-menu.css" rel="stylesheet" />
+        <link href="~/lib/css/core/ligerui-form.css" rel="stylesheet" />
+        <script src="~/lib/js/core/jquery-1.7.2.min.js"></script>
+        <script src="~/lib/js/core/jquery.validate.min.js"></script>
+        <script src="~/lib/js/core/messages_zh.js"></script>
+        <script src="~/lib/js/core/ligerui.min.js"></script>
+        <title>查看人员信息</title>
+    </head>
+    <body>
+        <div id="info-wrap">
+            <div class="navbar">
+                <div class="navbar-l"></div>
+                <div class="navbar-r"></div>
+                <div class="navbar-icon">
+                    <img alt ="" src="/lib/css/icons/tag.gif" />
+                </div>
+                <div class="navbar-inner">
+                    <b>人员信息</b>
+                </div>
+            </div>
+
+            <div class="search">
+                <table cellspacing="0" cellspadding="0">
+                    <tr>
+                        <td>
+                            <select id="keys">
+                                <option value="all">查看全部</option>
+                                <option value="username">用户名</option>
+                                <option value="name">姓名</option>
+                                <option value="sex">性别</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input id="contents" name="contents" class="txt"/>
+                            <input id="key" name="key" type="hidden"/>
+                            <input id="content" name="content" type="hidden"/>
+                            <input id="roles" name="roles" type="hidden" value="1"/>
+                        </td>
+                        <td>
+                            <input type="button" class="l-button3" id="submit" value="确定"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="info-grid">
+                <div class="l-loading" style="display:block" id="pageloading"></div>
+                <div id="grid"></div>
+                <div class="l-panel-bar"  id="pager">
+                    <div class="l-panel-bbar-inner">
+                        <div class="l-bar-group  l-bar-message"><span class="l-bar-text"></span></div>
+                        <div class="l-bar-group l-bar-selectpagesize">
+                            <select name="rp">
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="40">40</option>
+                                <option value="50">50</option>
+                            </select>
+                        </div>
+                        <div class="l-bar-separator"></div>
+                        <div class="l-bar-group">
+                            <div class="l-bar-button l-bar-btnfirst"><span class=""></span></div>
+                            <div class="l-bar-button l-bar-btnprev"><span class=""></span></div>
+                        </div>
+                        <div class="l-bar-separator"></div>
+                        <div class="l-bar-group">
+                            <span class="pcontrol"> 
+                                <input type="text" maxlength="3" class="txt" style="width:20px" value="" size="4"> / <span></span></span>
+                        </div>
+                        <div class="l-bar-separator"></div>
+                        <div class="l-bar-group">
+                            <div class="l-bar-button l-bar-btnnext">
+                                <span class=""></span>
+                            </div>
+                            <div class="l-bar-button l-bar-btnlast">
+                                <span class=""></span>
+                            </div>
+                        </div>
+                        <div class="l-bar-separator"></div>
+                        <div class="l-bar-group">
+                            <div class="l-bar-button l-bar-btnload">
+                                <span class="l-abled"></span>
+                            </div>
+                        </div>
+                        <div class="l-bar-separator"></div>
+                        <div class="l-clear"></div>
+                    </div>
+                </div>
+                <input type="hidden" id="page" value=""/>
+                <input type="hidden" id="pageSize" value=""/>
+                <input type="hidden" id="totalPage" value=""/>
+                <input type="hidden" id="admin" value="@Session["admin"].ToString()" />
+                <input type="hidden" id="authority" value="@Session["authority"].ToString()" />
+            </div>
+        </div>
+        <script type="text/javascript" src="~/lib/js/grid/gridJs.js"></script>
+        <script type="text/javascript">
+            function f_edit(id) {
+                window.parent.$.ligerDialog.open(
+                {
+                    width: 850,
+                    height: 500,
+                    isResize: true,
+                    name: "edit",
+                    url: '../AddAdminMem/EditManInfo?id=' + encodeURIComponent(id, 'UTF-8'),
+                    title: '编辑人员信息',
+                    buttons: [
+                        {
+                            text: '关闭',
+                            onclick: function (item, dialog) {
+                                dialog.close();
+                            }
+                        }
+                    ]
+                });
+            }
+            function f_delete(id, name) {
+                $.ligerDialog.confirm('是否删除 \'' + name + '\' 人员信息? ', function (yes) {
+                    var params = { "captainInfo.Id": id };
+                    if (yes) {
+                        $.grid.f_ajaxSubmit("../AddAdminMem/deleteMan", params, "成功删除人员信息!", true);
+                    }
+                });
+            }
+            function f_show(id) {
+                window.parent.$.ligerDialog.open(
+                {
+                    width: 600,
+                    height: 480,
+                    isResize: true,
+                    name: "show",
+                    url: '../AddAdminMem/showManInfo?id=' + encodeURIComponent(id, 'UTF-8'),
+                    title: '查看人员信息',
+                    buttons: [
+                        {
+                            text: '关闭',
+                            onclick: function (item, dialog) {
+                                dialog.close();
+                            }
+                        }
+                    ]
+                });
+            }
+            $(document).ready(function () {
+                if ($("#roles").val() == "1") {
+                    $("#keys").append("<option value=\"role\">类型</option>");
+                    $("#keys").append("<option value=\"office\">办事处</option>");
+                }
+                var grid = $("#grid").ligerGrid({
+                    height: '92%',
+                    width: '99.7%',
+                    columns: [
+                        { display:'Id', name:'id', width: 30, hide:true },
+                        { display: '用户名', name: 'username', width: 100 },
+                        {
+                            display: '姓名', name: 'name', isAllowHide: false, width: 80,
+                            render: function (row) {
+                                var id = '\'' + row.id + '\'';
+                                var html = '<a href="javascript:;" onclick="f_show(' + id + ')">' + row.name + '</a>';
+                                return html;
+                            }
+                        },
+                        { display: '类型', name: 'roles', width: 80 },
+                        { display: '上级', name: 'supervisor', width: 80 },
+                        { display: '办事处', name: 'offices', width: 80 },
+                        { display: '性别', name: 'sex', width: 80 },
+                        { display: '城市', name: 'city', width: 80 },
+                        { display: '电话号码', name: 'mobile', width: 100 },
+                        { display: '录入人员', name: 'insertuser', width: 80 },
+                        { display: '编辑人员', name: 'updateuser', width: 80 },
+                        {
+                            display: '操作', isAllowHide: false, width: 50,
+                            render: function (row) {
+                                if (row.username == $("#admin").val() || $("#authority").val() == "管理员" || $("#authority").val() == "督导") {
+                                    if (row.username != $("#admin").val()) {
+                                        if (row.roles == "管理员" && row.insertuser != $("#admin").val())
+                                        { }
+                                        else {
+                                            var id = '\'' + row.id + '\'';
+                                            var html = '<a href="javascript:;" onclick="f_edit(' + id + ')">修改</a>';
+                                        }
+                                    }
+                                    else {
+                                        var id = '\'' + row.id + '\'';
+                                        var html = '<a href="javascript:;" onclick="f_edit(' + id + ')">修改</a>';
+                                    }
+                                return html;}
+                            }
+                        }, 
+                        {
+                            display: '操作',name:"delete", isAllowHide: true, width: 50,hide:true,
+                            render: function (row) {
+                                
+                                if (row.username == $("#admin").val() || $("#authority").val() == "管理员") {
+                                    if (row.username != $("#admin").val()) {
+                                        if (row.roles == "管理员" && row.insertuser != $("#admin").val())
+                                        { }
+                                        else {
+                                            var id = '\'' + row.id + '\'';
+                                            var name = '\'' + row.username + '\'';
+                                            var html = '<a href="javascript:;" onclick="f_delete(' + id +','+name+ ')">删除</a>';
+                                        }
+                                    }
+                                    else {
+                                        var id = '\'' + row.id + '\'';
+                                        var name = '\'' + row.username + '\'';
+                                        var html = '<a href="javascript:;" onclick="f_delete(' + id + ',' + name + ')">删除</a>';
+                                    }
+                                    return html;
+                                }
+                            }
+                        }
+                        
+                        //{
+                        //    display: '操作', isAllowHide: false, width: 50,
+                        //    render: function (row) {
+                        //        var id = '\'' + row.id + '\'';
+                        //        var name = '\'' + row.name + '\'';
+                        //        var html = '<a href="javascript:;" onclick="f_delete(' + id + ',' + name + ')">删除</a>';
+                        //        return html;
+                        //    }
+                        //}
+                    ], dataAction:'server', usePager: false
+                });
+                if ($("#authority").val() == "管理员") {
+                    grid.toggleCol('delete', true);
+                }
+                $("#key").val($("#keys").val());
+                $("#submit").bind("click", function () {
+                    if ($("#contents").val().length > 0||$("#keys").val()=="all") {
+                        $("#key").val($("#keys").val());
+                        $("#content").val($("#contents").val());
+                        var params1 = {
+                            "key": $("#key").val(),
+                            "content": $("#content").val(),
+                            "page": "1",
+                            "pageSize": "15"
+                        };
+                        $.grid.f_getData(grid, '../AddAdminMem/GetData', params1);
+                    } else {
+                        $.ligerDialog.warn('请输入内容！');
+                    }
+                });
+                var params2 = {
+                    "key": "all",
+                    "content": "",
+                    "page": "1",
+                    "pageSize": "15"
+                };
+                $.grid.f_getData(grid, '../AddAdminMem/GetData', params2);
+                var params3 = {};
+                $.grid.f_setOverClass();
+                $.grid.f_pagerOnclick(grid, '../AddAdminMem/GetData', params3);
+                $.grid.f_pageEnterDown(grid, '../AddAdminMem/GetData', params3);
+                $.grid.f_pageSizeSelect(grid, '../AddAdminMem/GetData', params3);
+            });
+        </script>
+    </body>
+</html>

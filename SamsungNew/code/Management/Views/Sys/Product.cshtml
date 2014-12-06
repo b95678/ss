@@ -1,0 +1,134 @@
+﻿@{
+    Layout = null;
+}
+
+@{
+    List<Management.Models.ProductCategory> PCList = (List<Management.Models.ProductCategory>)ViewBag.PCList;
+    }
+
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="~/lib/css/home/home.css" rel="stylesheet" />
+        <link href="~/lib/css/validation/screen.css" rel="stylesheet" />
+        <link href="~/lib/css/core/ligerui-common.css" rel="stylesheet" />
+        <link href="~/lib/css/core/ligerui-dialog.css" rel="stylesheet" />
+        <script src="~/lib/js/core/messages_zh.js"></script>
+        <script src="~/lib/js/core/ligerui.min.js"></script>
+        <script src="~/lib/js/core/jquery.validate.min.js"></script>
+        <script src="~/lib/js/core/jquery-1.7.2.min.js"></script>
+        <title>产品信息</title>
+    </head>
+    <body>
+        <div id="info-wrap">
+            <div class="navbar">
+                <div class="navbar-l"></div>
+                <div class="navbar-r"></div>
+                <div class="navbar-icon">
+                    <img alt=""  src="~/lib/css/icons/tag.gif">
+                </div>
+                <div class="navbar-inner">
+                    <b>培训产品</b>
+                </div>
+            </div>
+            <div class="info-detail">
+                <form action="/Sys/addProduct" method="post">
+                    <table cellspacing="0" cellspadding="0">
+                        <tr>
+                            <td>培训产品：</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table cellspacing="0" cellspadding="0">
+                                    @if (PCList != null)
+                                    {
+                                        foreach (var item in PCList)
+                                        {
+                                        <tr>
+                                            <td style="width: 80px">@item.Name</td>
+                                            <td><a href="/sys/deleteProductCategory?id=@item.Id">删除</a></td>
+                                        </tr>
+                                        }
+                                    }
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input name="productInfo.trainProduct" id="productTxt" type="text" value="" class="txt"/>
+                                <input class="l-button3" type="submit" value="添加"/>
+                            </td>   
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div class="navbar">
+                <div class="navbar-l"></div>
+                <div class="navbar-r"></div>
+                <div class="navbar-icon">
+                    <img alt=""  src="~/lib/css/icons/tag.gif">
+                </div>
+                <div class="navbar-inner">
+                    <b>产品型号</b>
+                </div>
+            </div>
+            <div class="info-detail">
+                <form action="/sys/addType" method="post">
+                    <table cellspacing="0" cellspadding="0">
+                        <tr>
+                            <td>培训产品：
+                                <select name="typeInfo.productId" id="productName">
+                                    @foreach(var item in PCList){
+                                        <option value="@item.Id">@item.Name</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table cellspacing="0" cellspadding="0">
+                                    @if(ViewBag.Plist!=null)
+                                     {
+                                        foreach(var item in ViewBag.Plist)
+                                        {                                       
+                                           <tr>
+                                               <td style="width: 80px">@item.Name</td>
+                                               <td><a href="/sys/deleteType?id=@item.Id">删除</a></td>
+                                           </tr>
+                                        }
+                                    }
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input name="typeInfo.trainType" id="typeTxt" type="text" value="" class="txt"/>
+                                <input id="productId" class="l-button3" type="hidden" value="@ViewBag.ProductId"/>
+                                <input class="l-button3" type="submit" value="添加"/>
+                            </td>   
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var productId = $("#productId").val();
+                if (productId != "0") {
+                    $("#productName option").each(function () {
+                        if ($(this).val() == productId) {
+                            $(this).attr("selected", "selected");
+                        }
+                    });
+                }
+                $("#productName").bind("change", function () {
+                    var id = $(this).val();
+                    window.location.href = "/sys/getProduct?id=" + id;
+                });
+            });
+        </script>
+    </body>
+</html>

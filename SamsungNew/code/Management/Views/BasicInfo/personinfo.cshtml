@@ -1,0 +1,278 @@
+﻿@{
+    Layout = null;
+}
+@using Management.Models
+@model Managers
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="~/lib/css/home/home.css" rel="stylesheet" />
+    <link href="~/lib/css/validation/screen.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-common.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/lib/css/core/ligerui-dialog.css">
+    <link href="~/lib/css/core/ligerui-grid-1.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-grid-2.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-icons.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-menu.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-form.css" rel="stylesheet" />
+    <script src="~/lib/js/core/jquery-1.7.2.min.js"></script>
+    <script src="~/lib/js/core/jquery.validate.min.js" type="text/javascript"></script>
+    <script src="~/lib/js/core/messages_zh.js" type="text/javascript"></script>
+    <script src="~/lib/js/core/ligerui.min.js" type="text/javascript"></script>
+    <title>个人信息</title>
+</head>
+<body>
+    <div id="info-wrap1">
+        <div class="navbar">
+            <div class="navbar-l"></div>
+            <div class="navbar-r"></div>
+            <div class="navbar-icon">
+                <img alt="" src="~/lib/css/icons/tag.gif">
+            </div>
+            <div class="navbar-inner">
+                <b>基本信息</b>
+            </div>
+        </div>
+        <input type="hidden" value="@Session["authority"]" id="qx" />
+        <div class="info-detail">
+            <table cellspacing="0" cellspadding="0">
+                <tr>
+                    <th>用户名</th>
+                    <td>@Model.UserId &nbsp; &nbsp; &nbsp;<input id="editpwd" class="l-button3333" type="button" value="修改密码" /></td>
+                </tr>
+                <tr>
+                    <th>办事处</th>
+                    <td>
+                        @if (Model.City != null)
+                        {
+                            @Model.City1.Office.Name
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th>用户类型</th>
+                    <td>@Session["authority"]</td>
+                </tr>
+                <tr>
+                    <th>上级</th>
+                    <td>
+                        @if (Model.Boss != null)
+                        {
+                            @Model.Boss
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th>城市</th>
+                    <td>
+                        @if (Model.City != null)
+                        {
+                            @Model.City1.Name
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th>姓名</th>
+                    <td>@Model.Name</td>
+                </tr>
+                <tr>
+                    <th>性别</th>
+                    <td>
+                        @if (Model.Sex == true)
+                        {
+                            <span>男</span>
+                        }
+                        else
+                        {
+                            <span>女</span>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th>联系电话</th>
+                    <td>@Model.Telephone</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    @if (Session["authority"] == "督导")
+    {
+        <div id="info-wrap">
+            <div class="navbar">
+                <div class="navbar-l"></div>
+                <div class="navbar-r"></div>
+                <div class="navbar-icon">
+                    <img alt="" src="~/lib/css/icons/tag.gif">
+                </div>
+                <div class="navbar-inner">
+                    <b>日报审批情况</b>
+                </div>
+            </div>
+            <div class="info-grid">
+                <div class="l-loading" style="display: block" id="pageloading"></div>
+                <div style="height: 276px">
+                    <div id="grid"></div>
+                </div>
+                <div class="l-panel-bar" id="pager">
+                    <div class="l-panel-bbar-inner">
+                        <div class="l-bar-group  l-bar-message"><span class="l-bar-text"></span></div>
+                        <div class="l-bar-group l-bar-selectpagesize">
+                            <select name="rp">
+                                <option value="15">10</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="40">40</option>
+                                <option value="50">50</option>
+                            </select>
+                        </div>
+                        <div class="l-bar-separator"></div>
+                        <div class="l-bar-group">
+                            <div class="l-bar-button l-bar-btnfirst"><span class=""></span></div>
+                            <div class="l-bar-button l-bar-btnprev"><span class=""></span></div>
+                        </div>
+                        <div class="l-bar-separator"></div>
+                        <div class="l-bar-group">
+                            <span class="pcontrol">
+                                <input type="text" maxlength="3" class="txt" style="width: 20px" value="" size="4">
+                                / <span></span></span>
+                        </div>
+                        <div class="l-bar-separator"></div>
+                        <div class="l-bar-group">
+                            <div class="l-bar-button l-bar-btnnext">
+                                <span class=""></span>
+                            </div>
+                            <div class="l-bar-button l-bar-btnlast">
+                                <span class=""></span>
+                            </div>
+                        </div>
+                        <div class="l-bar-separator"></div>
+                        <div class="l-bar-group">
+                            <div class="l-bar-button l-bar-btnload">
+                                <span class="l-abled"></span>
+                            </div>
+                        </div>
+                        <div class="l-bar-separator"></div>
+                        <div class="l-clear"></div>
+                    </div>
+                </div>
+                <input type="hidden" id="page" value="" />
+                <input type="hidden" id="pageSize" value="" />
+                <input type="hidden" id="totalPage" value="" />
+            </div>
+        </div>
+    }
+    <script type="text/javascript" src="~/lib/js/grid/gridJs.js"></script>
+    <script type="text/javascript">
+        function f_show(id) {
+            window.parent.$.ligerDialog.open(
+            {
+                width: 800,
+                height: 600,
+                isResize: true,
+                name: "show",
+                url: '/BasicInfo/BasicStaticPre/' + id,
+                title: '查看基本信息',
+                buttons: [
+                    {
+                        text: '关闭',
+                        onclick: function (item, dialog) {
+                            window.location.reload();
+                            dialog.close();
+                        }
+                    }
+                ]
+            });
+        }
+
+        function f_show1(url) {
+            window.parent.$.ligerDialog.open(
+            {
+                width: 800,
+                height: 300,
+                isResize: true,
+                name: "show",
+                url: url,
+                title: '修改密码',
+                buttons: [
+                    {
+                        text: '关闭',
+                        onclick: function (item, dialog) {
+                            window.location.reload();
+                            dialog.close();
+                        }
+                    }
+                ]
+            });
+        }
+
+        function f_delete(id, title) {
+            $.ligerDialog.confirm('是否删除 \'' + title + '\' ? ', function (yes) {
+                var params = { "newsId": id };
+                if (yes) {
+                    $.grid.f_ajaxSubmit("/BasicInfo/DeleteNews", params, "成功删除人员信息!", true);
+                }
+            });
+        }
+        $(document).ready(function () {
+            $("#editpwd").click(function () {
+                f_show1("/BasicInfo/AlterPassword");
+            });
+            $("#content").ligerDateEditor({ format: "yyyy年MM月dd日", label: '', labelWidth: 100, labelAlign: 'center' });
+            if ($("#qx").val() == "督导") {
+                var grid = $("#grid").ligerGrid({
+                    height: 276,
+                    width: '99.7%',
+                    columns: [
+                        { display: 'ID', name: 'id', width: 80, hide: true },
+                        { display: '姓名', name: 'name', width: 80 },
+                        {
+                            display: '标题', name: 'title', isAllowHide: false, width: 120,
+                            render: function (row) {
+                                var id = '\'' + row.id + '\'';
+                                var html = '<a href="javascript:;" onclick="f_show(' + id + ')">' + row.title + '</a>';
+                                return html;
+                            }
+                        },
+                        { display: '办事处', name: 'office', width: 80 },
+                        { display: '填写时间', name: 'createtime', width: 100 },
+                        { display: '上班总人数', name: 'totalWork', width: 150 },
+                        { display: '培训总人数', name: 'totalTrain', width: 150 },
+                        { display: '上班总薪资', name: 'totalWage', width: 150 },
+                        { display: '备注', name: 'Remark', width: 150 },
+                        { display: '审核结果', name: 'isaudit', width: 80 },
+                                            {
+                                                display: '操作', isAllowHide: false, width: 100,
+                                                render: function (row) {
+                                                    var uniquenum = '\'' + row.id + '\'';
+                                                    var title = '\'' + row.title + '\'';
+                                                    var html;
+                                                    html = '<a href="javascript:;" onclick="f_delete(' + uniquenum + ',' + title + ')">删除</a>';
+                                                    return html;
+                                                }
+                                            },
+                    ], dataAction: 'server', usePager: false
+                });
+
+                $("#submit").bind("click", function () {
+                    var params1 = {
+                        "page": "1",
+                        "pageSize": "10"
+                    };
+                    $.grid.f_getData(grid, '/BasicInfo/GetDataDone', params1);
+                });
+                var params2 = {
+                    "page": "1",
+                    "pageSize": "10"
+                };
+                $.grid.f_getData(grid, '/BasicInfo/GetDataDone', params2);
+                var params3 = {};
+                $.grid.f_setOverClass();
+                $.grid.f_pagerOnclick(grid, '/BasicInfo/GetDataDone', params3);
+                $.grid.f_pageEnterDown(grid, '/BasicInfo/GetDataDone', params3);
+                $.grid.f_pageSizeSelect(grid, '/BasicInfo/GetDataDone', params3);
+            }
+        })
+    </script>
+</body>
+</html>

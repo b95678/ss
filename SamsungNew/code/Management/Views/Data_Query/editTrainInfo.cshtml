@@ -1,0 +1,296 @@
+﻿@{
+    Layout = null;
+}
+@model Management.Models.Train
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="~/lib/css/home/home.css" rel="stylesheet" type="text/css" />
+    <link href="~/lib/css/validation/screen.css" rel="stylesheet" type="text/css" />
+    <link type="text/css" rel="stylesheet" href="~/lib/css/core/ligerui-common.css">
+    <link type="text/css" rel="stylesheet" href="~/lib/css/core/ligerui-dialog.css">
+    <link type="text/css" rel="stylesheet" href="~/lib/css/core/ligerui-form.css">
+    <link rel="stylesheet" type="text/css" href="~/lib/css/datepicker/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="~/lib/css/datepicker/jquery-ui-timepicker-addon.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/lib/css/datepicker/datetimepicker.css" />
+    <script src="~/lib/js/core/jquery-1.7.2.min.js" type="text/javascript"></script>
+    <script src="~/lib/js/core/jquery.validate.min.js" type="text/javascript"></script>
+    <script src="~/lib/js/core/messages_zh.js" type="text/javascript"></script>
+    <script src="~/lib/js/core/ligerui.min.js" type="text/javascript"></script>
+    <script src="~/lib/js/datepicker/jquery-ui-1.9.2-min.js"></script>
+    <script src="~/lib/js/datepicker/jquery.ui.datepicker-zh-CN.min.js"></script>
+    <script src="~/lib/js/datepicker/jquery-ui-sliderAccess.js"></script>
+    <script src="~/lib/js/datepicker/jquery-ui-timepicker-addon.min.js"></script>
+    <title>培训信息</title>
+</head>
+<body>
+    <div id="info-wrap">
+        <div class="navbar">
+            <div class="navbar-l"></div>
+            <div class="navbar-r"></div>
+            <div class="navbar-icon">
+                <img alt="" src="~/lib/css/icons/tag.gif">
+            </div>
+            <div class="navbar-inner">
+                <b>培训信息 [带*为必填]</b>
+            </div>
+        </div>
+        <div class="info-form">
+            <form action="../Data_Query/editTrainInfo" name="traininfo-form" id="traininfo-form" method="post">
+                <table cellspacing="0" cellspadding="0">
+                    <tr>
+                        <th>录入人员<span style="color: red">*</span></th>
+                        <td>
+                            <input id="captains" type="text" value="@Model.HumanBasicFile.CreatedManagerID" class="txt" disabled="disabled" />
+                            <input name="trainInfo.captain" id="captain" type="hidden" value="@Model.Creatorname" />
+                        </td>
+
+                        <th>唯一号<span style="color: red">*</span></th>
+                        <td>
+                            <input id="uniquenums" type="text" value="@Model.HumanBasicFile.uniNum" class="txt" disabled="disabled" />
+                            <input name="trainInfo.uniquenum" id="uniquenum" type="hidden" value="@Model.HumanBasicFile.uniNum" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>姓名<span style="color: red">*</span></th>
+                        <td>
+                            <input id="names" type="text" value="@Model.HumanBasicFile.Name" class="txt" disabled="disabled" />
+                            <input name="trainInfo.name" id="name" type="hidden" value="李冕腾" />
+                        </td>
+                        <th>身份证号码<span style="color: red">*</span></th>
+                        <td>
+                            <input name="staffInfo.identitys" id="identity" type="text" value="@Model.HumanBasicFile.IDcardNo" class="txt" disabled="disabled" /></td>
+                    </tr>
+                    <tr>
+                        <th>办事处<span style="color: red">*</span></th>
+                        <td>
+                            <input name="staffInfo.office" id="office" type="text" value="@Model.HumanBasicFile.City1.Office.Name" class="txt" disabled="disabled" />
+                        </td>
+                        <th>城市<span style="color: red">*</span></th>
+                        <td>
+                            <input name="staffInfo.city" id="city" type="text" value="@Model.HumanBasicFile.City1.Name" class="txt" disabled="disabled" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>培训产品<span style="color: red">*</span></th>
+                        <td>                          
+                               <select name="trainInfo.product" id="product">
+                                @if (@Model.TrainProduction != null)
+                                {
+                                    <option>@Model.TrainProduction</option>
+                                    foreach (var item in ViewBag.type)
+                                    {
+
+                                        if (Model.TrainProduction != item.Name)
+                                        {
+                                    <option>@item.Name</option>
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    foreach (var item in ViewBag.type)
+                                    {
+                                    <option>@item.Name</option> 
+                                    }
+                                }
+                            </select>
+                             <select name="trainInfo.type" id="type_">
+                                @if (@Model.Trainpro != null)
+                                {
+                                    <option>@Model.Trainpro</option>
+                                    foreach (var item in ViewBag.pro)
+                                    {
+                                        if (Model.Trainpro != item.Name)
+                                        {
+                                    <option>@item.Name</option>
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    foreach (var item in ViewBag.pro)
+                                    {
+                                    <option>@item.Name</option>                                 
+                                    }
+                                }
+                            </select>
+
+                            @* <input id="products" type="hidden" value="DOTA"/>
+                                <input id="types" type="hidden" value="DOTA2"/>*@
+                        </td>
+                        <th>培训开始时间<span style="color: red">*</span></th>
+                        <td>
+                            <input id="date" name="trainInfo.date" type="text" value="@Model.TrainStartTime" />
+                            <input id="dates" type="hidden" value="@Model.TrainStartTime" />
+                        </td>
+                        <th>培训结束时间<span style="color: red">*</span></th>
+                        <td>
+                            <input id="date1" name="trainInfo.date1" type="text" value="@Model.TrainEndTime" />
+                            <input id="dates1" type="hidden" value="@Model.TrainEndTime" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>培训分数<span style="color: red">*</span></th>
+                        <td>
+                            <input id="grade" name="trainInfo.grade" type="text" value="@Model.TrainScore" class="txt"></td>
+                        <th>培训讲师<span style="color: red">*</span></th>
+                        <td>
+                            <input id="trainer" name="trainInfo.trainer" type="text" value="@Model.Trainlecturer" class="txt"></td>
+                    </tr>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <td>
+                            <input id="id" name="trainInfo.id" type="hidden" value="2" />
+                            <input id="insert" name="trainInfo.insertuser" type="hidden" value="@Model.Creatorname" />
+                            <input id="type" name="type" type="hidden" value="update" />
+                            <input id="submit" class="l-button3" type="submit" value="提交" />
+                            <input id="reset" class="l-button3" type="reset" value="重置" />
+                            <input id="flag" type="hidden" value="@ViewBag.cof" />
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if ($("#flag").val() == "1") {
+                var dialog = $.ligerDialog.tip({ title: "提示", content: "成功修改培训信息!" });
+                setTimeout(function () {
+                    dialog.close();
+                }, 5000);
+            }
+            //$.ajax({
+            //    url: "selectProduct.action",
+            //    type: "post",
+            //    dataType: "json",
+            //    success: function (data) {
+            //        $("#product").html(data.productHtml);
+            //        $("#type_").html(data.typeHtml);
+            //        $("#product option").each(function () {
+            //            if ($(this).val().split("|")[0] == $("#products").val()) {
+            //                $(this).attr("selected", "selected");
+            //                $.ajax({
+            //                    url: "selectType.action",
+            //                    type: "post",
+            //                    data: { "productId": $(this).val().split("|")[1] },
+            //                    dataType: "json",
+            //                    success: function (data) {
+            //                        $("#type_").html(data.typeHtml);
+            //                        $("#type_ option").each(function () {
+            //                            if ($(this).val() == $("#types").val()) {
+            //                                $(this).attr("selected", "selected");
+            //                            }
+            //                        });
+            //                    }
+            //                });
+            //            }
+            //        });
+            //    }
+            //});
+            $("#product").bind("change", function () {
+                $.ajax({
+                    url: "../Data_Query/selectType",
+                    type: "post",
+                    data: {
+                        "trainInfo.type": $(this).val()
+                        //.split("|")[1]
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        $("#type_").html(data.typeHtml);
+                    }
+                });
+            });
+
+            timeFormatObj = {
+
+                showSecond: false,
+                changeMonth: true,
+                timeFormat: 'HH:mm:ss',
+                dateFormat: 'yy-mm-dd',
+                stepHour: 1,
+                stepMinute: 1,
+
+            };
+
+
+            $("#date").datetimepicker(timeFormatObj);
+            $("#date1").datetimepicker(timeFormatObj);
+
+            $("#traininfo-form").validate({
+                onkeyup: false,
+                focusInvalid: true,
+                rules: {
+                    "trainInfo.product": {
+                        required: true
+                    },
+                    "trainInfo.date": {
+                        required: true,
+                        remote: {
+                            url: "../Data_Query/validateBeginTime",
+                            type: "post",
+                            data: {
+                                endTime: function () {
+                                    return $("#date1").val();
+                                }
+                            },
+                            dataType: "json"
+                        }
+                    },
+                    "trainInfo.date1": {
+                        required: true,
+                        remote: {
+                            url: "../Data_Query/validateEndTime",
+                            type: "post",
+                            data: {
+                                beginTime: function () {
+                                    return $("#date").val();
+                                }
+                            },
+                            dataType: "json"
+                        }
+                    },
+                    "trainInfo.grade": {
+                        required: true,
+                        range: [0, 100],
+                        digits: true
+                    },
+                    "trainInfo.trainer": {
+                        required: true
+                    },
+                    "trainInfo.type": {
+                        required: true
+                    }
+                },
+                messages: {
+                    "trainInfo.product": {
+                        required: "请输入培训产品"
+                    },
+                    "trainInfo.date": {
+                        required: "请输入培训时间",
+                        remote: $.format("开始时间不能晚于结束时间"),
+                    },
+                    "trainInfo.date1": {
+                        required: "请输入培训时间",
+                        remote: $.format("结束时间不能早于开始时间"),
+                    },
+                    "trainInfo.grade": {
+                        required: "请输入培训分数",
+                        range: "培训分数为[0, 100]",
+                        digits: "培训方数必须为整数"
+                    },
+                    "trainInfo.trainer": {
+                        required: "请输入培训人员"
+                    },
+                    "trainInfo.type": {
+                        required: "请输入型号"
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

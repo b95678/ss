@@ -1,0 +1,220 @@
+﻿@{
+    Layout = null;
+}
+@model Management.Models.SShop
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="~/lib/css/home/home.css" rel="stylesheet" />
+    <link href="~/lib/css/validation/screen.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-common.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-dialog.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-form.css" rel="stylesheet" />
+    <script src="~/Content/js/core/jquery-1.7.2.min.js"></script>
+    <script src="~/Content/js/core/jquery.validate.min.js"></script>
+    <script src="~/Content/js/core/messages_zh.js"></script>
+    <script src="~/Content/js/core/ligerui.min.js"></script>
+    <script src="~/lib/js/md5/md5.js"></script>
+    <title>编辑商铺</title>
+</head>
+<body>
+    <div id="info-wrap">
+        <div class="navbar">
+            <div class="navbar-l"></div>
+            <div class="navbar-r"></div>
+            <div class="navbar-icon">
+                <img alt="" src="~/Content/images/tag.gif" />
+            </div>
+            <div class="navbar-inner">
+                <b>编辑商铺[带<span style="color:red">*</span>为必填]</b>
+            </div>
+        </div>
+
+        <div class="info-form">
+            <form action="/level/EditShopCon" name="baseinfo-form" id="baseinfo-form" enctype="multipart/form-data" method="post">
+                <input id="shopId" name="shopid" value="@Model.Id" type="hidden" />
+                <table cellspacing="0" cellspadding="0">
+                    <tr>
+                        <th>办事处：</th>
+                        <td>
+                            <input type="text" id="chooseOffice" style="width:50px" />&nbsp;筛选办事处(可不填)
+                            <select id="officeId" name="officename"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>所在城市<span style="color:red">*</span>:</th>
+                        <td>
+                            <input type="text" id="chooseCity" style="width:50px" />&nbsp;筛选城市(可不填)
+                            <select id="cityId" name="cityname" data-val="true"></select>
+                            @Html.ValidationMessage("cityname", new { sytle = "font-style:italic;color:red;" })
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <th>店铺名称<span style="color:red">*</span>:</th>
+                        <td>
+                            <input data-val="true" name="captainInfo.shopname" id="shopname" type="text" class="txt" value="@Model.Name"/>
+                            @Html.ValidationMessage("captainInfo.shopname", new { sytle = "font-style:italic;color:red;" })
+                        </td>
+                        <th>店铺编号<span style="color:red">*</span>:</th>
+                        <td>
+                            <input data-val="true" name="captainInfo.shopcode" id="shopcode" type="text" class="txt" value="@Model.Code" />
+                            @Html.ValidationMessage("captainInfo.shopcode", new { sytle = "font-style:italic;color:red;" })
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>&nbsp;</th>
+                        <td>
+                            <input id="tijiao" class="l-button3" type="submit" value="提交" />
+                            <input id="reset1" class="l-button3" type="reset" value="重置" />
+                            <input id="flag" type="hidden" value="@ViewBag.flag" />
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+
+        $(document).ready(function () {
+            $("#reset").bind("click", function () {
+            });
+            if ($("#flag").val() == "1") {
+                var dialog = $.ligerDialog.tip({ title: "提示", content: "成功录入人员信息!" });
+                setTimeout(function () {
+                    dialog.close();
+                }, 5000);
+            }
+
+            $.ajax({
+                url: "/level/getEditOfficeName",
+                type: "post",
+                dataType: "json",
+                data: {
+                    "shopid":$("#shopId").val()
+                },
+                success: function (data) {
+                    $("#officeId").html(data.officeValue);
+                    $("#cityId").html(data.cityValue);
+                }
+            });
+            $("#chooseOffice").change(function () {
+                $.ajax({
+                    url: "/level/getofficeName",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        "chooseOffice": $("chooseOffice").val()
+                    },
+                    success: function (data) {
+                        $("#officeId").html(data.officeValue);
+                        $("#cityId").html(data.cityValue);
+                    }
+                });
+            });
+
+            $("#officeId").change(function () {
+                $.ajax({
+                    url: "/level/getCityName",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        "chooseOffice": $("#officeId").val()
+                    },
+                    success: function (data) {
+                        $("#cityId").html(data.cityValue);
+                    }
+                });
+            });
+            $("#chooseCity").bind("change", function () {
+                $.ajax({
+                    url: "/level/getCityName",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        "chooseOffice": $("#officeId").val(),
+                        "chooseCity": $("#chooseCity").val()
+                    },
+                    success: function (data) {
+                        $("#cityId").html(data.cityValue);
+                    }
+                });
+            });
+            if ($("#flag").val() == "1") {
+                var dialog = $.ligerDialog.tip({ title: "提示", content: "成功保存店铺信息!" });
+                setTimeout(function () {
+                    dialog.close();
+                }, 5000);
+            }
+            $("#baseinfo-form").validate({
+                onkeyup: false,
+                focusInvalid: true,
+                rules: {
+                    "officename": {
+                        required: true
+                    },
+                    "cityname": {
+                        required: true
+                    },
+                    "captainInfo.shopname": {
+                        required: true,
+                        remote: {
+                            url: "../level/validateShopName",
+                            type: "post",
+                            data: {
+                                cityid: function () {
+                                    return $("#cityId").val();
+                                },
+                                shopid: function () {
+                                    return $("#shopId").val();
+                                }
+                            },
+                            dataType: "json"
+                        }
+                    },
+                    "captainInfo.shopcode": {
+                        required: true,
+                        digits: true,
+                        data: {
+                            shopid: function () {
+                                return $("#shopId").val();
+                            }
+                        },
+                        remote: {
+                            url: "../level/validateShopCode",
+                            type: "post",
+                            dataType: "json"
+                        }
+                    },
+
+                },
+                messages: {
+                    "officename": {
+                        required: "请选择城市"
+                    },
+                    "cityname": {
+                        required: "请选择城市"
+                    },
+
+                    "captainInfo.shopname": {
+                        required: "请输入店铺名",
+                        remote: $.format("店铺名已存在")
+                    },
+                    "captainInfo.shopcode": {
+                        required: "请输入店铺编号",
+                        digits: "请输入整数",
+                        remote: $.format("店铺编号已存在")
+                    }
+
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>

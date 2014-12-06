@@ -1,0 +1,198 @@
+﻿@{
+    Layout = null;
+}
+
+@using Management.Models;
+@model WorkContent
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="~/lib/css/home/home.css" rel="stylesheet" />
+    <link href="~/lib/css/validation/screen.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-common.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-dialog.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-form.css" rel="stylesheet" />
+    <script src="~/lib/js/core/jquery-1.7.2.min.js"></script>
+    <script src="~/lib/js/core/jquery.validate.min.js"></script>
+    <script src="~/lib/js/core/messages_zh.js"></script>
+    <script src="~/lib/js/core/ligerui.min.js"></script>
+    <title>督导日报</title>
+</head>
+<body>
+    <div id="info-wrap">
+        <div class="navbar">
+            <div class="navbar-l"></div>
+            <div class="navbar-r"></div>
+            <div class="navbar-icon">
+                <img alt="" src="~/lib/css/icons/tag.gif">
+            </div>
+            <div class="navbar-inner">
+                <b>督导日报 [带*为必填]</b>
+            </div>
+        </div>
+        <div class="info-form daliy-title">
+            <span id="date">@Model.CreatedTime.GetDateTimeFormats('D')[0].ToString()</span><span id="username">@Model.Managers.UserId</span>
+        </div>
+        <div class="info-form daliy daliy-title">
+            <span>上班信息</span>
+            <span>
+                总人数：<span id="totalWork">@Model.AttendCount</span>
+            </span>
+            <span>
+                总薪资：<span id="totalWage">@Model.MoneyCount</span>
+            </span>
+            <span><input id="workdetail" class="l-button3" type="button" value="详细" /></span>
+        </div>
+        <div class="info-form daliy daliy-title">
+            <span>培训信息</span>
+            <span>
+                总人数：<span id="totalTrain">@Model.TrainCount</span>
+            </span>
+            <span><input id="traindetail" class="l-button3" type="button" value="详细" /></span>
+        </div>
+        <form action="/BasicInfo/CheckDudaoBasic" name="daliy-form" id="daliy-form" method="post">
+            <div class="info-form daliy daliy-title">
+                <span>督导日报标题</span>
+                <span>@Model.Title</span>
+            </div>
+            <div class="info-form daliy">
+                <table cellspacing="0" cellspadding="0">
+                    <tr>
+                        <th>今日工作内容</th>
+                    </tr>
+                    <tr>
+                        <td>@Model.Todaywork</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="info-form daliy">
+                <table cellspacing="0" cellspadding="0">
+                    <tr>
+                        <th>明日工作内容</th>
+                    </tr>
+                    <tr>
+                        <td>@Model.Tomorrowplan</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="info-form daliy">
+                <table cellspacing="0" cellspadding="0">
+                    <tr>
+                        <th>邮件截图</th>
+                    </tr>
+                    <tr>
+                        <td id="mailpic">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="info-form daliy">
+                <table cellspacing="0" cellspadding="0">
+                    <tr>
+                        <th>审核备注</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <textarea name="content" id="auditContent" rows="6" cols="80">@Model.Remark</textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>审核结果</th>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" name="isaudited" value="是" checked="checked">通过  &nbsp;&nbsp;<input type="radio" name="isaudited" value="否">不通过</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input id="mailpics" type="hidden" name="mailpics" value="@Model.MailPicture" />
+                            <input id="type" type="hidden" name="type" value="insert" />
+                            <input id="id" type="hidden" name="id" value="@Model.Id" />
+                            @if (Model.ISPass.HasValue)
+                            {
+                                if ((bool)Model.ISPass) { 
+                                <input id="isaudit" type="hidden" name="isaudit" value="是" />
+                                }
+                                else
+                                {
+                                   <input id="isaudit" type="hidden" name="isaudit" value="否" />
+                                }
+                            }
+                            else
+                            {
+                                <input id="isaudit" type="hidden" name="isaudit" value="否" />
+                            }
+                            <input id="submit" class="l-button3" type="submit" value="提交" />
+                            <input id="flag" type="hidden" value="@ViewBag.flag" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript">
+        function f_show(url) {
+            window.parent.$.ligerDialog.open(
+            {
+                width: 1200,
+                height: 600,
+                isResize: true,
+                name: "show",
+                url: url,
+                title: '详细',
+                buttons: [
+                    {
+                        text: '关闭',
+                        onclick: function (item, dialog) {
+                            dialog.close();
+                        }
+                    }
+                ]
+            });
+        }
+
+        function showmailpic() {
+            var mailpics = $("#mailpics").val();
+            if (mailpics == "") { return; }
+            var mailpicsarr = mailpics.split("?");
+            for (var i = 0; i < mailpicsarr.length - 1; i++) {
+                $("#mailpic").append('<a href="/uploadImg/MailImg/' + mailpicsarr[i] + '" target="_blank"><img src="/uploadImg/MailImg/suo/' + mailpicsarr[i] + '" width="120" height="60" /></a>');
+
+            }
+        }
+        $(document).ready(function () {
+            showmailpic();
+            if ($("#flag").val() == "1") {
+                var dialog = $.ligerDialog.tip({ title: "提示", content: "成功提交!" });
+                setTimeout(function () {
+                    dialog.close();
+                }, 5000);
+            }
+            $("#workdetail").click(function () {
+                var id = $("#id").val();
+                var username = $("#username").html();
+                f_show("/BasicInfo/WorkInfo?id=" + encodeURIComponent(id, 'UTF-8') + "&usernames=" + encodeURIComponent(username, 'UTF-8'));
+            });
+        //encodeURIComponent(urlstring)对参数编码,encodeURI不会对参数编码
+            $("#traindetail").click(function () {
+                var id = $("#id").val();
+                var username = $("#username").html();
+                f_show("/BasicInfo/TrainInfo?id=" + encodeURIComponent(id, 'UTF-8') + "&usernames=" + encodeURIComponent(username, 'UTF-8'));
+            });
+
+            $("#daliy-form").validate({
+                onkeyup: false,
+                focusInvalid: true,
+                submitHandler: function (form) {
+                    //if ($("#isaudit").val() == "是") {
+                    //    $.ligerDialog.warn('已审核该日报！');
+                    //    return false;
+                    //} else {
+                        form.submit();
+                    //}
+                }
+            });
+        });
+    </script>
+</body>
+</html>

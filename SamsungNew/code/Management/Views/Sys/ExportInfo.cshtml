@@ -1,0 +1,286 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="~/lib/css/home/home.css" rel="stylesheet" />
+        <link href="~/lib/css/validation/screen.css" rel="stylesheet" />
+        <link href="~/lib/css/core/ligerui-common.css" rel="stylesheet" />
+        <link href="~/lib/css/core/ligerui-dialog.css" rel="stylesheet" />
+        <link href="~/lib/css/core/ligerui-grid-1.css" rel="stylesheet" />
+        <link href="~/lib/css/core/ligerui-grid-2.css" rel="stylesheet" />
+        <link href="~/lib/css/core/ligerui-icons.css" rel="stylesheet" />
+        <link href="~/lib/css/core/ligerui-menu.css" rel="stylesheet" />
+        <link href="~/lib/css/core/ligerui-form.css" rel="stylesheet" />
+    <script src="~/Content/js/core/jquery-1.7.2.min.js"></script>
+    <script src="~/Content/js/core/jquery.validate.min.js"></script>
+    <script src="~/Content/js/core/messages_zh.js"></script>
+    <script src="~/Content/js/core/ligerui.min.js"></script>
+        <title>导出信息</title>
+    </head>
+    <body>
+        <div id="info-wrap">
+            <div class="navbar">
+                <div class="navbar-l"></div>
+                <div class="navbar-r"></div>
+                <div class="navbar-icon">
+                    <img alt=""  src="~/lib/css/icons/tag.gif">
+                </div>
+                <div class="navbar-inner">
+                    <b>导出信息</b>
+                </div>
+            </div>
+            <div class="search">
+                <form action="../Sys/exportInformation" method="post" id="export-from">
+                    <table cellspacing="0" cellspadding="0">
+                        <tr>
+                            <td>办事处</td>
+                            <td>
+                                <select id="office" name="office">
+                                </select>
+                            </td>
+                            <td>信息类型</td>
+                            <td>
+                                <select id="type" name="type">
+                                    <option value="基本信息">基本信息</option>
+                                    <option value="培训信息">培训信息</option>
+                                    <option value="自检信息">自检信息</option>
+                                    <option value="上班信息">上班信息</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>从该时间开始</td>
+                            <td>
+                                <input data-val="true" id="begin" name="begin" type="text" value="" class="txt"/>
+                                @Html.ValidationMessage("begin",new {style="font-style:italic;color:red;"})
+                            </td>
+                            <td>到该时间结束</td>
+                            <td>
+                                <input data-val="true" id="end" name="end" type="text" value=""/>
+                                 @Html.ValidationMessage("end",new {style="font-style:italic;color:red;"})
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><input type="button" class="l-button3" id="display" value="预览"/></td>
+                            <td></td>
+                            <td><input type="submit" class="l-button3" id="submit" value="导出"/></td>
+                            <td></td>
+                            <td><input type="button" style="width:70px" class="l-button3" id="dctupian" value="导出图片"/></td>
+                        </tr>
+                    </table>
+                </form>
+                <form id="export-pic" hidden="hidden" action="../Sys/dctupian1" method="post">
+                    <input type="hidden" value="" id="officeValue" name="officeValue"/>
+                    <input type="hidden" value="" id="typeValue" name="typeValue"/>
+                    <input type="hidden" value="" id="beginValue" name="beginValue" />
+                    <input type="hidden" value="" id="endValue" name="endValue" />
+                </form>
+            </div>
+            <div class="info-grid">
+                <div class="l-loading" style="display:block" id="pageloading"></div>
+                <div id="grid"></div>
+                <div class="l-panel-bar"  id="pager">
+                    <div class="l-panel-bbar-inner">
+                        <div class="l-bar-group  l-bar-message"><span class="l-bar-text"></span></div>
+                        <div class="l-bar-group l-bar-selectpagesize">
+                            <select name="rp">
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="40">40</option>
+                                <option value="50">50</option>
+                            </select>
+                        </div>
+                        <div class="l-bar-separator"></div>
+                        <div class="l-bar-group">
+                            <div class="l-bar-button l-bar-btnfirst"><span class=""></span></div>
+                            <div class="l-bar-button l-bar-btnprev"><span class=""></span></div>
+                        </div>
+                        <div class="l-bar-separator"></div>
+                        <div class="l-bar-group">
+                            <span class="pcontrol"> <input type="text" maxlength="3" class="txt" style="width:20px" value="" size="4"> / <span></span></span>
+                        </div>
+                        <div class="l-bar-separator"></div>
+                        <div class="l-bar-group">
+                            <div class="l-bar-button l-bar-btnnext">
+                                <span class=""></span>
+                            </div>
+                            <div class="l-bar-button l-bar-btnlast">
+                                <span class=""></span>
+                            </div>
+                        </div>
+                        <div class="l-bar-separator"></div>
+                        <div class="l-bar-group">
+                            <div class="l-bar-button l-bar-btnload">
+                                <span class="l-abled"></span>
+                            </div>
+                        </div>
+                        <div class="l-bar-separator"></div>
+                        <div class="l-clear"></div>
+                    </div>
+                </div>
+                <input type="hidden" id="page" value=""/>
+                <input type="hidden" id="pageSize" value=""/>
+                <input type="hidden" id="totalPage" value=""/>
+            </div>
+        </div>
+        <script type="text/javascript" src="~/lib/js/grid/gridJs.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#pageloading").hide();
+                $(".info-grid").hide();
+                $("#begin").ligerDateEditor({ format: "yyyy年MM月dd日", label: '', labelWidth: 100, labelAlign: 'center' });
+                $("#end").ligerDateEditor({ format: "yyyy年MM月dd日", label: '', labelWidth: 100, labelAlign: 'center' });
+                $.ajax({
+                    url: "../Sys/supervisorHtmlValue",
+                    type: "post",
+                    dataType: "json",
+                    success: function (data) {
+                        $("#office").html(data.officeValue);
+                    }
+                });
+                
+                $("#dctupian").bind("click", function () {
+                    $("#officeValue").val($("#office").val());
+                    $("#typeValue").val($("#type").val());
+                    $("#beginValue").val($("#begin").val());
+                    $("#endValue").val($("#end").val());
+                    if ($("#officeValue").val() == "")
+                    { $.ligerDialog.tip({ title: "提示", content: "请选择办事处!" }); }
+                    else if ($("#typeValue").val() == "")
+                    { $.ligerDialog.tip({ title: "提示", content: "请选择信息类型!" }); }
+                    else if ($("#typeValue").val() == "培训信息" ||$("#typeValue").val() == "自检信息")
+                    {
+                        $.ligerDialog.tip({ title: "提示", content: "请选择基本信息或者上班信息!" });
+                    }
+                    else if ($("#beginValue").val() == "")
+                    { $.ligerDialog.warn('请输入起始时间和结束时间！'); }
+                    else if ($("#endValue").val() == "")
+                    { $.ligerDialog.warn('请输入起始时间和结束时间！'); }
+                    else
+                    {
+                        document.getElementById("export-pic").submit()
+                    }
+                    });
+             
+
+                $("#display").bind("click", function () {
+                    var params = {};
+                    var columns;
+                    if ($("#type").val() == "基本信息") {
+                        columns = [
+                            { display: '唯一号', name: 'uniquenum', width: 80 },
+                            { display: '姓名', name: 'name', width: 80 },
+                            { display: '办事处', name: 'offices', width: 80 },
+                            { display: '性别', name: 'sex', width: 80 },
+                            { display: '身份证号', name: 'identity', width: 200 },
+                            { display: '城市', name: 'city', width: 80 },
+                            { display: '银行卡号', name: 'bank', width: 200 },
+                            { display: '开户行', name: 'account', width: 200 },
+                            { display: '电话号码', name: 'mobile', width: 100 }
+                        ];
+                    } else if ($("#type").val() == "培训信息") {
+                        columns = [
+                            { display: '唯一号', name: 'uniquenum', width: 80 },
+                            { display: '姓名', name: 'name', width: 80 },
+                            { display: '办事处', name: 'offices', width: 80 },
+                            { display: '性别', name: 'sex', width: 80 },
+                            { display: '身份证号', name: 'identity', width: 200 },
+                            { display: '城市', name: 'city', width: 80 },
+                            { display: '银行卡号', name: 'bank', width: 200 },
+                            { display: '培训产品', name: 'product', width: 150 },
+                            { display: '培训分数', name: 'grade', width: 80 },
+                            { display: '培训人员', name: 'trainer', width: 80 },
+                            { display: '培训日期', name: 'date', width: 100 }
+                        ];
+                    } else if ($("#type").val() == "自检信息") {
+                        columns = [
+                            { display: '唯一号', name: 'uniquenum', width: 80 },
+                            { display: '姓名', name: 'name', width: 80 },
+                            { display: '办事处', name: 'offices', width: 80 },
+                            { display: '性别', name: 'sex', width: 80 },
+                            { display: '身份证号', name: 'identity', width: 200 },
+                            { display: '城市', name: 'city', width: 80 },
+                            { display: '银行卡号', name: 'bank', width: 200 },
+                            { display: '等级', name: 'level', width: 80 },
+                            { display: '仪容仪表', name: 'appearance', width: 80 },
+                            { display: '工作态度', name: 'attitude', width: 80 },
+                            { display: '产品知识', name: 'productkonwledge', width: 80 },
+                            { display: '自检时间', name: 'date', width: 150 }
+                        ];
+                    } else if ($("#type").val() == "上班信息") {
+                        columns = [
+                            { display: '唯一号', name: 'uniquenum', width: 80 },
+                            { display: '姓名', name: 'name', width: 80 },
+                            { display: '办事处', name: 'offices', width: 80 },
+                            { display: '性别', name: 'sex', width: 80 },
+                            { display: '身份证号', name: 'identity', width: 200 },
+                            { display: '城市', name: 'city', width: 80 },
+                            { display: '银行卡号', name: 'bank', width: 200 },
+                            { display: '活动名称', name: 'activity', width: 80 },
+                            { display: '产品名称', name: 'product', width: 80 },
+                            { display: '上班门店', name: 'store', width: 80 },
+                            { display: '工作职能', name: 'work', width: 80 },
+                            { display: '日薪标准', name: 'wage', width: 80 },
+                            { display: '补助', name: 'subsidy', width: 80 },
+                            { display: '上班时间', name: 'date', width: 150 }
+                        ];
+                    }
+                    //if ($("#type").val() == "基本信息" || ($("#begin").val().length > 0 && $("#end").val().length > 0)) {
+                        if (($("#begin").val().length > 0 && $("#end").val().length>0)) {
+                        params = {
+                            "begin": $("#begin").val(),
+                            "end": $("#end").val(),
+                            "office": $("#office").val(),
+                            "type": $("#type").val(),
+                            "page": "1",
+                            "pageSize": "15"
+                        };
+                        var grid = $("#grid").ligerGrid({
+                            height: '92%',
+                            width: '99.7%',
+                            columns: columns,
+                            dataAction: 'server',
+                            usePager: false
+                        });
+                        $.grid.f_getData(grid, '../Sys/displayInfo', params);
+                        $(".info-grid").show();
+                        $.grid.f_setOverClass();
+                        $.grid.f_pagerOnclick(grid, '../Sys/displayInfo', params);
+                        $.grid.f_pageEnterDown(grid, '../Sys/displayInfo', params);
+                        $.grid.f_pageSizeSelect(grid, '../Sys/displayInfo', params);
+                    } else {
+                        $.ligerDialog.warn('请输入起始时间和结束时间！');
+                    }
+                });
+            });
+            $("#export-from").validate({
+                onkeyup: false,
+                focusInvalid: true,
+                rules: {
+                    "begin": {
+                        required: true
+                    },
+                    "end": {
+                        required: true
+                    }
+                },
+                messages: {
+                    "begin":{
+                        required:"请输入开始时间时间"
+                    },
+                    "begin": {
+                        required:"请输入结束时间"
+                    }
+                }
+            });
+
+        </script>
+    </body>
+</html>
+

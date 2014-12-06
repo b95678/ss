@@ -1,0 +1,456 @@
+﻿@{
+    Layout = null;
+    }
+
+@*@{
+    List<Management.Models.Bank> bank = (List<Management.Models.Bank>)ViewBag.Bank;
+    }*@
+
+@model Management.Models.Managers
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="~/lib/css/home/home.css" rel="stylesheet" />
+        <link href="~/lib/css/validation/screen.css" rel="stylesheet" />
+        <link href="~/lib/css/core/ligerui-common.css" rel="stylesheet" />
+        <link href="~/lib/css/core/ligerui-dialog.css" rel="stylesheet" />
+        <link href="~/lib/css/core/ligerui-form.css" rel="stylesheet" />
+        <script src="~/Content/js/core/jquery-1.7.2.min.js"></script>
+        <script src="~/Content/js/core/jquery.validate.min.js"></script>
+        <script src="~/Content/js/core/messages_zh.js"></script>
+        <script src="~/Content/js/core/ligerui.min.js"></script>
+         <script src="~/lib/js/md5/md5.js"></script>
+        <title>编辑人员信息</title>
+    </head>
+    <body>
+        <div id="info-wrap">
+            <div class="navbar">
+                <div class="navbar-l"></div>
+                <div class="navbar-r"></div>
+                <div class="navbar-icon">
+                    <img alt=""  src="~/lib/css/icons/tag.gif">
+                </div>
+                <div class="navbar-inner">
+                    <b>编辑人员信息 [带*为必填]</b>
+                </div>
+            </div>
+            <div class="info-form">
+                <form action="/AddAdminMem/EditManInfo" name="baseinfo-form" id="baseinfo-form" enctype="multipart/form-data" method="post">
+                    <table cellspacing="0" cellspadding="0">
+                        <tr>
+                            <th>用户名<span style="color:red">*</span></th>
+                            <td>
+                                <input id="usernames" type="text" name="captainInfo.username" value="@Model.UserId" class="txt" disabled="disabled"/>
+                                <input id="username" type="hidden" value="@Model.UserId"/>
+                                @Html.ValidationMessage("captainInfo.username", new { sytle = "font-style:italic;color:red;" })
+                            </td>
+                            <th>密码<span style="color:red">*</span></th>
+                            <td><input name="captainInfo.password" id="password" type="text" value="@Model.Password" class="txt"/></td>
+                            @Html.ValidationMessage("captainInfo.password", new { sytle = "font-style:italic;color:red;" })
+                        </tr>
+                        <tr>
+                            <th>办事处<span style="color:red">*</span></th>
+                            <td>
+                                <select name="captainInfo.office" id="office"></select>
+                                @Html.ValidationMessage("captainInfo.office", new { sytle = "font-style:italic;color:red;" })
+
+                            </td>
+                            <th>城市<span style="color:red">*</span></th>
+                            <td>
+                            <select name="captainInfo.city" id="city"></select>
+                            @Html.ValidationMessage("captainInfo.city", new { sytle = "font-style:italic;color:red;" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>类型<span style="color:red">*</span></th>
+                            <td>
+                                <select name="captainInfo.role" id="role"></select>
+                            </td>
+                            @Html.ValidationMessage("captainInfo.role", new { sytle = "font-style:italic;color:red;" })
+                            <th>姓名<span style="color:red">*</span></th>
+                            <td><input name="captainInfo.name" id="name" type="text" value="@Model.Name" class="txt"/></td>                         @Html.ValidationMessage("captainInfo.name", new { sytle = "font-style:italic;color:red;" })
+                        </tr>
+                        <tr>
+                            <th>性别<span style="color:red">*</span></th>
+                            <td>
+                                <select name="captainInfo.sex" id="sex">
+                                </select>
+                            </td>
+                            <th>电话号码<span style="color:red">*</span></th>
+                            <td>
+                                <input name="captainInfo.mobile" id="mobile" type="text" value="@Model.Telephone" class="txt"/>
+                                <input id="mobiles" type="hidden" value="@Model.Telephone" />
+                                @Html.ValidationMessage("captainInfo.mobile", new { sytle = "font-style:italic;color:red;" })
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>上级<span style="color:red">*</span></th>
+                            <td>
+                                <select name="captainInfo.supervisor" id="supervisor"></select>
+                                <input type="hidden" value="@Model.Boss" id="super"/>
+                                 @Html.ValidationMessage("captainInfo.supervisor", new { sytle = "font-style:italic;color:red;" })
+                            </td>
+                        <th>邮箱<span style="color:red">*</span></th>
+                        <td>
+                            <input id="mail" data--val="true" name="captainInfo.mail" type="text" value="@Model.Email" />
+                            <span style="color:red; font-style:italic;"> @Html.ValidationMessage("captainInfo.mail") </span>
+                        </td>
+                        </tr>
+                        <tr>
+                            <th>身份证号码<span style="color:red">*</span></th>
+                            <td>
+                                <input name="captainInfo.identitys" id="identity" type="text" value="@Model.IDcard" class="txt"/>
+                                <input id="identitys" type="hidden" value="@Model.IDcard"/>
+                                 @Html.ValidationMessage("captainInfo.identity", new { sytle = "font-style:italic;color:red;" })
+                            </td>
+                            <th></th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>银行卡号<span style="color:red">*</span></th>
+                            <td>
+                                <input name="captainInfo.bank" id="bank" type="text" value="@Model.BankCard" class="txt"/>
+                                <input id="banks" type="hidden" value="@Model.BankCard"/>
+                                @Html.ValidationMessage("captainInfo.bank", new { sytle = "font-style:italic;color:red;" })
+                            </td>
+                            <th>开户行<span style="color:red">*</span></th>
+                            <td><select name="captainInfo.account" id="account">
+                                    @foreach (var item in ViewBag.bank)
+                                    {
+                                        if (Model.Bank1!=null&&item.Name == Model.Bank1.Name)
+                                        {
+                                            <option selected="selected" value="@item.Id">@Model.Bank1.Name</option>
+                                        }
+                                        else
+                                        {                                                                        
+                                           <option value="@item.Id">@item.Name</option>
+                                        }
+                                    }
+                                </select>
+                                @Html.ValidationMessage("captainInfo.account", new { sytle = "font-style:italic;color:red;" })
+</td>
+                        </tr>
+                        <tr>
+                            <th>学校<span style="color:red">*</span></th>
+                            <td><input name="captainInfo.school" id="school" type="text" value="@Model.School" class="txt"/></td>
+                            @Html.ValidationMessage("captainInfo.school", new { sytle = "font-style:italic;color:red;" })
+                            <th>专业<span style="color:red">*</span></th>
+                            <td><input name="captainInfo.major" id="major" type="text" value="@Model.Major" class="txt"/></td>
+                            @Html.ValidationMessage("captainInfo.major", new { sytle = "font-style:italic;color:red;" })
+                        </tr>
+                        <tr>
+                            <th>毕业时间<span style="color:red">*</span></th>
+                            <td>
+                                <input id="graduationdate" name="captainInfo.graduationdate" type="text"/ >
+                                <input id="graduationdates" type="hidden" value="@DateTime.Parse(Model.Graduate.ToString()).ToString("yyyy年MM月")"/>
+                                @Html.ValidationMessage("captainInfo.graduationdate", new { sytle = "font-style:italic;color:red;" })
+                            </td>
+                            <th>学历<span style="color:red">*</span></th>
+                            <td><input name="captainInfo.education" id="education" type="text" value="@Model.Academic" class="txt"/></td>
+                             @Html.ValidationMessage("captainInfo.education", new { sytle = "font-style:italic;color:red;" })
+                        </tr>
+                        <tr>
+                            <th>身高</th>
+                            <td><input name="captainInfo.height" id="height" type="text" value="@Model.height" class="txt"/></td>@Html.ValidationMessage("captainInfo.height", new { sytle = "font-style:italic;color:red;" })
+                            <th>体重</th>
+                            <td><input name="captainInfo.weight" id="weight" type="text" value="@Model.weight" class="txt"/></td>@Html.ValidationMessage("captainInfo.weight", new { sytle = "font-style:italic;color:red;" })
+                        </tr>
+                        <tr>
+                            <th>三围</th>
+                            <td>
+                                <input name="captainInfo.meas" id="meas" type="text" value="@Model.BWH" class="txt"/>
+                                <div>@Html.ValidationMessage("captainInfo.meas", new { id = "measValid", sytle = "font-style:italic;color:red;" })</div>
+                            </td>
+                            <th>特长</th>
+                            <td><input name="captainInfo.skill" id="skill" type="text" value="@Model.Speciality" class="txt"/></td> @Html.ValidationMessage("captainInfo.skill", new { sytle = "font-style:italic;color:red;" })
+                        </tr>
+                        <tr>
+                            <th>个人照片</th>
+                            <td>是否上传个人照片 <input type="checkbox" id="isPersonal" name="isPersonal" value="1"/></td>
+                            <th>学生证</th>
+                            <td>是否上传学生证照片 <input type="checkbox" id="isStudent" name="isStudent" value="2"/></td>
+                        </tr>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <td><input name="personalimage" id="personal" type="file"/></td>
+                            <th>&nbsp;</th>
+                            <td><input name="studentimage" id="student" type="file"/></td>
+                        </tr>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <td>
+                                <input id="id" name="id" type="hidden" value="@Model.Id" />
+                                <input id="insert"  name="captainInfo.insertuser" type="hidden" value=""/>
+                                <input id="type"  name="type" type="hidden" value="update"/>
+                                <input id="asubmit" class="l-button3" type="submit" value="提交"/>
+                                <input id="reset" class="l-button3" type="reset" value="重置"/>
+                                <input id="flag"  type="hidden" value="@ViewBag.flag"/>
+                                <input id="sexs"  type="hidden" value="@ViewBag.sex"/>
+                                <input id="pwd" type="hidden" value="@Model.Password" />
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+                $("#asubmit").bind("click", function () {
+                    var user = $("#usernames").val().toLowerCase();
+                    var newpassword = $("#pwd").val();
+                    if ($("#password").val() != $("#pwd").val()) {
+                        var newpass = user + $("#password").val();
+                        var newpassword = hex_md5(newpass);
+                    }
+                    $("#password").val(newpassword);
+                    $("[disabled]").each(function () {//移除disable,后台方可取值
+                        $(this).attr("disabled", false);
+                    });
+                });
+
+                $("#graduationdate").ligerDateEditor({ format: "yyyy年MM月", label: '', labelWidth: 100, labelAlign: 'center' });
+                $("#graduationdate").ligerGetDateEditorManager().setValue($("#graduationdates").val());
+                $("#personal").hide();
+                $("#student").hide();
+                $("#reset").bind("click", function () {
+                    $("#personal").hide();
+                    $("#student").hide();
+                });
+                $("#isPersonal").bind("click", function () {
+                    if ($(this).attr("checked") == "checked") {
+                        $("#personal").show();
+                    } else {
+                        $("#personal").hide();
+                    }
+                });
+                $("#isStudent").bind("click", function () {
+                    if ($(this).attr("checked") == "checked") {
+                        $("#student").show();
+                    } else {
+                        $("#student").hide();
+                    }
+                });
+                if ($("#flag").val() == "1") {
+                    var dialog = $.ligerDialog.tip({ title: "提示", content: "成功录入人员信息!" });
+                    setTimeout(function () {
+                        dialog.close();
+                    }, 5000);
+                }
+                if ($("#sexs").val() == "男") {
+                    $("#sex").html("<option value=\"true\" selected=\"selected\">男</option><option value=\"false\">女</option>");
+                } else if ($("#sexs").val() == "女") {
+                    $("#sex").html("<option value=\"true\">男</option><option value=\"false\" selected=\"selected\">女</option>");
+                }
+                $.ajax({
+                    url: "/AddAdminMem/GetManRoleAndOffice",
+                    type: "post",
+                    data: { "id": $("#id").val() },
+                    dataType: "json",
+                    success: function (data) {
+                        $("#role").html(data.roleValue);
+                        $("#office").html(data.officeValue);
+                        $("#city").html(data.cityValue);
+                        //$("#supervisor").html(data.supervisorValue);
+                        if (data.role == 1 || data.role == 0) {
+                            $("#supervisor").hide();
+                        }
+                        else if(data.role==2)
+                            $("#supervisor").html(data.boss)
+                    }
+                });
+                $("#office").bind("change", function () {
+                    $.ajax({
+                        url: "/AddAdminMem/getCity",
+                        type: "post",
+                        dataType: "json",
+                        data: { "officeId": $("#office").val() },
+                        success: function (data) {
+                            $("#city").html(data.cityValue);
+                        }
+                    });
+                });
+
+                $("#role").bind("change", function () {
+                    if ($("#role").val() == "0" || $("#role").val() == "1") {
+                        $("#supervisor").val("");
+                        $("#supervisor").hide();
+                    }
+                    else if ($("#role").val() == "2") {
+                        $("#supervisor").show();
+                        $.ajax({
+                            url: "/AddAdminMem/getBoss",
+                            type: "post",
+                            dataType: "json",
+                            data: {
+                                "bossValue": $("#super").val(),
+                            },
+                            success: function (data) {
+                                $("#supervisor").html(data.boss);
+                            }
+                        });
+                    }
+                });
+
+                $("#baseinfo-form").validate({
+                    onkeyup: false,
+                    focusInvalid: true,
+                    rules: {
+                        "captainInfo.city": {
+                            required: true
+                        },
+                        "captainInfo.name": {
+                            required: true
+                        },
+                        "captainInfo.username": {
+                            required: true,
+                            remote: {
+                                url: "../AddAdminMem/EditValidateCaptain",
+                                type: "post",
+                                dataType: "json",
+                                data: {
+                                    "id": function () {
+                                        return $("#id").val();
+                                    }
+                                }
+                            }
+                        },
+                        "captainInfo.password": {
+                            required: true
+                        },
+                        "captainInfo.identitys": {
+                            required: true,
+                            remote: {
+                                url: "../AddAdminMem/EditValidateIdentity",
+                                type: "post",
+                                dataType: "json",
+                                data: {
+                                    "identitys": function () {
+                                        return $("#identitys").val();
+                                    },
+                                    "id": function () {
+                                        return $("#id").val();
+                                    }
+
+                                }
+                            }
+                        },
+                        "captainInfo.mobile": {
+                            required: true,
+                            remote: {
+                                url: "../AddAdminMem/EditValidateMobile",
+                                type: "post",
+                                dataType: "json",
+                                data: {
+                                    "mobiles": function () {
+                                        return $("#mobiles").val();
+                                    },
+                                    "id": function () {
+                                        return $("#id").val();
+                                    }
+                                }
+                            }
+                        },
+                        "captainInfo.bank": {
+                            required: true,
+                            remote: {
+                                url: "../AddAdminMem/EditValidateBank",
+                                type: "post",
+                                dataType: "json",
+                                data: {
+                                    "banks": function () {
+                                        return $("#banks").val();
+                                    },
+                                    "id": function () {
+                                        return $("#id").val();
+                                    }
+                                }
+                            }
+                        },
+                        "captainInfo.account": {
+                            required: true
+                        },
+                        "captainInfo.school": {
+                            required: true
+                        },
+                        "captainInfo.major": {
+                            required: true
+                        },
+                        "captainInfo.mail": {
+                            required: true,
+                            email: true
+                        },
+                        "captainInfo.education": {
+                            required: true
+                        },
+                        "captainInfo.graduationdate": {
+                            required: true
+                        },
+                        "captainInfo.weight": {
+                            digits: true
+                        },
+                        "captainInfo.height": {
+                            digits: true
+                        },
+                    },
+                    messages: {
+                        "captainInfo.city": {
+                            required: "请输入城市"
+                        },
+                        "captainInfo.name": {
+                            required: "请输入姓名"
+                        },
+                        "captainInfo.username": {
+                            required: "请输入用户名",
+                            remote: $.format("用户名已存在")
+                        },
+                        "captainInfo.password": {
+                            required: "请输入密码"
+                        },
+                        "captainInfo.identitys": {
+                            required: "请输入身份证号码",
+                            remote: $.format("身份证号码已存在")
+                        },
+                        "captainInfo.mobile": {
+                            required: "请输入电话号码",
+                            remote: $.format("电话号码已存在")
+                        },
+                        "captainInfo.bank": {
+                            required: "请输入银行账号",
+                            remote: $.format("银行账号已存在")
+                        },
+                        "captainInfo.account": {
+                            required: "请输入开户行"
+                        },
+                        "captainInfo.school": {
+                            required: "请输入学校"
+                        },
+                        "captainInfo.major": {
+                            required: "请输入专业"
+                        },
+                        "captainInfo.education": {
+                            required: "请输入学历"
+                        },
+                        "captainInfo.graduationdate": {
+                            required: "请输入毕业时间"
+                        },
+                        "captainInfo.height": {
+                            digits: "请输入整数"
+                        },
+                        "captainInfo.weight": {
+                            digits: "请输入整数"
+                        },
+                        "captainInfo.mail": {
+                            required: "请输入邮箱地址",
+                            email: "请输入正确的邮箱地址"
+                        },
+                    }
+                });
+            });
+
+        </script>
+    </body>
+</html>

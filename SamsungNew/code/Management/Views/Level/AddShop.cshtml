@@ -1,0 +1,686 @@
+﻿@{
+    Layout = null;
+}
+
+@{
+    List<Management.Models.Office> office = (List<Management.Models.Office>)ViewBag.Office;
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="../../../lib/css/home/home.css" rel="stylesheet" />
+    <link href="~/lib/css/validation/screen.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-common.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-dialog.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-grid-1.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-grid-2.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-icons.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-menu.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-form.css" rel="stylesheet" />
+    <script src="~/lib/js/core/jquery-1.7.2.min.js"></script>
+    <script src="~/lib/js/core/jquery.validate.min.js"></script>
+    <script src="~/lib/js/core/messages_zh.js"></script>
+    <script src="~/lib/js/core/ligerui.min.js"></script>
+    <title>查看基本信息</title>
+
+    <style>
+        .a {
+            float: left;
+            background: none;
+            height: 24px;
+            margin: 0px 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="info-wrap">
+        <div class="navbar">
+            <div class="navbar-l"></div>
+            <div class="navbar-r"></div>
+            <div class="navbar-icon">
+                <img alt="" src="~/lib/css/icons/tag.gif">
+            </div>
+            <div class="navbar-inner">
+                <b>查看城市</b>
+            </div>
+        </div>
+        <form id="search_form1">
+            <div id="search1" class="search">
+                <table cellspacing="0" cellspadding="0">
+                    @if(Session["authority"].ToString()=="管理员"){
+                    <tr>
+                        <td>办事处</td>
+                        <td><input type="text" id="contentOffice"/></td>
+                    </tr>
+                    }
+                    <tr>
+                        <td>城市：</td>
+                        <td>
+                            <input type="text" id="content1" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>城市编号：</td>
+                        <td>
+                            <input type="text" id="codecontent1" name="codecontent1" />
+                        </td>
+                        <td>
+                            <input type="button" class="l-button3" id="submit1" value="确定" />
+                        </td>
+                        <td>
+                            <input type="button" class="l-button3333" id="submit3" value="新增城市" />
+                        </td>
+                        @if(Session["authority"]=="管理员")
+                        {
+                        <td>
+                            <input type="button" class="l-button3334" id="submit5" value="新增办事处">
+                        </td>
+                        }
+                    </tr>
+                </table>
+            </div>
+        </form>
+        <div id="info-grid" class="info-grid">
+            <div class="l-loading" style="display: block" id="pageloading"></div>
+            <div id="grid"></div>
+            <div class="l-panel-bar" id="pager">
+                <div class="l-panel-bbar-inner">
+                    <div class="l-bar-group  l-bar-message"><span class="l-bar-text"></span></div>
+                    <div class="l-bar-group l-bar-selectpagesize">
+                        <select id="rp">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="40">40</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
+                    <div class="l-bar-separator"></div>
+                    <div class="l-bar-group">
+                        <div class="l-bar-button l-bar-btnfirst"><span class=""></span></div>
+                        <div class="l-bar-button l-bar-btnprev"><span class=""></span></div>
+                    </div>
+                    <div class="l-bar-separator"></div>
+                    <div class="l-bar-group">
+                        <span class="pcontrol">
+                            <input type="text" maxlength="3" class="txt" style="width: 20px" value="" size="4">
+                            / <span></span>
+                        </span>
+                    </div>
+                    <div class="l-bar-separator"></div>
+                    <div class="l-bar-group">
+                        <div class="l-bar-button l-bar-btnnext">
+                            <span class=""></span>
+                        </div>
+                        <div class="l-bar-button l-bar-btnlast">
+                            <span class=""></span>
+                        </div>
+                    </div>
+                    <div class="l-bar-separator"></div>
+                    <div class="l-bar-group">
+                        <div class="l-bar-button l-bar-btnload">
+                            <span class="l-abled"></span>
+                        </div>
+                    </div>
+                    <div class="l-bar-separator"></div>
+                    <div class="l-clear"></div>
+                </div>
+            </div>
+            <input type="hidden" id="page" value="" />
+            <input type="hidden" id="pageSize" value="" />
+            <input type="hidden" id="totalPage" value="" />
+        </div>
+    </div>
+    <form id=""></form>
+    <div id="info-wrap2">
+        <div class="navbar">
+            <div class="navbar-l"></div>
+            <div class="navbar-r"></div>
+            <div class="navbar-icon">
+                <img alt="" src="~/lib/css/icons/tag.gif">
+            </div>
+            <div class="navbar-inner">
+                <b>查看店铺</b> &nbsp &nbsp  <b id="titleTime"></b>
+            </div>
+        </div>
+        <form id="search_form2">
+            <div id="search2" class="search">
+                <table cellspacing="0" cellspadding="0">
+                    <tr>
+                        <td>店铺名：</td>
+                        <td>
+                            <input id="shopcontent2" name="shopcontent2" type="text">
+                        </td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>店铺编号：</td>
+                        <td>
+                            <input id="codecontent2" name="codecontent2" type="text">
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <td>城市：</td>
+                        <td>
+                            <input type="text" id="content2" />
+                        </td>
+                        <td>&nbsp;&nbsp;</td>
+                        <td>
+                            <input type="button" class="l-button3" id="submit2" value="确定" />
+                        </td>
+                        <td>
+                            <input type="button" class="l-button3333" id="submit4" value="添加店铺" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </form>
+        <div id="info-grid2" class="info-grid">
+            <div class="l-loading" style="display: block" id="pageloading2"></div>
+            <div id="grid2"></div>
+            <div class="l-panel-bar" id="pager2">
+                <div class="l-panel-bbar-inner">
+                    <div class="l-bar-group  l-bar-message"><span id="l-bar-text2"></span></div>
+                    <div class="a l-bar-selectpagesize ">
+                        <select id="rp2">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="40">40</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
+                    <div class="l-bar-separator"></div>
+                    <div class="a">
+                        <div class="l-bar-button l-bar-btnfirst"><span id="btnFirst2" class=""></span></div>
+                        <div class="l-bar-button l-bar-btnprev"><span id="btnprev2" class=""></span></div>
+                    </div>
+                    <div class="l-bar-separator"></div>
+                    <div class="a">
+                        <span>
+                            <input type="text" id="showPage2" maxlength="3" class="txt" style="width: 20px" value="" size="4">
+                            / <span id="showTotalPage2"></span>
+                        </span>
+                    </div>
+                    <div class="l-bar-separator"></div>
+                    <div class="a">
+                        <div class="l-bar-button l-bar-btnnext">
+                            <span id="btnnext2" class=""></span>
+                        </div>
+                        <div class="l-bar-button l-bar-btnlast">
+                            <span id="btnlast2" class=""></span>
+                        </div>
+                    </div>
+                    <div class="l-bar-separator"></div>
+                    <div class="a">
+                        <div class="l-bar-button l-bar-btnload">
+                            <span class="l-abled"></span>
+                        </div>
+                    </div>
+                    <div class="l-bar-separator"></div>
+                    <div class="l-clear"></div>
+                </div>
+            </div>
+            <input type="hidden" id="admin" value="@Session["authority"]" />
+            <input type="hidden" id="page2" value="" />
+            <input type="hidden" id="pageSize2" value="" />
+            <input type="hidden" id="totalPage2" value="" />
+        </div>
+    </div>
+
+    <script type="text/javascript" src="../lib/js/grid/gridJs.js"></script>
+    <script type="text/javascript" src="../lib/js/grid/gridJs2.js"></script>
+    <script type="text/javascript">
+        function shop_delete(id, name) {
+            $.ligerDialog.confirm('是否删除 \'' + name + '\' 店铺信息<br/>以及在该商店下的所有上班信息? ', function (yes) {
+                var params = { "ShopId": id };
+                if (yes) {
+                    $.grid2.f_ajaxSubmit("../level/deleteShop", params, "成功删除\'" + name + "\'店铺信息!", true);
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 3000);
+                }
+            });
+        }
+
+        function shop_edit(id) {
+            window.parent.$.ligerDialog.open(
+            {
+                width: 850,
+                height: 250,
+                isResize: true,
+                name: "edit",
+                url: '../level/EditShop?id=' + encodeURIComponent(id, 'UTF-8'),
+                title: '编辑店铺信息',
+                buttons: [
+                    {
+                        text: '关闭',
+                        onclick: function (item, dialog) {
+                            window.location.reload();
+                            dialog.close();
+                        }
+                    }
+                ]
+            });
+        }
+
+        function city_delete(id, name) {
+            $.ligerDialog.confirm('是否删除 \'' + name + '\' 城市信息<br/>以及在该城市下的所有商店？ ', function (yes) {
+                var params = { "CityId": id };
+                if (yes) {
+                    $.grid2.f_ajaxSubmit("../level/deleteCity", params, "成功删除\'" + name + "\'城市信息!", true);
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 3000);
+
+                }
+
+            });
+        }
+
+        function city_edit(id) {
+            window.parent.$.ligerDialog.open(
+            {
+                width: 850,
+                height: 245,
+                isResize: true,
+                name: "edit",
+                url: '../level/EditCity?id=' + encodeURIComponent(id, 'UTF-8'),
+                title: '编辑城市信息',
+                buttons: [
+                    {
+                        text: '关闭',
+                        onclick: function (item, dialog) {
+                            window.location.reload();
+                            dialog.close();
+                        }
+                    }
+                ]
+            });
+        }
+
+        function office_edit(id) {
+            window.parent.$.ligerDialog.open(
+            {
+                width: 850,
+                height: 245,
+                isResize: true,
+                name: "edit",
+                url: '../level/Editoffice?officeid=' + encodeURIComponent(id, 'UTF-8'),
+                title: '编辑办事处信息',
+                buttons: [
+                    {
+                        text: '关闭',
+                        onclick: function (item, dialog) {
+                            window.location.reload();
+                            dialog.close();
+                        }
+                    }
+                ]
+            });
+        }
+
+
+
+        $(document).ready(function () {
+
+            //办事处人员数据库总览
+            $("#pageloading").hide();
+            $("#info-grid").hide();
+            if ($("#admin").val() == "管理员") {
+                var grid = $("#grid").ligerGrid({
+                    isScroll: false,
+                    height: 276,
+                    width: '99.7%',
+                    columns: [
+                        { display: '城市id', name: 'cityid', width: 100, minwidth: 50, hide: true },
+                        //{display:'办事处id',name:'officeid',with：20，minwidth:10,hide:true},
+                        { display: '办事处', name: 'office', width: 100 },
+                        { display: '城市', name: 'city', width: 275 },
+                        { display: '城市编号', name: 'code', width: 200 },
+                        {
+                            display: '操作', name: 'edit', minwidth: 30, width: 100, render: function (row) {
+                                var id = '\'' + row.cityid + '\'';
+                                var name = '\'' + row.city + '\'';
+                                var html = '<a href="javascript:;" onclick="city_edit(' + id + ')">编辑</a>';
+                                return html;
+                            }
+                        },
+                        {
+                            display: '操作', name: 'delete', minwidth: 30, width: 100, render: function (row) {
+                                var id = '\'' + row.cityid + '\'';
+                                var name = '\'' + row.city + '\'';
+                                var html = '<a href="javascript:;" onclick="city_delete(' + id + ',' + name + ')">删除</a>';
+                                return html;
+                            }
+                        }
+
+                    ],
+                    dataAction: 'server',
+                    usePager: false,
+                    rownumbers: true,
+                    groupColumnName: 'office',
+                    //groupColumnDisplay: '办事处'
+                    groupRender: function (office, groupdata) {
+                        var s=groupdata[0].officeid;
+                        
+                        return '办事处 ' + office + '(<a href="javascript:;" onclick="office_edit(' + s + ')">修改</a>)';
+                    }
+
+                });
+            }
+            else
+            {
+                var grid = $("#grid").ligerGrid({
+                    isScroll: false,
+                    height: 276,
+                    width: '99.7%',
+                    columns: [
+                        { display: '城市id', name: 'cityid', width: 100, minwidth: 50, hide: true },
+                        { display: '办事处', name: 'office', width: 100 },
+                        { display: '城市', name: 'city', width: 275 },
+                        { display: '城市编号', name: 'code', width: 200 },
+                        {
+                            display: '操作', name: 'edit', minwidth: 30, width: 100, render: function (row) {
+                                var id = '\'' + row.cityid + '\'';
+                                var name = '\'' + row.city + '\'';
+                                var html = '<a href="javascript:;" onclick="city_edit(' + id + ')">编辑</a>';
+                                return html;
+                            }
+                        },
+                        {
+                            display: '操作', name: 'delete', minwidth: 30, width: 100, render: function (row) {
+                                var id = '\'' + row.cityid + '\'';
+                                var name = '\'' + row.city + '\'';
+                                var html = '<a href="javascript:;" onclick="city_delete(' + id + ',' + name + ')">删除</a>';
+                                return html;
+                            }
+                        }
+
+                    ], dataAction: 'server', usePager: false, rownumbers: true
+                });
+            }
+            var params = {
+                "page": "1",
+                "pageSize": "10"
+            };
+            $.grid.f_getData(grid, '../level/checkCity', params);
+            $("#info-grid").show();
+            $.grid.f_setOverClass();
+            $.grid.f_pagerOnclick(grid, '../level/checkCity', params);
+            $.grid.f_pageEnterDown(grid, '../level/checkCity', params);
+            $.grid.f_pageSizeSelect(grid, '../level/checkCity', params);
+
+
+            //办事处活动人次总览
+            $("#pageloading2").hide();
+            $("#info-grid2").hide();
+            var grid2 = $("#grid2").ligerGrid({
+                isScroll: false,
+                height: 276,
+                width: "99.7%",
+                columns: [
+                    { display: '商店id', name: 'shopid', minwidth: 30, width: 100, hide: true },
+                    { display: '城市', name: 'city', minwidth: 30, width: 125 },
+                    { display: '店铺名称', name: 'shop', minwidth: 70, width: 150 },
+                    { display: '店铺编号', name: 'code', minwidth: 70, width: 100 },
+                    {
+                        display: '操作', name: 'edit', minwidth: 30, width: 100, render: function (row) {
+                            var id = '\'' + row.shopid + '\'';
+                            var name = '\'' + row.shop + '\'';
+                            var html = '<a href="javascript:;" onclick="shop_edit(' + id + ')">编辑</a>';
+                            return html;
+                        }
+                    },
+                    {
+                        display: '操作', name: 'delete', minwidth: 30, width: 100, render: function (row) {
+                            var id = '\'' + row.shopid + '\'';
+                            var name = '\'' + row.shop + '\'';
+                            var html = '<a href="javascript:;" onclick="shop_delete(' + id + ',' + name + ')">删除</a>';
+                            return html;
+                        }
+                    }
+                ], dataAction: 'server', usePager: false, rownumbers: true
+            });
+
+            var params = {
+                "page": "1",
+                "pageSize": "10"
+            };
+            $.grid2.f_getData(grid2, '../level/checkShop', params);
+            $("#info-grid2").show();
+            $.grid2.f_setOverClass();
+            $.grid2.f_pagerOnclick(grid2, '../level/checkShop', params);
+            $.grid2.f_pageEnterDown(grid2, '../level/checkShop', params);
+            $.grid2.f_pageSizeSelect(grid2, '../level/checkShop', params);
+
+
+        });
+
+        $("#submit1").bind("click", function () {
+            $("#pageloading").hide();
+            if ($("#admin").val() == "管理员") {
+                var grid = $("#grid").ligerGrid({
+                    isScroll: false,
+                    height: 276,
+                    width: '99.7%',
+                    columns: [
+                        { display: '城市id', name: 'cityid', width: 100, minwidth: 50, hide: true },
+                        { display: '办事处', name: 'office', width: 100 },
+                        { display: '城市', name: 'city', width: 275 },
+                        { display: '城市编号', name: 'code', width: 200 },
+                        {
+                            display: '操作', name: 'edit', minwidth: 30, width: 100, render: function (row) {
+                                var id = '\'' + row.cityid + '\'';
+                                var name = '\'' + row.city + '\'';
+                                var html = '<a href="javascript:;" onclick="city_edit(' + id + ')">编辑</a>';
+                                return html;
+                            }
+                        },
+                        {
+                            display: '操作', name: 'delete', minwidth: 30, width: 100, render: function (row) {
+                                var id = '\'' + row.cityid + '\'';
+                                var name = '\'' + row.city + '\'';
+                                var html = '<a href="javascript:;" onclick="city_delete(' + id + ',' + name + ')">删除</a>';
+                                return html;
+                            }
+                        }
+
+                    ], dataAction: 'server', usePager: false, rownumbers: true, groupColumnName: 'office', groupColumnDisplay: '办事处'
+
+                });
+            }
+            else {
+                var grid = $("#grid").ligerGrid({
+                    isScroll: false,
+                    height: 276,
+                    width: '99.7%',
+                    columns: [
+                        { display: '城市id', name: 'cityid', width: 100, minwidth: 50, hide: true },
+                        { display: '办事处', name: 'office', width: 100 },
+                        { display: '城市', name: 'city', width: 275 },
+                        { display: '城市编号', name: 'code', width: 200 },
+                        {
+                            display: '操作', name: 'edit', minwidth: 30, width: 100, render: function (row) {
+                                var id = '\'' + row.cityid + '\'';
+                                var name = '\'' + row.city + '\'';
+                                var html = '<a href="javascript:;" onclick="city_edit(' + id + ')">编辑</a>';
+                                return html;
+                            }
+                        },
+                        {
+                            display: '操作', name: 'delete', minwidth: 30, width: 100, render: function (row) {
+                                var id = '\'' + row.cityid + '\'';
+                                var name = '\'' + row.city + '\'';
+                                var html = '<a href="javascript:;" onclick="city_delete(' + id + ',' + name + ')">删除</a>';
+                                return html;
+                            }
+                        }
+
+                    ], dataAction: 'server', usePager: false, rownumbers: true
+                });
+            }
+            var params1 = {
+                "office":$("#contentOffice").val(),
+                "content": $("#content1").val(),
+                "codeContent": $("#codecontent1").val(),
+                "page": "1",
+                "pageSize": "10"
+            };
+
+            $.grid.f_getData(grid, '../level/checkCity', params1);
+            $("#info-grid").show();
+            $.grid.f_setOverClass();
+            $.grid.f_pagerOnclick(grid, '../level/checkCity', params1);
+            $.grid.f_pageEnterDown(grid, '../level/checkCity', params1);
+            $.grid.f_pageSizeSelect(grid, '../level/checkCity', params1);
+
+        });
+
+        $("#submit2").bind("click", function () {
+            $("#pageloading2").hide();
+            var grid2 = $("#grid2").ligerGrid({
+                isScroll: false,
+                height: 276,
+                width: "99.7%",
+                columns: [
+                    { display: '商店id', name: 'shopid', minwidth: 30, width: 100, hide: true },
+                    { display: '城市', name: 'city', minwidth: 30, width: 125 },
+                    { display: '店铺名称', name: 'shop', minwidth: 70, width: 150 },
+                    { display: '店铺编号', name: 'code', minwidth: 70, width: 100 },
+                    {
+                        display: '操作', name: 'edit', minwidth: 30, width: 100, render: function (row) {
+                            var id = '\'' + row.shopid + '\'';
+                            var name = '\'' + row.shop + '\'';
+                            var html = '<a href="javascript:;" onclick="shop_edit(' + id + ')">编辑</a>';
+                            return html;
+                        }
+                    },
+                    {
+                        display: '操作', name: 'delete', minwidth: 30, width: 100, render: function (row) {
+                            var id = '\'' + row.shopid + '\'';
+                            var name = '\'' + row.shop + '\'';
+                            var html = '<a href="javascript:;" onclick="shop_delete(' + id + ',' + name + ')">删除</a>';
+                            return html;
+                        }
+                    }
+                ], dataAction: 'server', usePager: false, rownumbers: true
+            });
+
+            var params = {
+                "content": $("#content2").val(),
+                "shopcontent": $("#shopcontent2").val(),
+                "codecontent": $("#codecontent2").val(),
+                "page": "1",
+                "pageSize": "10"
+            };
+            $.grid2.f_getData(grid2, '../level/checkShop', params);
+            $("#info-grid2").show();
+            $.grid2.f_setOverClass();
+            $.grid2.f_pagerOnclick(grid2, '../level/checkShop', params);
+            $.grid2.f_pageEnterDown(grid2, '../level/checkShop', params);
+            $.grid2.f_pageSizeSelect(grid2, '../level/checkShop', params);
+
+
+        });
+
+        $("#submit3").click(function () {
+            window.parent.$.ligerDialog.open(
+            {
+                width: 850,
+                height: 245,
+                isResize: true,
+                name: "edit",
+                url: '../level/AddCity',
+                title: '添加城市',
+                buttons: [
+                    {
+                        text: '关闭',
+                        onclick: function (item, dialog) {
+                            window.location.reload();
+                            dialog.close();
+                        }
+                    }
+                ]
+            });
+        });
+
+        $("#submit4").click(function () {
+            window.parent.$.ligerDialog.open(
+            {
+                width: 850,
+                height: 260,
+                isResize: true,
+                name: "edit",
+                url: '../level/addShopC',
+                title: '添加店铺',
+                buttons: [
+                    {
+                        text: '关闭',
+                        onclick: function (item, dialog) {
+                            window.location.reload();
+                            dialog.close();
+                        }
+                    }
+                ]
+            });
+
+        });
+
+        $("#submit5").click(function () {
+            window.parent.$.ligerDialog.open(
+              {
+                  width: 850,
+                  height: 230,
+                  isResize: true,
+                  name: "edit",
+                  url: '../level/addOffice',
+                  title: '添加办事处',
+                  buttons: [
+                      {
+                          text: '关闭',
+                          onclick: function (item, dialog) {
+                              window.location.reload();
+                              dialog.close();
+                          }
+                      }
+                  ]
+              });
+        });
+
+        $("#search_form1").validate({
+            onkeyup: false,
+            focusInvalid: true,
+            rules: {
+                "codecontent1": {
+                    digits: true
+                }
+            },
+            messages: {
+                "codecontent1": {
+                    digits: "请输入整数"
+                }
+            }
+        });
+
+        $("#search_form2").validate({
+            onkeyup: false,
+            focusInvalid: true,
+            rules: {
+                "codecontent2": {
+                    digits: true
+                }
+            },
+            messages: {
+                "codecontent2": {
+                    digits: "请输入整数"
+                }
+            }
+        });
+
+        window.parent.$.ligerDialog.close(function () { window.location.reload() });
+    </script>
+</body>
+</html>

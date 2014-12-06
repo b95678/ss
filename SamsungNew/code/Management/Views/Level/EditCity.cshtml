@@ -1,0 +1,172 @@
+﻿@{
+    Layout = null;
+}
+@model Management.Models.City
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="~/lib/css/home/home.css" rel="stylesheet" />
+    <link href="~/lib/css/validation/screen.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-common.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-dialog.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-form.css" rel="stylesheet" />
+    <script src="~/Content/js/core/jquery-1.7.2.min.js"></script>
+    <script src="~/Content/js/core/jquery.validate.min.js"></script>
+    <script src="~/Content/js/core/messages_zh.js"></script>
+    <script src="~/Content/js/core/ligerui.min.js"></script>
+    <script src="~/lib/js/md5/md5.js"></script>
+    <title>编辑城市</title>
+</head>
+<body>
+    <div id="info-wrap">
+        <div class="navbar">
+            <div class="navbar-l"></div>
+            <div class="navbar-r"></div>
+            <div class="navbar-icon">
+                <img alt="" src="~/Content/images/tag.gif" />
+            </div>
+            <div class="navbar-inner">
+                <b>编辑城市[带<span style="color:red">*</span>为必填]</b>
+            </div>
+        </div>
+        
+        <div class="info-form">
+            <form action="/level/EditCityCon" name="baseinfo-form" id="baseinfo-form" enctype="multipart/form-data" method="post">
+                <input id="cityid" name="cityid" value="@Model.Id" type="hidden" />
+                <table cellspacing="0" cellspadding="0">
+                    <tr>
+                        <th>办事处：</th>
+                        <td>
+                            <input type="text" id="chooseOffice" style="width:50px" />&nbsp;筛选办事处(可不填)
+                            <select data-val="true" id="officeId" name="officename"></select>
+                            @Html.ValidationMessage("officename", new { sytle = "font-style:italic;color:red;" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>城市名称<span style="color:red">*</span>:</th>
+                        <td>
+                            <input data-val="true" name="captainInfo.cityname" id="shopname" type="text" class="txt" value="@Model.Name" />
+                            @Html.ValidationMessage("captainInfo.cityname", new { sytle = "font-style:italic;color:red;" })
+                        </td>
+                        <th>城市编号<span style="color:red">*</span>:</th>
+                        <td>
+                            <input data-val="true" name="captainInfo.citycode" id="shopcode" type="text" class="txt" value="@Model.Code" />
+                            @Html.ValidationMessage("captainInfo.citycode", new { sytle = "font-style:italic;color:red;" })
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>&nbsp;</th>
+                        <td>
+                            <input id="tijiao" class="l-button3" type="submit" value="提交" />
+                            <input id="reset1" class="l-button3" type="reset" value="重置" />
+                            <input id="flag" type="hidden" value="@ViewBag.flag" />
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+
+        $(document).ready(function () {
+            $("#reset").bind("click", function () {
+            });
+
+            $.ajax({
+                url: "/level/getEditofficeName1",
+                type: "post",
+                dataType: "json",
+                data: {
+                    "cityid": $("#cityid").val()
+                },
+                success: function (data) {
+                    $("#officeId").html(data.officeValue);
+                }
+            });
+            $("#chooseOffice").change(function () {
+                $.ajax({
+                    url: "/level/getofficeName",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        "chooseOffice": $("chooseOffice").val()
+                    },
+                    success: function (data) {
+                        $("#officeId").html(data.officeValue);
+                    }
+                });
+            });
+
+            if ($("#flag").val() == "1") {
+                var dialog = $.ligerDialog.tip({ title: "提示", content: "成功保存城市信息!" });
+                setTimeout(function () {
+                    dialog.close();
+                }, 5000);
+            }
+            $("#baseinfo-form").validate({
+                onkeyup: false,
+                focusInvalid: true,
+                rules: {
+                    "officename": {
+                        required: true
+                    },
+                    "captainInfo.cityname": {
+                        required: true,
+                        remote: {
+                            url: "../level/validateCityName",
+                            type: "post",
+                            data: {
+                                officeid: function () {
+                                    return $("#officeId").val();
+                                },
+                                cityid: function () {
+                                    return $("#cityid").val();
+                                }
+
+                            },
+                            dataType: "json"
+                        }
+                    },
+                    "captainInfo.citycode": {
+                        required: true,
+                        digits: true,
+                        remote: {
+                            url: "../level/validateCityCode",
+                            type: "post",
+                            data: {
+                                officeid: function () {
+                                    return $("#officeId").val();
+                                },
+                                cityid: function () {
+                                    return $("#cityid").val();
+                                }
+                            },
+                            dataType: "json"
+                        }
+                    },
+
+                },
+                messages: {
+                    "officename": {
+                        required: "请选择办事处"
+                    },
+
+                    "captainInfo.cityname": {
+                        required: "请输入城市名",
+                        remote: $.format("城市名已存在")
+                    },
+                    "captainInfo.citycode": {
+                        required: "请输入城市编号",
+                        digits: "请输入整数",
+                        remote: $.format("城市编号已存在")
+                    }
+
+                }
+            });
+        });
+    </script>
+</body>
+</html>

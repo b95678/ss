@@ -1,0 +1,299 @@
+/* 
+    Document   : home
+    Created on : 2013-5-12, 22:15:59
+    Author     : horo
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+body{
+    font-family: 'Microsoft Yahei','Simsun',Verdana,Tahoma,Arial,Helvetica,sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+}
+a{
+    text-decoration: none;
+    outline:none;
+}
+body,img,p,h1,h2,h3,h4,h5,h6,ul,ol {
+    margin:0;
+    padding:0;
+    border:none;
+}
+a img{
+    border: none;
+}
+a{
+    color: #0099CC;
+}
+a:hover{
+    color: #06b;
+}
+#logo{
+    background:#4974A4;
+    height: 59px;
+    text-align: left;
+    width: 100%;
+    margin: 0 auto;
+}
+#footer{
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    padding: 5px 0;
+}
+#footer span{
+    color: #000000;
+}
+#clean{
+    clear: both;
+}
+#nav{
+    background: url("~/lib/css/images/top.jpg") repeat-x scroll center bottom #1B3160;
+    border-bottom: 2px solid #4E7194;
+    border-top: 1px solid #7C96AF;
+    height: 24px;
+    line-height: 24px;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+#nav-l{
+    color: #070A0C;
+    padding-left: 30px;
+}
+#nav-l img{
+    height: 18px;
+    left: 4px;
+    position: absolute;
+    top: 4px;
+    width: 18px;
+}
+#nav-r {
+    color: #070A0C;
+    height: 24px;
+    position: absolute;
+    right: 30px;
+    top: 0;
+}
+#nav-r span{
+    margin: 0 3px;
+}
+#wrap{
+    width: 99.8%;
+}
+#function ul, #function ul li{
+    list-style: none outside none;
+}
+#function ul{
+    padding: 5px;
+}
+#function ul li{
+    cursor: pointer;
+    display: block;
+    height: 24px;
+    line-height: 24px;
+    padding-left: 24px;
+    position: relative;
+    text-align: left;
+    margin-left: 0px;
+}
+#function ul li img {
+    height: 16px;
+    left: 4px;
+    position: absolute;
+    top: 4px;
+    width: 16px;
+}
+#function ul li:hover{
+    background: url("~/lib/css/images/menuitem.gif") repeat-x scroll 0 0 transparent;
+}
+#function ul li:hover .li-l {
+    background: url("~/lib/css/images/menuitem.gif") repeat-x scroll 0 -24px transparent;
+    height: 24px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 2px;
+}
+#function ul li:hover .li-r {
+    background: url("~/lib/css/images/menuitem.gif") repeat-x scroll -1px -24px transparent;
+    height: 24px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 2px;
+}
+.navbar {
+    background: url("~/lib/css/images/navbar.gif") repeat-x scroll 0 0 transparent;
+    height: 33px;
+    line-height: 33px;
+    margin-bottom: 4px;
+    margin-top: 4px;
+    position: relative;
+    width: 99%;
+}
+.navbar-l, .navbar-r {
+    background: url("~/lib/css/images/navbar.gif") no-repeat scroll 0 0 transparent;
+    height: 33px;
+    position: absolute;
+    width: 2px;
+}
+.navbar-l {
+    background-position: 0 -33px;
+    left: 0;
+}
+.navbar-r {
+    background-position: 0 -66px;
+    right: 0;
+}
+.navbar img {
+    height: 16px;
+    left: 4px;
+    position: absolute;
+    top: 4px;
+    width: 16px;
+}
+.navbar-icon {
+    left: 7px;
+    position: absolute;
+    top: 6px;
+}
+.navbar-inner {
+    margin-left: 30px;
+}
+.navline {
+    background-color: #D9D9D9;
+    border-bottom: 1px solid #F5F5F5;
+    height: 1px;
+    line-height: 1px;
+    width: 99%;
+}
+.txt{
+    padding:3px;
+    border: solid 1px #D9D9D9;
+    height:16px;
+    width:150px;
+    background:#fff url("../images/txt_bg.png") repeat-x left top;
+}
+.txt:hover{
+    padding:3px;
+    border: solid 1px #FFC340;
+    height:16px;
+    width:150px;
+    background:#fff url("../images/txt_bg.png") repeat-x left top;
+}
+#info-wrap{
+    margin: 0 5px;
+}
+.search{
+    background-color:#F2F2F2;
+    width: 99%;
+    border:1px #E4E4E4 solid;
+    margin: 5px 0;
+}
+.search table{
+    padding: 0 5px;
+}
+.search table tr{
+    height: 30px;
+}
+.search table tr td{
+    width: 100px;
+}
+.info-detail{
+    background-color:#F2F2F2;
+    width: 99%;
+    border:1px #E4E4E4 solid;
+    min-height: 120px;
+}
+.info-detail table {
+    padding: 5px;
+    text-align: left;
+}
+.info-detail table tr{
+    height: 30px;   
+}
+.info-detail table th{
+    width: 80px;
+}
+.info-detail table td{
+    width: 400px;
+}
+
+.info-form{
+    background-color:#F2F2F2;
+    width: 99%;
+    border:1px #E4E4E4 solid;
+    min-height: 120px;
+}
+.info-form table {
+    padding: 5px;
+    text-align: left;
+}
+.info-form table tr{
+    height: 30px;   
+}
+.info-form table th{
+    width: 100px;
+}
+.info-form table td{
+    width: 300px;
+}
+#showbase table{
+    width: 98%;
+    table-layout:fixed;
+    empty-cells:show; 
+    border-collapse: collapse;
+}
+#showbase table tr{
+    height: 30px;
+}
+#showbase table.t1{
+    border:1px solid #cad9ea;
+    color:#666;
+}
+#showbase table.t1 td,#showbase table.t1 th{
+    border:1px solid #cad9ea;
+    padding:0 1em 0;
+}
+#showbase table.t1 tr.a1{
+    background-color:#f5fafe;
+}
+#checknews{
+    width: 98%;
+    margin: 0 auto;
+    padding: 5px;
+}
+#checknews .newstitle{
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+#checknews .newsdate{
+    text-align: center;
+    font-size: 12px;
+    border-bottom: #0099CC 2px solid;
+}
+#checknews .newscontent{
+    font-size: 13px;
+    line-height:150%;
+    border-bottom: #0099CC 2px solid;
+}
+.daliy {
+    margin-top: 5px;
+}
+
+    .daliy table {
+        width: 800px;
+    }
+
+.daliy-title {
+    padding-top: 3px;
+    font-weight: bold;
+    min-height: 30px;
+}
+
+    .daliy-title span {
+        margin-left: 10px;
+    }

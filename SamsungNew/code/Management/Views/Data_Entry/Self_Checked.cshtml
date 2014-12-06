@@ -1,0 +1,403 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="~/lib/css/home/home.css" rel="stylesheet" />
+    <link href="~/lib/css/validation/screen.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-common.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-dialog.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-form.css" rel="stylesheet" />
+    <script src="~/Content/js/core/jquery-1.7.2.min.js"></script>
+    <script src="~/Content/js/core/jquery.validate.min.js"></script>
+    <script src="~/Content/js/core/messages_zh.js"></script>
+    <script src="~/Content/js/core/ligerui.min.js"></script>
+    <script src="~/lib/js/md5/md5.js"></script>
+    <title>自检信息</title>
+</head>
+<body>
+    <div id="info-wrap">
+        <div class="navbar">
+            <div class="navbar-l"></div>
+            <div class="navbar-r"></div>
+            <div class="navbar-icon">
+                <img alt="" src="~/lib/css/icons/tag.gif">
+            </div>
+            <div class="navbar-inner">
+                <b>自检信息 [带*为必填]</b>
+            </div>
+        </div>
+        <input id="isdraft" value="0" type="hidden" />
+        <div>
+            <h3 style="color: red;">注：不清楚请留空，然后点击保存草稿箱。</h3>
+        </div>
+        <div class="info-form">
+            <form action="../Data_Entry/Self_Checked" name="checkinfo-form" id="checkinfo-form" method="post">
+                <table cellspacing="0" cellspadding="0">
+                    <tr>
+                        <th>上级<span style="color: red">*</span></th>
+                        <td>
+                            <select name="trainInfo.captain" id="captain"></select>
+                        </td>
+                        <th>唯一号<span style="color: red">*</span></th>
+                        <td>
+                            <input type="text" id="chooseunique" style="width: 50px" />&nbsp;筛选唯一号(可不填)
+                                <select name="trainInfo.uniquenum" id="uniquenum"></select></td>
+                    </tr>
+                    <tr>
+                        <th>姓名<span style="color: red">*</span></th>
+                        <td>
+                            <input type="text" id="choosename" style="width: 50px" />&nbsp;筛选姓名(可不填)
+                                <input name="staffInfo.name" id="name" type="text" value="" disabled="disabled" class="txt">
+                            <input name="checkInfo.name" id="names" type="hidden" value="" />
+                        </td>
+                        <th>身份证号码<span style="color: red">*</span></th>
+                        <td>
+                            <input name="staffInfo.identity" id="identity" type="text" value="" class="txt" disabled="disabled">
+                            @*<input name="checkInfo.identity" id="identity" type="hidden" value="" class="txt" />*@
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>办事处<span style="color: red">*</span></th>
+                        <td>
+                            <input name="staffInfo.office" id="office" type="text" value="" class="txt" disabled="disabled" />
+                        </td>
+                        <th>城市<span style="color: red">*</span></th>
+                        <td>
+                            <input name="staffInfo.city" id="city" type="text" value="" class="txt" disabled="disabled" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>等级<span style="color: red">*</span></th>
+                        <td>
+                            <select name="checkInfo.level" id="level">
+                                <option value="B">B</option>
+                                <option value="S">S</option>
+                                <option value="C">C</option>
+                                <option value="A">A</option>
+                            </select>
+                        </td>
+                        <th>自检时间<span style="color: red">*</span></th>
+                        <td>
+                            <input id="date" name="checkInfo.date" type="text" /></td>
+                    </tr>
+                    <tr>
+                        <th>仪容仪表<span style="color: red">*</span></th>
+                        <td>
+                            <input id="appearance" name="checkInfo.appearance" type="text" value="" class="txt" style="width: 50px" /></td>
+                        @* <th>视频链接*</th>
+                            <td><input id="video" name="checkInfo.video" type="text" value="" class="txt" style="width: 200px"/></td>*@
+                    </tr>
+                    <tr>
+                        <th>工作态度<span style="color: red">*</span></th>
+                        <td>
+                            <input id="attitude" name="checkInfo.attitude" type="text" value="" class="txt" style="width: 50px" /></td>
+                        <th>点检内容<span style="color: red">*</span></th>
+                        <td rowspan="2">
+                            <textarea name="checkInfo.remark" id="remark" rows="3" cols="24"></textarea></td>
+                    </tr>
+                    <tr>
+                        <th>产品知识<span style="color: red">*</span></th>
+                        <td>
+                            <input id="productkonwledge" name="checkInfo.productkonwledge" type="text" value="" class="txt" style="width: 50px" /></td>
+                    </tr>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <td>
+                            <input id="type" type="hidden" name="type" value="insert" />
+                            <input id="submit" class="l-button3" type="submit" value="提交" />
+                            <input id="reset" class="l-button3" type="reset" value="重置" />
+                            <input id="draft" class="l-button3" type="button" value="草稿箱" />
+                            <input id="flag"  type="hidden" value="@ViewBag.cof"/>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $.ajax({
+                url: "../Data_Entry/unionUniquenumHtmlValue2",
+                type: "post",
+                dataType: "json",
+                data: { "type": "json" },
+                success: function (data) {
+                    if (data.staffInfo != null) {
+                        $("#name").val(data.name);
+                        $("#names").val(data.name);
+                        $("#identity").val(data.identity);
+                        $("#city").val(data.city);
+                    }
+                    $("#uniquenum").html(data.uniquenumValue);
+                    $("#captain").html(data.captainValue);
+                    $("#office").val(data.office);
+                    $.ajax({
+                        url: "../Data_Entry/checkLevel",
+                        type: "post",
+                        dataType: "json",
+                        data: { "uniquenum": $("#uniquenum").val() },
+                        success: function (data) {
+                            $("#level").val(data.level);
+                        }
+                    });
+                    if ($("#uniquenum").val() == null) {
+                        $.ligerDialog.warn('请先添加培训信息！');
+                        $(":input").attr("disabled", "disabled");
+                    }
+                    else {
+                        $.ajax({
+                            url: "../Data_Entry/Get_HasDraft",
+                            type: "post",
+                            datatype: "json",
+                            success: function (data) {
+                                if (data.hasDraft == "1") {
+                                    $.ligerDialog.confirm('是否读取草稿箱最新内容？', function (yes) {
+                                        if (yes) {
+                                            $("#isdraft").val("1");
+                                            $.ajax({
+                                                url: "../Data_Entry/Get_Checked_Draft",
+                                                type: "post",
+                                                datatype: "json",
+                                                success: function (data) {
+                                                    $("#date").val(data.date);
+                                                    $("#appearance").val(data.appearance);
+                                                    $("#attitude").val(data.attitude);
+                                                    $("#remark").val(data.remark);
+                                                    $("#productkonwledge").val(data.productkonwledge);
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            }
+                        })
+                    }
+                }
+            });
+
+
+            $("#draft").bind("click", function () {
+                $.ligerDialog.confirm('保存草稿箱不包括图片，是否保存？', function (yes) {
+                    if (yes) {
+                        $.ajax({
+                            url: "../Data_Entry/save_GetChecked_Draft",
+                            type: "post",
+                            data: {
+                                "date": $("#date").val(),
+                                "appearance": $("#appearance").val(),
+                                "attitude": $("#attitude").val(),
+                                "remark": $("#remark").val(),
+                                "productkonwledge": $("#productkonwledge").val(),
+                                "uniquenum": $("#uniquenum").val(),
+                                "captain": $("#captain").val(),
+                            },
+                            dataType: "json",
+                            success: function (data) {
+                                //if (Value == true) {
+                                var dialog = $.ligerDialog.tip({ title: "提示", content: "成功保存自检信息到草稿箱!" });
+                                setTimeout(function () {
+                                    dialog.close();
+                                }, 5000)
+                                //}
+                                //else {
+                                //    var dialog = $.ligerDialog.tip({ title: "提示", content: "保存失败!" });
+                                //    setTimeout(function () {
+                                //        dialog.close();
+                                //    }, 5000)
+                                //}
+                            }
+                        });
+                    }
+                });
+            });
+
+            if ($("#flag").val() == "1") {
+                var dialog = $.ligerDialog.tip({ title: "提示", content: "成功录入自检信息!" });
+                setTimeout(function () {
+                    dialog.close();
+                }, 5000);
+            }
+
+
+            $("#chooseunique").change(function () {
+                $.ajax({
+                    url: "../Data_Entry/getunique2",
+                    type: "post",
+                    data: {
+                        "chooseunique": $("#chooseunique").val(),
+                        "uniquen": $("#uniquenum").val()
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        $("#uniquenum").html(data.chooseuniqueValue);
+                        $("#name").val(data.name);
+                        $("#names").val(data.name);
+                        $("#identity").val(data.identity);
+                        $("#office").val(data.office);
+                        $("#city").val(data.city);
+                    }
+                });
+            });
+
+            $("#choosename").change(function () {
+                $.ajax({
+                    url: "../Data_Entry/getname2",
+                    type: "post",
+                    data: {
+                        "choosename": $("#choosename").val(),
+                        "uniquen": $("#uniquenum1").val()
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        $("#uniquenum").html(data.chooseuniqueValue);
+                        $("#name").val(data.name);
+                        $("#names").val(data.name);
+                        $("#identity").val(data.identity);
+                        $("#office").val(data.office);
+                        $("#city").val(data.city);
+                    }
+                });
+            });
+
+            $("#uniquenum").bind("change", function () {
+                var uniquenum = $(this).val();
+                $.ajax({
+                    url: "../Data_Entry/fillTrainFormValue",
+                    type: "post",
+                    data: { "trainInfo.uniquenum": uniquenum },
+                    dataType: "json",
+                    success: function (data) {
+                        $("#name").val(data.name);
+                        $("#names").val(data.name);
+                        $("#identity").val(data.identity);
+                        $("#office").val(data.office);
+                        $("#city").val(data.city);
+                        $.ajax({
+                            url: "../Data_Entry/checkLevel",
+                            type: "post",
+                            dataType: "json",
+                            data: { "uniquenum": uniquenum },
+                            success: function (data) {
+                                $("#level").val(data.level);
+                            }
+                        });
+                    }
+                });
+            });
+            $("#captain").bind("change", function () {
+                $.ajax({
+                    url: "../Data_Entry/fillTrainUniquenumValue",
+                    type: "post",
+                    data: { "trainInfo.captain": $(this).val() },
+                    dataType: "json",
+                    success: function (data) {
+                        $("#uniquenum").html(data.uniquenumValue);
+                        $("#name").val(data.name);
+                        $("#names").val(data.name);
+                        $("#identity").val(data.identity);
+                        $("#office").val(data.office);
+                        $("#city").val(data.city);
+                        $.ajax({
+                            url: "../Data_Entry/checkLevel",
+                            type: "post",
+                            dataType: "json",
+                            data: { "uniquenum": $("#uniquenum").val() },
+                            success: function (data) {
+                                $("#level").val(data.level);
+                            }
+                        });
+                    }
+                });
+            });
+            $("#date").ligerDateEditor({ format: "yyyy年MM月dd日", label: '', labelWidth: 100, labelAlign: 'center' });
+
+            $("#checkinfo-form").validate({
+                onkeyup: false,
+                focusInvalid: true,
+                rules: {
+                    "checkInfo.uniquenum": {
+                        required: true
+                    },
+                    "checkInfo.level": {
+                        required: true
+                    },
+                    "checkInfo.date": {
+                        required: true
+                    },
+                    "checkInfo.appearance": {
+                        required: true,
+                        digits: true,
+                        range: [0, 100]
+                    },
+                    "checkInfo.video": {
+                        required: true
+                    },
+                    "checkInfo.attitude": {
+                        required: true,
+                        range: [0, 100],
+                        digits: true
+                    },
+                    "checkInfo.productkonwledge": {
+                        required: true,
+                        range: [0, 100],
+                        digits: true
+                    },
+                        "checkInfo.remark": {
+                            required: true
+                        }
+                },
+                submitHandler: function (form) {
+                    var formDate = $("#date").val();
+                    var formYear = formDate.substring(0, 4);
+                    var formMonth = formDate.substring(5, 7);
+                    var date = new Date();
+                    var year = date.getFullYear();
+                    var month = date.getMonth() + 1;
+                    if ((formYear == year) && (formMonth == month)) {
+                        form.submit();
+                    } else {
+                        $.ligerDialog.warn('不能录入非本月的数据！');
+                    }
+                },
+                messages: {
+                    "checkInfo.level": {
+                        required: "请输入等级"
+                    },
+                    "checkInfo.date": {
+                        required: "请输入自检时间"
+                    },
+                    "checkInfo.appearance": {
+                        required: "请输入仪容仪表分数",
+                        digits: "请输入整数",
+                        range: "请输入0-100分的数"
+                    },
+                    "checkInfo.video": {
+                        required: "请输入视频链接"
+                    },
+                    "checkInfo.attitude": {
+                        required: "请输入工作态度分数",
+                        digits: "请输入整数",
+                        range: "请输入0-100分的数"
+                    },
+                    "checkInfo.productkonwledge": {
+                        required: "请输入产品知识分数",
+                        digits: "请输入整数",
+                        range: "请输入0-100分的数"
+                    },
+                    "checkInfo.remark": {
+                        required: "请输入点检内容"
+                    },
+                    "checkInfo.uniquenum": {
+                        required: "请输入唯一号"
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

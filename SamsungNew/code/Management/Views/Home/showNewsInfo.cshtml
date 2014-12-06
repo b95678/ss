@@ -1,0 +1,22 @@
+﻿@{
+    Layout = null;
+}
+
+@model Management.Models.Notice
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link type="text/css" rel="stylesheet" href="/lib/css/home/home.css" >
+        <title>公告</title>
+    </head>
+    <body>
+        <div id="checknews">
+            <div class="newstitle">@Model.NoticeTitle</div>
+            <div class="newsdate">@Model.CreatedTime</div>
+            <div class="newscontent">@Model.NoticeContent</div>
+            <div class="newscreator">公告创建者：@Model.ManagerId</div>
+        </div>
+    </body>
+</html>

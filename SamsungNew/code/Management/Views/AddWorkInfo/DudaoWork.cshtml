@@ -1,0 +1,259 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="~/lib/css/home/home.css" rel="stylesheet" />
+    <link href="~/lib/css/validation/screen.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-common.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-dialog.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-form.css" rel="stylesheet" />
+    <script src="~/Content/js/core/jquery-1.7.2.min.js"></script>
+    <script src="~/Content/js/core/jquery.validate.min.js"></script>
+    <script src="~/Content/js/core/messages_zh.js"></script>
+    <script src="~/Content/js/core/ligerui.min.js"></script>
+    <title>上班信息</title>
+</head>
+<body>
+    <div id="info-wrap">
+        <div class="navbar">
+            <div class="navbar-l"></div>
+            <div class="navbar-r"></div>
+            <div class="navbar-icon">
+                <img alt="" src="~/lib/css/icons/tag.gif">
+            </div>
+            <div class="navbar-inner">
+                <b>上班信息 [带*为必填]</b>
+            </div>
+        </div>
+        <div class="info-form">
+            <form action="/AddWorkInfo/DudaoWork" name="workinfo-form" id="workinfo-form" method="post">
+                <table cellspacing="0" cellspadding="0">
+                    <tr>
+                        <th>姓名<span style="color:red">*</span></th>
+                        <td>
+                            <input data-val="true" name="supervisorWorkInfo.name" id="name" type="text" value="@ViewBag.name" class="txt" />
+                            @Html.ValidationMessage("supervisorWorkInfo.name", new { style = "color:red" })
+                        </td>
+                        <th></th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>活动名称<span style="color:red">*</span></th>
+                        <td>
+                            <input data-val="true" id="activity" name="supervisorWorkInfo.activity" type="text" value="" class="txt" />
+                            @Html.ValidationMessage("supervisorWorkInfo.activity", new { style = "color:red" })
+                        </td>
+                        <th>产品名称<span style="color:red">*</span></th>
+                        <td>
+                            <input data-val="true" id="product" name="supervisorWorkInfo.product" type="text" value="" class="txt" />
+                            @Html.ValidationMessage("supervisorWorkInfo.product", new { style = "color:red" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>补助</th>
+                        <td>
+                            <input data-val="true" id="subsidy" name="supervisorWorkInfo.subsidy" type="text" value="" class="txt" />
+                            @Html.ValidationMessage("supervisorWorkInfo.subsidy", new { style = "color:red" })
+                        </td>
+                        <th>日薪标准<span style="color:red">*</span></th>
+                        <td>
+                            <input data-val="true" id="wage" name="supervisorWorkInfo.wage" type="text" value="" class="txt" />
+                            @Html.ValidationMessage("supervisorWorkInfo.wage", new { style = "color:red" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>上班时间<span style="color:red">*</span></th>
+                        <td>
+                            <input data-val="true" id="date" name="supervisorWorkInfo.date" type="text" value="" />
+                            @Html.ValidationMessage("supervisorWorkInfo.date", new { style = "color:red" })
+                        </td>
+                        <th>工作职能<span style="color:red">*</span></th>
+                        <td>
+                            <select data-val="true" name="supervisorWorkInfo.work" id="work">
+                                <option value="临促">临促</option>
+                                <option value="形促">形促</option>
+                                <option value="小队长">小队长</option>
+                                <option value="画师">画师</option>
+                                <option value="其他">其他</option>
+                            </select>
+                            @*<input data-val="true" id="work" name="supervisorWorkInfo.work" type="text" value="" class="txt" />*@
+                            @Html.ValidationMessage("supervisorWorkInfo.work", new { style = "color:red" })
+                        </td>
+                    </tr>
+                    @*<tr>
+                            <th>上班门店*</th>
+                            <td colspan="3">
+                                <select id="storeOffice" name="officeId"></select>
+                                <select id="storeCity" name="cityId"></select>
+                                <select id="storeStore" name="supervisorWorkInfo.store"></select>
+                            </td>
+                        </tr>*@
+                    <tr>
+                        <th>搜索门店<span style="color:red">*</span></th>
+                        <td colspan="3">
+                            <input id="content" type="text" value="" class="txt" />
+                            <input id="search" class="l-button3" type="button" value="确定" />
+                            <select data-val="true" id="storeStore" name="supervisorWorkInfo.store"></select>
+                            @Html.ValidationMessage("supervisorWorkInfo.store", new { style = "color:red" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>备注</th>
+                        <td colspan="3">
+                            <textarea name="supervisorWorkInfo.remark" id="remark" rows="3" cols="24"></textarea>
+                        </td>
+                        <th>&nbsp;</th>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <td>
+                            <input id="type" type="hidden" name="type" value="insert" />
+                            <input id="level" type="hidden" name="level" value="supervisor" />
+                            <input id="submit" class="l-button3" type="submit" value="提交" />
+                            <input id="reset" class="l-button3" type="reset" value="重置" />
+                            <input id="flag" type="hidden" value="@ViewBag.flag" />
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if ($("#flag").val() == "1") {
+                var dialog = $.ligerDialog.tip({ title: "提示", content: "成功录入上班信息!" });
+                setTimeout(function () {
+                    dialog.close();
+                }, 5000);
+            }
+            //$.ajax({
+            //    url: "storeValue.action",
+            //    type: "post",
+            //    dataType: "json",
+            //    success: function (data) {
+            //        $("#storeOffice").html(data.storeOfficeHtml);
+            //        $("#storeCity").html(data.storeCityHtml);
+            //        $("#storeStore").html(data.storeStoreHtml);
+            //    }
+            //});
+            //$("#storeCity").bind("change", function () {
+            //    $.ajax({
+            //        url: "selectCityForStore.action",
+            //        type: "post",
+            //        data: { "cityId": $(this).val() },
+            //        dataType: "json",
+            //        success: function (data) {
+            //            $("#storeStore").html(data.storeStoreHtml);
+            //        }
+            //    });
+            //});
+            $("#search").bind("click", function () {
+                if ($("#content").val().length > 0) {
+                    $.ajax({
+                        url: "/AddWorkInfo/SearchShop",
+                        type: "post",
+                        data: { "content": $("#content").val() },
+                        dataType: "json",
+                        success: function (data) {
+                            $("#storeStore").html(data.storeStoreHtml);
+                        }
+                    });
+                } else {
+                    $.ligerDialog.warn('请输入门店！');
+                }
+            });
+            $("#date").ligerDateEditor({ format: "yyyy年MM月dd日", label: '', labelWidth: 100, labelAlign: 'center' });
+            $("#workinfo-form").validate({
+                onkeyup: false,
+                focusInvalid: true,
+                rules: {
+                    "supervisorWorkInfo.name": {
+                        required: true
+                    },
+                    "supervisorWorkInfo.activity": {
+                        required: true
+                    },
+                    "supervisorWorkInfo.date": {
+                        required: true
+                    },
+                    "supervisorWorkInfo.product": {
+                        required: true
+                    },
+                    "supervisorWorkInfo.work": {
+                        required: true
+                    },
+                    "supervisorWorkInfo.wage": {
+                        required: true,
+                        digits: true
+                    },
+                    "supervisorWorkInfo.subsidy": {
+                        digits: true
+                    },
+                    "supervisorWorkInfo.store": {
+                        required: true
+                    },
+                },
+                messages: {
+                    "supervisorWorkInfo.name": {
+                        required: "请输入姓名"
+                    },
+                    "supervisorWorkInfo.activity": {
+                        required: "请输入活动名称"
+                    },
+                    "supervisorWorkInfo.date": {
+                        required: "请输入上班时间"
+                    },
+                    "supervisorWorkInfo.product": {
+                        required: "请输入产品名称"
+                    },
+                    "supervisorWorkInfo.work": {
+                        required: "请输入工作职能"
+                    },
+                    "supervisorWorkInfo.wage": {
+                        required: "请输入日薪标准",
+                        digits: "请输入整数"
+                    },
+                    "supervisorWorkInfo.subsidy": {
+                        digits: "请输入整数"
+                    },
+                    "supervisorWorkInfo.store": {
+                        required: "请输入上班门店"
+                    },
+                },
+                submitHandler: function (form) {
+                    var flag1 = true;
+                    var flag2 = false;
+                    var formDate = $("#date").val();
+                    var formYear = formDate.substring(0, 4);
+                    var formMonth = formDate.substring(5, 7);
+                    var date = new Date();
+                    var year = date.getFullYear();
+                    var month = date.getMonth() + 1;
+                    if ($("#subsidy").val().length > 0) {
+                        if ($("#remark").val().length > 0) {
+                            flag1 = true;
+                        } else {
+                            flag1 = false;
+                            $("#remark").after("<label class=\"error\" for=\"remark\" style=\"display: inline;\">请输入备注</label>");
+                        }
+                    }
+                    if ((formYear == year) && (formMonth == month)) {
+                        flag2 = true;
+                    } else {
+                        flag2 = false;
+                        $.ligerDialog.warn('不能录入非本月的数据！');
+                    }
+                    if ((flag1 == true) && (flag2 == true)) {
+                        form.submit();
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

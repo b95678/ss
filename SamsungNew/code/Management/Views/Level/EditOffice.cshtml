@@ -1,0 +1,151 @@
+﻿@{
+    Layout = null;
+}
+@model Management.Models.Office
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="~/lib/css/home/home.css" rel="stylesheet" />
+    <link href="~/lib/css/validation/screen.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-common.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-dialog.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-form.css" rel="stylesheet" />
+    <script src="~/Content/js/core/jquery-1.7.2.min.js"></script>
+    <script src="~/Content/js/core/jquery.validate.min.js"></script>
+    <script src="~/Content/js/core/messages_zh.js"></script>
+    <script src="~/Content/js/core/ligerui.min.js"></script>
+    <title>编辑办事处</title>
+</head>
+<body>
+    <div id="info-wrap">
+        <div class="navbar">
+            <div class="navbar-l"></div>
+            <div class="navbar-r"></div>
+            <div class="navbar-icon">
+                <img alt="" src="~/Content/images/tag.gif" />
+            </div>
+            <div class="navbar-inner">
+                <b>编辑办事处[带<span style="color:red">*</span>为必填]</b>
+            </div>
+        </div>
+        
+        <div class="info-form">
+            <form action="/level/EditOfficeCon" name="baseinfo-form" id="baseinfo-form" enctype="multipart/form-data" method="post">
+                <input id="officeid" name="officeid" value="@Model.Id" type="hidden" />
+                <table cellspacing="0" cellspadding="0">
+                  
+                    <tr>
+                        <th>办事处名称<span style="color:red">*</span>:</th>
+                        <td>
+                            <input data-val="true" name="captainInfo.officename" id="officename" type="text" class="txt" value="@Model.Name" />
+                             @Html.ValidationMessage("captainInfo.officename", new { sytle = "font-style:italic;color:red;" })
+                        </td>
+                        <th>办事处编号<span style="color:red">*</span>:</th>
+                        <td>
+                            <input data-val="true" name="captainInfo.officecode" id="officecode" type="text" class="txt" value="@Model.Code" />    
+                             @Html.ValidationMessage("captainInfo.officecode", new { sytle = "font-style:italic;color:red;" })                 
+                        </td>
+                        <th>办事处代号<span style="color:red">*</span>:</th>
+                        <td>
+                            <input data-val="true" name="captainInfo.officemask" id="officemask" type="text" class="txt" value="@Model.mask" />      
+                             @Html.ValidationMessage("captainInfo.officemask", new { sytle = "font-style:italic;color:red;" })                  
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>&nbsp;</th>
+                        <td>
+                            <input id="tijiao" class="l-button3" type="submit" value="提交" />
+                            <input id="reset1" class="l-button3" type="reset" value="重置" />
+                            <input id="flag" type="hidden" value="@ViewBag.flag" />
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+
+        $(document).ready(function () {
+
+
+
+            if ($("#flag").val() == "1") {
+                var dialog = $.ligerDialog.tip({ title: "提示", content: "成功保存城市信息!" });
+                setTimeout(function () {
+                    dialog.close();
+                }, 5000);
+            }
+            $("#baseinfo-form").validate({
+                onkeyup: false,
+                focusInvalid: true,
+                rules: {
+
+                    "captainInfo.officename": {
+                        required: true,
+                        remote: {
+                            url: "../level/ValidateOfficeName1",
+                            type: "post",
+                            data: {
+                                officeid: function () {
+                                    return $("#officeid").val();
+                                },
+                            },
+                            dataType: "json"
+                        }
+                    },
+                    "captainInfo.officecode": {
+                        required: true,
+                        digits: true,
+                        remote: {
+                            url: "../level/validateOfficeCode1",
+                            type: "post",
+                            data: {
+                                officeid: function () {
+                                    return $("#officeid").val();
+                                },
+                            },
+                            dataType: "json"
+                        }
+                    },
+
+                    "captainInfo.officemask": {
+                        required: true,
+                        remote: {
+                            url: "../level/ValidateOfficeMask1",
+                            type: "post",
+                            data: {
+                                officeid: function () {
+                                    return $("#officeid").val();
+                                },
+                            },
+                            dataType: "json"
+                        }
+                    },
+
+                },
+                messages: {
+
+
+                    "captainInfo.officename": {
+                        required: "请输入城市名",
+                        remote: $.format("城市名已存在")
+                    },
+                    "captainInfo.officecode": {
+                        required: "请输入城市编号",
+                        digits: "请输入整数",
+                        remote: $.format("城市编号已存在")
+                    },
+                    "captainInfo.officemask": {
+                        required: "请输入城市代号",
+                        remote: $.format("城市代号已存在")
+                    }
+
+                }
+            });
+        });
+    </script>
+</body>
+</html>

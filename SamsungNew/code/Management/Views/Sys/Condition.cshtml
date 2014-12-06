@@ -1,0 +1,474 @@
+﻿@{
+    Layout = null;
+}
+
+@{
+    List<Management.Models.Office> office = (List<Management.Models.Office>)ViewBag.Office;
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="../../../lib/css/home/home.css" rel="stylesheet" />
+    <link href="~/lib/css/validation/screen.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-common.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-dialog.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-grid-1.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-grid-2.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-icons.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-menu.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-form.css" rel="stylesheet" />
+    <script src="~/Content/js/core/jquery-1.7.2.min.js"></script>
+    <script src="~/Content/js/core/jquery.validate.min.js"></script>
+    <script src="~/Content/js/core/messages_zh.js"></script>
+    <script src="~/Content/js/core/ligerui.min.js"></script>
+
+    <title>查看基本信息</title>
+
+    <style>
+        .a
+        {
+            float: left;
+            background: none;
+            height: 24px;
+            margin: 0px 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="info-wrap">
+        <div class="navbar">
+            <div class="navbar-l"></div>
+            <div class="navbar-r"></div>
+            <div class="navbar-icon">
+                <img alt="" src="~/lib/css/icons/tag.gif">
+            </div>
+            <div class="navbar-inner">
+                <b>办事处人员数据库总览</b>
+            </div>
+        </div>
+        <div class="search">
+            <table cellspacing="0" cellspadding="0">
+                <tr>
+                    <td>办事处： </td>
+                    <td>
+                        <input type="text" id="content0" name="content0" /></td>
+                    <td>城市： </td>
+                    <td>
+                        <input type="text" id="content1" name="content1" /></td>
+
+                    <td>
+                        <input type="button" class="l-button3" id="submit1" value="确定" /></td>
+                </tr>
+            </table>
+        </div>
+        <div id="info-grid" class="info-grid">
+            <div class="l-loading" style="display: block" id="pageloading"></div>
+            <div id="grid"></div>
+            <div class="l-panel-bar" id="pager">
+                <div class="l-panel-bbar-inner">
+                    <div class="l-bar-group  l-bar-message"><span class="l-bar-text"></span></div>
+                    <div class="l-bar-group l-bar-selectpagesize">
+                        <select id="rp">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="40">40</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
+                    <div class="l-bar-separator"></div>
+                    <div class="l-bar-group">
+                        <div class="l-bar-button l-bar-btnfirst"><span class=""></span></div>
+                        <div class="l-bar-button l-bar-btnprev"><span class=""></span></div>
+                    </div>
+                    <div class="l-bar-separator"></div>
+                    <div class="l-bar-group">
+                        <span class="pcontrol">
+                            <input type="text" maxlength="3" class="txt" style="width: 20px" value="" size="4">
+                            / <span></span></span>
+                    </div>
+                    <div class="l-bar-separator"></div>
+                    <div class="l-bar-group">
+                        <div class="l-bar-button l-bar-btnnext">
+                            <span class=""></span>
+                        </div>
+                        <div class="l-bar-button l-bar-btnlast">
+                            <span class=""></span>
+                        </div>
+                    </div>
+                    <div class="l-bar-separator"></div>
+                    <div class="l-bar-group">
+                        <div class="l-bar-button l-bar-btnload">
+                            <span class="l-abled"></span>
+                        </div>
+                    </div>
+                    <div class="l-bar-separator"></div>
+                    <div class="l-clear"></div>
+                </div>
+            </div>
+            <input type="hidden" id="page" value="" />
+            <input type="hidden" id="pageSize" value="" />
+            <input type="hidden" id="totalPage" value="" />
+        </div>
+    </div>
+
+    <div id="info-wrap2">
+        <div class="navbar">
+            <div class="navbar-l"></div>
+            <div class="navbar-r"></div>
+            <div class="navbar-icon">
+                <img alt="" src="~/lib/css/icons/tag.gif">
+            </div>
+            <div class="navbar-inner">
+                <b>办事处活动人次总览</b> &nbsp &nbsp  <b id="titleTime"></b>
+            </div>
+        </div>
+        <div class="search">
+            <table cellspacing="0" cellspadding="0">
+                <tr>
+                    <td>活动名称：</td>
+                    <td>
+                        <input type="text" id="content2" /></td>
+                </tr>
+                <tr>
+                    <td>选取时间</td>
+                    <td>
+                        <input id="actionTime" name="conditionActionTime" type="text"></td>
+                    <td>
+                        <input type="button" class="l-button3" id="submit2" value="确定" /></td>
+                </tr>
+            </table>
+        </div>
+        <div id="info-grid2" class="info-grid">
+            <div class="l-loading" style="display: block" id="pageloading2"></div>
+            <div id="grid2"></div>
+            <div class="l-panel-bar" id="pager2">
+                <div class="l-panel-bbar-inner">
+                    <div class="l-bar-group  l-bar-message"><span id="l-bar-text2"></span></div>
+                    <div class="a l-bar-selectpagesize ">
+                        <select id="rp2">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="40">40</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
+                    <div class="l-bar-separator"></div>
+                    <div class="a">
+                        <div class="l-bar-button l-bar-btnfirst"><span id="btnFirst2" class=""></span></div>
+                        <div class="l-bar-button l-bar-btnprev"><span id="btnprev2" class=""></span></div>
+                    </div>
+                    <div class="l-bar-separator"></div>
+                    <div class="a">
+                        <span>
+                            <input type="text" id="showPage2" maxlength="3" class="txt" style="width: 20px" value="" size="4">
+                            / <span id="showTotalPage2"></span></span>
+                    </div>
+                    <div class="l-bar-separator"></div>
+                    <div class="a">
+                        <div class="l-bar-button l-bar-btnnext">
+                            <span id="btnnext2" class=""></span>
+                        </div>
+                        <div class="l-bar-button l-bar-btnlast">
+                            <span id="btnlast2" class=""></span>
+                        </div>
+                    </div>
+                    <div class="l-bar-separator"></div>
+                    <div class="a">
+                        <div class="l-bar-button l-bar-btnload">
+                            <span class="l-abled"></span>
+                        </div>
+                    </div>
+                    <div class="l-bar-separator"></div>
+                    <div class="l-clear"></div>
+                </div>
+            </div>
+            <input type="hidden" id="page2" value="" />
+            <input type="hidden" id="pageSize2" value="" />
+            <input type="hidden" id="totalPage2" value="" />
+        </div>
+    </div>
+
+    <script type="text/javascript" src="../lib/js/grid/gridJs.js"></script>
+    <script type="text/javascript" src="../lib/js/grid/gridJs2.js"></script>
+    <script type='text/javascript' src='~/lib/js/autoComplete/jquery.bgiframe.min.js'></script>
+    <script type='text/javascript' src='~/lib/js/autoComplete/jquery.ajaxQueue.js'></script>
+    <script type='text/javascript' src='~/lib/js/autoComplete/thickbox-compressed.js'></script>
+    <script type='text/javascript' src='~/lib/js/autoComplete/jquery.autocomplete.js'></script>
+    <link rel="stylesheet" type="text/css" href="~/lib/js/autoComplete/main.css" />
+    <link rel="stylesheet" type="text/css" href="~/lib/js/autoComplete/jquery.autocomplete.css" />
+    <link rel="stylesheet" type="text/css" href="~/lib/js/autoComplete/thickbox.css" />
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            //自动搜索
+            $.ajax({
+                type: 'POST',
+                url: '/sys/autoComplete_Office',
+                dataType: 'json',
+                error: function () { alert("出现错误"); return false; },
+                success: function (data) {
+                    var obj = eval('(' + data.s + ')');
+                    $("#content0").autocomplete(obj, {
+                        formatItem: function (item, i, max) {
+                            return item.OfficeName;
+                        },
+                        formatResult: function (item) {
+                            return item.OfficeName;
+                        },
+                        max: 10,
+                        matchContains: true,
+                        minChars: 0
+                    }).result(function (event, item) {
+                        $("#content1").flushCache();
+                        $.ajax({
+                            type: 'POST',
+                            url: '/sys/autoComplete_City',
+                            data: {
+                                officename: function () { return item.OfficeName }
+                            },
+                            dataType: 'json',
+                            error: function () { alert("出现错误"); return false; },
+                            success: function (data) {
+                                var obj = eval('(' + data.s + ')');
+                                $("#content1").autocomplete(obj, {
+                                    formatItem: function (item, i, max) {
+                                        return item.CityName;
+                                    },
+                                    formatResult: function (item) {
+                                        return item.CityName;
+                                    },
+                                    cacheLength: 1,
+                                    max: 10,
+                                    matchContains: true,
+                                    minChars: 0
+                                })
+                            }
+                        });
+
+                    })
+                }
+            });
+
+
+
+            //办事处人员数据库总览
+
+            $("#pageloading").hide();
+            $("#info-grid").hide();
+            var columns1 = [
+                { display: '人数', name: 'xc_count', minwidth: 30, width: 100, },
+                { display: '1个月活跃人数', name: 'xc_monthActive', minwidth: 30, width: 100 },
+                { display: '3个月活跃人数', name: 'xc_threeMonthActive', minwidth: 30, width: 100 }
+            ];
+            var columns2 = [
+                { display: '人数', name: 'lc_count', minwidth: 30, width: 100 },
+                { display: '1个月活跃人数', name: 'lc_monthActive', minwidth: 30, width: 100 },
+                { display: '3个月活跃人数', name: 'lc_threeMonthActive', minwidth: 30, width: 100 }
+            ];
+            var columns3 = [
+                { display: '人数', name: 'xdz_count', minwidth: 30, width: 100 },
+                { display: '1个月活跃人数', name: 'xdz_monthActive', minwidth: 30, width: 100 },
+                { display: '3个月活跃人数', name: 'xdz_threeMonthActive', minwidth: 30, width: 100 }
+            ];
+            var columns4 = [
+                { display: 'S级', name: 'S', minwidth: 30, width: 60 },
+                { display: 'A级', name: 'A', minwidth: 30, width: 60 },
+                { display: 'B级', name: 'B', minwidth: 30, width: 60 },
+            ];
+            var grid = $("#grid").ligerGrid({
+                isScroll: false,
+                height: 276,
+                width: '99.7%',
+                columns: [
+                    { display: '城市', name: 'city', width: 50 },
+                    { display: '数据库总人数', name: 'human_count', width: 100 },
+                    { display: '等级', columns: columns4 },
+                    { display: '上班总人数', name: 'attend_count', minwidth: 30, width: 100 },
+                    { display: '形象促', columns: columns1 },
+                    { display: '临促', columns: columns2 },
+                    { display: '小队长', columns: columns3 },
+
+                ], dataAction: 'server', usePager: false,
+            });
+
+
+
+            var params = {
+                "page": "1",
+                "pageSize": "10"
+            };
+
+
+            $.grid.f_getData(grid, '../Sys/checkConditionInfo', params);
+            $("#info-grid").show();
+            $.grid.f_setOverClass();
+            $.grid.f_pagerOnclick(grid, '../Sys/checkConditionInfo', params);
+            $.grid.f_pageEnterDown(grid, '../Sys/checkConditionInfo', params);
+            $.grid.f_pageSizeSelect(grid, '../Sys/checkConditionInfo', params);
+
+
+            //办事处活动人次总览
+            $("#actionTime").ligerDateEditor({ format: "yyyy年MM月", label: '', labelWidth: 100, labelAlign: 'center' });
+            $("#pageloading2").hide();
+            $("#info-grid2").hide();
+
+            var columns5 = [
+                { display: '人数', name: 'lc_count', minwidth: 30, width: 130 },
+                { display: '人次', name: 'lc_joincount', minwidth: 30, width: 130 },
+                { display: '费用', name: 'lc_money', minwidth: 30, width: 130 }
+            ];
+            var columns6 = [
+                { display: '人数', name: 'xc_count', minwidth: 30, width: 130 },
+                { display: '人次', name: 'xc_joincount', minwidth: 30, width: 130 },
+                { display: '费用', name: 'xc_money', minwidth: 30, width: 130 }
+            ];
+            var columns7 = [
+                { display: '人数', name: 'xdz_count', id: 'xdzc', minwidth: 30, width: 130, hide: true },
+                { display: '人次', name: 'xdz_joincount', id: 'xdzj', minwidth: 30, width: 130, hide: true },
+                { display: '费用', name: 'xdz_money', id: 'xdzm', minwidth: 30, width: 130, hide: true }
+            ];
+            var grid2 = $("#grid2").ligerGrid({
+                isScroll: false,
+                height: 276,
+                width: '99.7%',
+                columns: [
+                    { display: '办事处', name: 'office', width: 95 },
+                    { display: '城市', name: 'city', minwidth: 30, width: 95 },
+                    { display: '活动名称', name: 'action', minwidth: 70, width: 200 },
+                    { display: '临促', columns: columns5 },
+                    { display: '形象促', columns: columns6 },
+                    //{ display: '小队长', columns: columns7 },
+                    { display: '总费用', name: 'totalmoney', minwidth: 40, width: 80 },
+                ], dataAction: 'server', usePager: false, rownumbers: true
+            });
+
+            //grid2.toggleCol('xdzc', false);
+            //grid2.toggleCol('xdzj', false);
+            //grid2.toggleCol('xdzm', false);
+
+            var params = {
+                "page": "1",
+                "pageSize": "10"
+            };
+            $.grid2.f_getData(grid2, '../Sys/checkActionInfo', params);
+            $("#info-grid2").show();
+            $.grid2.f_setOverClass();
+            $.grid2.f_pagerOnclick(grid2, '../Sys/checkActionInfo', params);
+            $.grid2.f_pageEnterDown(grid2, '../Sys/checkActionInfo', params);
+            $.grid2.f_pageSizeSelect(grid2, '../Sys/checkActionInfo', params);
+
+
+        });
+
+        $("#submit1").bind("click", function () {
+            $("#pageloading").hide();
+            var columns1 = [
+                { display: '人数', name: 'xc_count', minwidth: 30, width: 100 },
+                { display: '1个月活跃人数', name: 'xc_monthActive', minwidth: 30, width: 100 },
+                { display: '3个月活跃人数', name: 'xc_threeMonthActive', minwidth: 30, width: 100 }
+            ];
+            var columns2 = [
+                { display: '人数', name: 'lc_count', minwidth: 30, width: 100 },
+                { display: '1个月活跃人数', name: 'lc_monthActive', minwidth: 30, width: 100 },
+                { display: '3个月活跃人数', name: 'lc_threeMonthActive', minwidth: 30, width: 100 }
+            ];
+            var columns3 = [
+                { display: '人数', name: 'xdz_count', minwidth: 30, width: 100 },
+                { display: '1个月活跃人数', name: 'xdz_monthActive', minwidth: 30, width: 100 },
+                { display: '3个月活跃人数', name: 'xdz_threeMonthActive', minwidth: 30, width: 100 }
+            ];
+            var columns4 = [
+                { display: 'S级', name: 'S', minwidth: 30, width: 40 },
+                { display: 'A级', name: 'A', minwidth: 30, width: 40 },
+                { display: 'B级', name: 'B', minwidth: 30, width: 40 },
+            ];
+            var grid = $("#grid").ligerGrid({
+                isScroll: false,
+                height: 276,
+                width: '99.7%',
+                columns: [
+                    { display: '城市', name: 'city', width: 50 },
+                    { display: '数据库总人数', name: 'human_count', width: 100 },
+                    { display: '等级', columns: columns4 },
+                    { display: '上班总人数', name: 'attend_count', minwidth: 30, width: 100 },
+                    { display: '形象促', columns: columns1 },
+                    { display: '临促', columns: columns2 },
+                    { display: '小队长', columns: columns3 },
+                ], dataAction: 'server', usePager: false, rownumbers: true
+            });
+            var params1 = {
+                "content": $("#content1").val(),
+                "office": $("#content0").val(),
+                "page": "1",
+                "pageSize": "10"
+            };
+
+            $.grid.f_getData(grid, '../Sys/checkConditionInfo', params1);
+            $(".info-grid").show();
+            $.grid.f_setOverClass();
+            $.grid.f_pagerOnclick(grid, '../Sys/checkConditionInfo', params1);
+            $.grid.f_pageEnterDown(grid, '../Sys/checkConditionInfo', params1);
+            $.grid.f_pageSizeSelect(grid, '../Sys/checkConditionInfo', params1);
+
+        });
+
+        $("#submit2").bind("click", function () {
+            $("#pageloading2").hide();
+            //if ($("#content2").val() != "") {
+            var columns5 = [
+            { display: '人数', name: 'lc_count', minwidth: 30, width: 130 },
+            { display: '人次', name: 'lc_joincount', minwidth: 30, width: 130 },
+            { display: '费用', name: 'lc_money', minwidth: 30, width: 130 }
+            ];
+            var columns6 = [
+                { display: '人数', name: 'xc_count', minwidth: 30, width: 130 },
+                { display: '人次', name: 'xc_joincount', minwidth: 30, width: 130 },
+                { display: '费用', name: 'xc_money', minwidth: 30, width: 130 }
+            ];
+            var columns7 = [
+                { display: '人数', name: 'xdz_count', id: 'xdzc', minwidth: 30, width: 130 },
+                { display: '人次', name: 'xdz_joincount', id: 'xdzj', minwidth: 30, width: 130 },
+                { display: '费用', name: 'xdz_money', id: 'xdzm', minwidth: 30, width: 130 }
+            ];
+            var grid2 = $("#grid2").ligerGrid({
+                isScroll: false,
+                height: 400,
+                width: '99.7%',
+                columns: [
+                    { display: '办事处', name: 'office', width: 95 },
+                    { display: '城市', name: 'city', minwidth: 30, width: 95 },
+                    { display: '活动名称', name: 'action', minwidth: 70, width: 200 },
+                    { display: '临促', columns: columns5 },
+                    { display: '形象促', columns: columns6 },
+                    //{ display: '小队长', columns: columns7},
+                    { display: '总费用', name: 'totalmoney', minwidth: 40, width: 80 },
+                ], dataAction: 'server', usePager: false, rownumbers: true
+            });
+
+            //grid2.toggleCol('xdzc', false);
+            //grid2.toggleCol('xdzj', false);
+            //grid2.toggleCol('xdzm', false);
+
+
+            var params = {
+                "content": $("#content2").val(),
+                "actionTime": $("#actionTime").val(),
+                "page": "1",
+                "pageSize": "10"
+            };
+            $.grid2.f_getData(grid2, '../Sys/checkActionInfo', params);
+            $("#info-grid2").show();
+            $.grid2.f_setOverClass();
+            $.grid2.f_pagerOnclick(grid2, '../Sys/checkActionInfo', params);
+            $.grid2.f_pageEnterDown(grid2, '../Sys/checkActionInfo', params);
+            $.grid2.f_pageSizeSelect(grid2, '../Sys/checkActionInfo', params);
+        });
+    </script>
+</body>
+</html>

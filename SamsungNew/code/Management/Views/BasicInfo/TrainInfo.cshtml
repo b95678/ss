@@ -1,0 +1,214 @@
+﻿@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="~/lib/css/home/home.css" rel="stylesheet" type="text/css" />
+    <link href="~/lib/css/validation/screen.css" rel="stylesheet" type="text/css" />
+    <link type="text/css" rel="stylesheet" href="~/lib/css/core/ligerui-common.css">
+    <link type="text/css" rel="stylesheet" href="~/lib/css/core/ligerui-dialog.css">
+    <link type="text/css" rel="stylesheet" href="~/lib/css/core/ligerui-grid-1.css">
+    <link type="text/css" rel="stylesheet" href="~/lib/css/core/ligerui-grid-2.css">
+    <link type="text/css" rel="stylesheet" href="~/lib/css/core/ligerui-icons.css">
+    <link type="text/css" rel="stylesheet" href="~/lib/css/core/ligerui-menu.css">
+    <link type="text/css" rel="stylesheet" href="~/lib/css/core/ligerui-form.css">
+    <script src="~/lib/js/core/jquery-1.7.2.min.js" type="text/javascript"></script>
+    <script src="~/lib/js/core/jquery.validate.min.js" type="text/javascript"></script>
+    <script src="~/lib/js/core/messages_zh.js" type="text/javascript"></script>
+    <script src="~/lib/js/core/ligerui.min.js" type="text/javascript"></script>
+    <title>查看培训信息</title>
+</head>
+<body>
+    <div id="info-wrap">
+        <div class="navbar">
+            <div class="navbar-l"></div>
+            <div class="navbar-r"></div>
+            <div class="navbar-icon">
+                <img alt="" src="~/lib/css/icons/tag.gif">
+            </div>
+            <div class="navbar-inner">
+                <b>培训信息</b>
+            </div>
+        </div>
+        <div class="info-grid">
+            <div class="l-loading" style="display:block" id="pageloading"></div>
+            <div id="grid"></div>
+            <div class="l-panel-bar" id="pager">
+                <div class="l-panel-bbar-inner">
+                    <div class="l-bar-group  l-bar-message"><span class="l-bar-text"></span></div>
+                    <div class="l-bar-group l-bar-selectpagesize">
+                        <select name="rp">
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="40">40</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
+                    <div class="l-bar-separator"></div>
+                    <div class="l-bar-group">
+                        <div class="l-bar-button l-bar-btnfirst"><span class=""></span></div>
+                        <div class="l-bar-button l-bar-btnprev"><span class=""></span></div>
+                    </div>
+                    <div class="l-bar-separator"></div>
+                    <div class="l-bar-group">
+                        <span class="pcontrol"> <input type="text" maxlength="3" class="txt" style="width:20px" value="" size="4"> / <span></span></span>
+                    </div>
+                    <div class="l-bar-separator"></div>
+                    <div class="l-bar-group">
+                        <div class="l-bar-button l-bar-btnnext">
+                            <span class=""></span>
+                        </div>
+                        <div class="l-bar-button l-bar-btnlast">
+                            <span class=""></span>
+                        </div>
+                    </div>
+                    <div class="l-bar-separator"></div>
+                    <div class="l-bar-group">
+                        <div class="l-bar-button l-bar-btnload">
+                            <span class="l-abled"></span>
+                        </div>
+                    </div>
+                    <div class="l-bar-separator"></div>
+                    <div class="l-clear"></div>
+                </div>
+            </div>
+            <input type="hidden" id="page" value="" />
+            <input type="hidden" id="pageSize" value="" />
+            <input type="hidden" id="totalPage" value="" />
+            <input type="hidden" id="key" value="@ViewBag.id" />
+            <input type="hidden" id="content" value="@ViewBag.username" />
+            <input type="hidden" id="authority" value='@Session["authority"]'/>
+        </div> 
+    </div>
+    <script type="text/javascript" src="~/lib/js/grid/gridJs.js"></script>
+    <script type="text/javascript">
+        function f_edit(uniquenum,date) {
+            window.parent.$.ligerDialog.open(
+            {
+                width: 850,
+                height: 500,
+                isResize: true,
+                name: "edit",
+                url: '../Data_Query/editTrainInfo?uniquenum=' + uniquenum + "&&date=" + date,
+                title: '编辑培训信息',
+                buttons: [
+                    {
+                        text: '关闭',
+                        onclick: function (item, dialog) {
+                            window.location.reload();
+                            dialog.close();
+                        }
+                    }
+                ]
+            });
+        }
+        function f_show(uniquenum,date) {
+            window.parent.$.ligerDialog.open(
+            {
+                width: 600,
+                height: 480,
+                isResize: true,
+                name: "show",
+                url: '../Data_Query/showTrainInfo?uniquenum=' + uniquenum + "&&date=" + date,
+                title: '查看培训信息',
+                buttons: [
+                    {
+                        text: '关闭',
+                        onclick: function (item, dialog) {
+                            dialog.close();
+                        }
+                    }
+                ]
+            });
+        }
+        function f_show1(uniquenum) {
+            window.parent.$.ligerDialog.open(
+            {
+                width: 600,
+                height: 480,
+                isResize: true,
+                name: "show",
+                url: '../Data_Query/showBaseInfo?uniquenum=' + uniquenum,
+                title: '查看人员信息',
+                buttons: [
+                    {
+                        text: '关闭',
+                        onclick: function (item, dialog) {
+                            dialog.close();
+                        }
+                    }
+                ]
+            });
+        }
+        function f_delete(id, title) {
+            $.ligerDialog.confirm('是否删除 \'' + title + '\' 培训信息? ', function (yes) {
+                var params = { "trainInfoId": id };
+                if (yes) {
+                    $.grid.f_ajaxSubmit("/BasicInfo/DeleteTrainInfo", params, "成功删除培训信息!", true);
+                }
+            });
+        }
+        $(document).ready(function () {
+            var grid = $("#grid").ligerGrid({
+                height: '92%',
+                width: '99.7%',
+                columns: [
+                    { display: 'ID', name: 'id', width: 50, hide: true },
+                    { display: '唯一号', name: 'uniquenum', width: 80 },
+                    {
+                        display: '姓名', name: 'name', isAllowHide: false, width: 60,
+                        render: function (row) {
+                            var uniquenum = '\'' + row.uniquenum + '\'';
+                            var html = '<a href="javascript:;" onclick="f_show1(' + uniquenum + ')">' + row.name + '</a>';
+                            return html;
+                        }
+                    },
+                    { display: '办事处', name: 'office', width: 60 },
+                    { display: '城市', name: 'city', width: 60 },
+                    { display: '身份证', name: 'identity', width: 150 },
+                    { display: '培训产品', name: 'product', width: 80 },
+                    { display: '产品型号', name: 'type', width: 80 },
+                    { display: '培训分数', name: 'grade', width: 80 },
+                    { display: '培训人员', name: 'trainer', width: 80 },
+                    { display: '培训日期', name: 'date', width: 100 },
+                    { display: '录入人员', name: 'insertuser', width: 80 },
+                    { display: '编辑人员', name: 'updateuser', width: 80 },
+                    {
+                        display: '操作', isAllowHide: false, width: 100,
+                        render: function (row) {
+                            var uniquenum = '\'' + row.uniquenum + '\'';
+                            var date = '\'' + row.date + '\'';
+                            var name = '\'' + row.name + '\'';
+                            var trainId = '\'' + row.id + '\'';
+                            var html;
+                            html = '<a href="javascript:;" onclick="f_show(' + uniquenum + ',' + date + ')">查看</a>';
+                            if ($("#authority").val() == "督导") {
+                                html += '&nbsp;<a href="javascript:;" onclick="f_edit(' + uniquenum + ',' + date + ')">修改</a> ';
+                                html += '&nbsp;<a href="javascript:;" onclick="f_delete(' + trainId + ',' + name + ')">删除</a>';
+                            }
+                            return html;
+                        }
+                    },
+                ], dataAction: 'server', usePager: false
+            });
+            var params2 = {
+                "page": "1",
+                "pageSize": "15",
+                "key": $("#key").val(),
+                "content": $("#content").val()
+            };
+            $.grid.f_getData(grid, '../BasicInfo/checkTrainInfo', params2);
+            var params3 = {};
+            $.grid.f_setOverClass();
+            $.grid.f_pagerOnclick(grid, '../BasicInfo/checkTrainInfo', params3);
+            $.grid.f_pageEnterDown(grid, '../BasicInfo/checkTrainInfo', params3);
+            $.grid.f_pageSizeSelect(grid, '../BasicInfo/checkTrainInfo', params3);
+        });
+    </script>
+</body>
+</html>

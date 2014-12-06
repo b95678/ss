@@ -1,0 +1,51 @@
+﻿@{
+    Layout = null;
+}
+
+@model Management.Models.Train
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="~/lib/css/home/home.css" rel="stylesheet" type="text/css" />
+        <title>基本信息</title>
+    </head>
+    <body>
+        <div id="showbase">
+            <table border="1" class="t1">
+                <tr>
+                    <th colspan="2">唯一号</th>
+                    <td colspan="2">@Model.HumanBasicFile.uniNum</td>
+                    <th colspan="2">姓名</th>
+                    <td colspan="2">@Model.HumanBasicFile.Name</td>                                     
+                </tr>
+                <tr class="a1">                 
+                    <th colspan="2">办事处</th>
+                    <td colspan="2">@Model.HumanBasicFile.City1.Office.Name</td>
+                    <th colspan="2">城市</th>
+                    <td colspan="2">@Model.HumanBasicFile.City1.Name</td>
+                </tr>               
+                <tr>
+                    <th colspan="2">培训产品</th>
+                    <td colspan="2">@Model.TrainProduction</td>
+                    <th colspan="2">培训型号</th>
+                    <td colspan="2">@Model.Trainpro</td>   
+                    <th colspan="2">身份证号</th>
+                    <td colspan="4">@Model.HumanBasicFile.IDcardNo</td>    
+                </tr>
+                    <tr>
+                    <th colspan="2">培训讲师</th>
+                    <td colspan="2">@Model.Trainlecturer</td>
+                    <th colspan="2">培训分数</th>
+                    <td colspan="2">@Model.TrainScore</td>
+                  </tr>
+                <tr class="a1">
+                    <th colspan="2">培训开始时间</th>
+                    <td colspan="4">@Model.TrainStartTime</td>                      
+                    <th colspan="2">培训结束始时间</th>
+                    <td colspan="4">@Model.TrainEndTime</td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>

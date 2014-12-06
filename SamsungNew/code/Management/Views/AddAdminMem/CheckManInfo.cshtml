@@ -1,0 +1,316 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="~/lib/css/home/home.css" rel="stylesheet" />
+        <link href="~/lib/css/validation/screen.css" rel="stylesheet" />
+        <link href="~/lib/css/core/ligerui-common.css" rel="stylesheet" />
+        <link href="~/lib/css/core/ligerui-dialog.css" rel="stylesheet" />
+        <link href="~/lib/css/core/ligerui-form.css" rel="stylesheet" />
+        <script src="~/Content/js/core/jquery-1.7.2.min.js"></script>
+        <script src="~/Content/js/core/jquery.validate.min.js"></script>
+        <script src="~/Content/js/core/messages_zh.js"></script>
+        <script src="~/Content/js/core/ligerui.min.js"></script>
+        <title>人员录入</title>
+    </head>
+    <body>
+        <div id="info-wrap">
+            <div class="navbar">
+                <div class="navbar-l"></div>
+                <div class="navbar-r"></div>
+                <div class="navbar-icon">
+                    <img alt=""  src="~/Content/images/tag.gif" />
+                </div>
+                <div class="navbar-inner">
+                    <b>人员录入 [带*为必填]</b>
+                </div>
+            </div>
+            <div class="info-form">
+                <form action="saveManInfo.action" name="baseinfo-form" id="baseinfo-form" enctype="multipart/form-data" method="post">
+                    <table cellspacing="0" cellspadding="0">
+                        <tr>
+                            <th>用户名*</th>
+                            <td>
+                                <input name="captainInfo.username" id="username" type="text" value="" class="txt"/>
+                            </td>
+                            <th>密码*</th>
+                            <td><input name="captainInfo.password" id="password" type="text" value="" class="txt"/></td>
+                        </tr>
+                        <tr>
+                            <th>办事处*</th>
+                            <td>
+                                <select name="captainInfo.office" id="office"></select>
+                            </td>
+                            <th>城市*</th>
+                            <td>
+                                <input name="captainInfo.city" id="city" type="text" value="" class="txt"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>类型*</th>
+                            <td>
+                                <select name="captainInfo.role" id="role"></select>
+                            </td>
+                            <th>姓名*</th>
+                            <td><input name="captainInfo.name" id="name" type="text" value="" class="txt"/></td>                         
+                        </tr>
+                        <tr>
+                            <th>性别*</th>
+                            <td>
+                                <select name="captainInfo.sex" id="sex">
+                                    <option value="男">男</option>
+                                    <option value="女">女</option>
+                                </select>
+                            </td>
+                            <th>电话号码*</th>
+                            <td><input name="captainInfo.mobile" id="mobile" type="text" value="" class="txt"/></td>
+                        </tr>
+                        <tr>
+                            <th>上级*</th>
+                            <td>
+                                <select name="captainInfo.supervisor" id="supervisor"></select>
+                            </td>
+                            <th></th>
+                            <td><input id="birth" name="captainInfo.birth" type="hidden" value="-"/></td>
+                        </tr>
+                        <tr>
+                            <th>身份证号码*</th>
+                            <td><input name="captainInfo.identity" id="identity" type="text" value="" class="txt"/></td>
+                            <th></th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>银行卡号*</th>
+                            <td><input name="captainInfo.bank" id="bank" type="text" value="" class="txt"/></td>
+                            <th>开户行*</th>
+                            <td>
+                                <select name="captainInfo.account" id="account">
+                                    <option value="中国工商银行">中国工商银行</option>
+                                    <option value="中国银行总行">中国银行总行</option>
+                                    <option value="中国农业银行股份有限公司">中国农业银行股份有限公司</option>
+                                    <option value="中国建设银行股份有限公司总行">中国建设银行股份有限公司总行</option>
+                                    <option value="交通银行">交通银行</option>
+                                    <option value="招商银行股份有限公司">招商银行股份有限公司</option>
+                                    <option value="广东发展银行股份有限公司运营作业部">广东发展银行股份有限公司运营作业部</option>
+                                    <option value="上海浦东发展银行">上海浦东发展银行</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>学校*</th>
+                            <td><input name="captainInfo.school" id="school" type="text" value="" class="txt"/></td>
+                            <th>专业*</th>
+                            <td><input name="captainInfo.major" id="major" type="text" value="" class="txt"/></td>
+                        </tr>
+                        <tr>
+                            <th>毕业时间*</th>
+                            <td><input id="graduationdate" name="captainInfo.graduationdate" type="text"></td>
+                            <th>学历*</th>
+                            <td><input name="captainInfo.education" id="education" type="text" value="" class="txt"/></td>
+                        </tr>
+                        <tr>
+                            <th>身高</th>
+                            <td><input name="captainInfo.height" id="height" type="text" value="" class="txt"/></td>
+                            <th>体重</th>
+                            <td><input name="captainInfo.weight" id="weight" type="text" value="" class="txt"/></td>
+                        </tr>
+                        <tr>
+                            <th>三围</th>
+                            <td><input name="captainInfo.meas" id="meas" type="text" value="" class="txt"/></td>
+                            <th>特长</th>
+                            <td><input name="captainInfo.skill" id="skill" type="text" value="" class="txt"/></td>
+                        </tr>
+                        <tr>
+                            <th>个人照片</th>
+                            <td>是否上传个人照片 <input type="checkbox" id="isPersonal" name="isPersonal" value="1"/></td>
+                            <th>学生证</th>
+                            <td>是否上传学生证照片 <input type="checkbox" id="isStudent" name="isStudent" value="2"/></td>
+                        </tr>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <td><input name="image" id="personal" type="file"/></td>
+                            <th>&nbsp;</th>
+                            <td><input name="image" id="student" type="file"/></td>
+                        </tr>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <td>
+                                <input id="type"  name="type" type="hidden" value="insert"/>
+                                <input id="submit" class="l-button3" type="submit" value="提交"/>
+                                <input id="reset" class="l-button3" type="reset" value="重置"/>
+                                <input id="flag"  type="hidden" value="0"/>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#graduationdate").ligerDateEditor({ format: "yyyy年MM月", label: '', labelWidth: 100, labelAlign: 'center' });
+                $("#personal").hide();
+                $("#student").hide();
+                $("#reset").bind("click", function () {
+                    $("#personal").hide();
+                    $("#student").hide();
+                });
+                $("#isPersonal").bind("click", function () {
+                    if ($(this).attr("checked") == "checked") {
+                        $("#personal").show();
+                    } else {
+                        $("#personal").hide();
+                    }
+                });
+                $("#isStudent").bind("click", function () {
+                    if ($(this).attr("checked") == "checked") {
+                        $("#student").show();
+                    } else {
+                        $("#student").hide();
+                    }
+                });
+                if ($("#flag").val() == "1") {
+                    var dialog = $.ligerDialog.tip({ title: "提示", content: "成功录入人员信息!" });
+                    setTimeout(function () {
+                        dialog.close();
+                    }, 5000);
+                }
+                $.ajax({
+                    url: "supervisorHtmlValue.action",
+                    type: "post",
+                    dataType: "json",
+                    success: function (data) {
+                        $("#role").html(data.roleValue);
+                        $("#office").html(data.officeValue);
+                        $("#supervisor").html(data.supervisorValue);
+                    }
+                });
+                $("#supervisor").hide();
+                $("#role").bind("change", function () {
+                    if ($("#role").val() == "2" || $("#role").val() == "4") {
+                        $("#supervisor").hide();
+                    } else if ($("#role").val() == "3" || $("#role").val() == "4") {
+                        $("#supervisor").show();
+                    }
+                });
+                $("#baseinfo-form").validate({
+                    onkeyup: false,
+                    focusInvalid: true,
+                    rules: {
+                        "captainInfo.city": {
+                            required: true
+                        },
+                        "captainInfo.name": {
+                            required: true
+                        },
+                        "captainInfo.username": {
+                            required: true,
+                            remote: {
+                                url: "validateCaptain.action",
+                                type: "post",
+                                dataType: "json"
+                            }
+                        },
+                        "captainInfo.password": {
+                            required: true
+                        },
+                        "captainInfo.identity": {
+                            required: true,
+                            rangelength: [18, 18],
+                            remote: {
+                                url: "validateIdentity.action",
+                                type: "post",
+                                dataType: "json"
+                            }
+                        },
+                        "captainInfo.mobile": {
+                            required: true,
+                            remote: {
+                                url: "validateMobile.action",
+                                type: "post",
+                                dataType: "json"
+                            }
+                        },
+                        "captainInfo.bank": {
+                            required: true,
+                            remote: {
+                                url: "validateBank.action",
+                                type: "post",
+                                dataType: "json"
+                            }
+                        },
+                        "captainInfo.account": {
+                            required: true
+                        },
+                        "captainInfo.school": {
+                            required: true
+                        },
+                        "captainInfo.major": {
+                            required: true
+                        },
+                        "captainInfo.education": {
+                            required: true
+                        },
+                        "captainInfo.graduationdate": {
+                            required: true
+                        },
+                        "captainInfo.birth": {
+                            required: true
+                        }
+                    },
+                    messages: {
+                        "captainInfo.city": {
+                            required: "请输入城市"
+                        },
+                        "captainInfo.name": {
+                            required: "请输入姓名"
+                        },
+                        "captainInfo.username": {
+                            required: "请输入用户名",
+                            remote: $.format("用户名已存在")
+                        },
+                        "captainInfo.password": {
+                            required: "请输入密码"
+                        },
+                        "captainInfo.identity": {
+                            required: "请输入身份证号码",
+                            rangelength: "身份证号码18位",
+                            remote: $.format("身份证号码已存在")
+                        },
+                        "captainInfo.mobile": {
+                            required: "请输入电话号码",
+                            remote: $.format("电话号码已存在")
+                        },
+                        "captainInfo.bank": {
+                            required: "请输入银行账号",
+                            remote: $.format("银行账号已存在")
+                        },
+                        "captainInfo.account": {
+                            required: "请输入账户"
+                        },
+                        "captainInfo.school": {
+                            required: "请输入学校"
+                        },
+                        "captainInfo.major": {
+                            required: "请输入专业"
+                        },
+                        "captainInfo.education": {
+                            required: "请输入学历"
+                        },
+                        "captainInfo.graduationdate": {
+                            required: "请输入毕业时间"
+                        },
+                        "captainInfo.birth": {
+                            required: "请输入出身年月"
+                        }
+                    }
+                });
+            });
+
+        </script>
+    </body>
+</html>
+

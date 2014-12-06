@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1c18d9bb79ea4d26a46d2ea7fd017821" Name="Diagram1">
+        <EntityTypeShape EntityType="SS_HRM_DBModel.AttendingInfo" Width="1.5" PointX="11.25" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS_HRM_DBModel.Authority" Width="1.5" PointX="3.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS_HRM_DBModel.Bank" Width="1.5" PointX="0.75" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS_HRM_DBModel.City" Width="1.5" PointX="0.75" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS_HRM_DBModel.DianJian" Width="1.5" PointX="5.25" PointY="18.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS_HRM_DBModel.Feedback" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS_HRM_DBModel.HumanBasicFile" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS_HRM_DBModel.LoginLog" Width="1.5" PointX="8.25" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS_HRM_DBModel.Managers" Width="1.5" PointX="6" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS_HRM_DBModel.MonthTraining" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS_HRM_DBModel.Notice" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS_HRM_DBModel.Office" Width="1.5" PointX="1.5" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS_HRM_DBModel.product" Width="1.5" PointX="8" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS_HRM_DBModel.ProductCategory" Width="1.5" PointX="5.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS_HRM_DBModel.ReplyFeedback" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS_HRM_DBModel.Salesman" Width="1.5" PointX="11.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS_HRM_DBModel.SShop" Width="1.5" PointX="9" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS_HRM_DBModel.TodayWork" Width="1.5" PointX="13.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS_HRM_DBModel.TomorrowWorkPlan" Width="1.5" PointX="13.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS_HRM_DBModel.Train" Width="1.5" PointX="5.25" PointY="22.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS_HRM_DBModel.WorkContent" Width="1.5" PointX="8.25" PointY="12.375" IsExpanded="true" />
+        <AssociationConnector Association="SS_HRM_DBModel.FK_AttendingInfo_HumanBasicFile" ManuallyRouted="false" />
+        <AssociationConnector Association="SS_HRM_DBModel.FK_AttendingInfo_SShop" ManuallyRouted="false" />
+        <AssociationConnector Association="SS_HRM_DBModel.FK_Managers_Authority" ManuallyRouted="false" />
+        <AssociationConnector Association="SS_HRM_DBModel.FK_HumanBasicFile_Bank" ManuallyRouted="false" />
+        <AssociationConnector Association="SS_HRM_DBModel.FK_Managers_Bank" ManuallyRouted="false" />
+        <AssociationConnector Association="SS_HRM_DBModel.FK_City_Office" ManuallyRouted="false" />
+        <AssociationConnector Association="SS_HRM_DBModel.FK_HumanBasicFile_City" ManuallyRouted="false" />
+        <AssociationConnector Association="SS_HRM_DBModel.FK_Managers_City" ManuallyRouted="false" />
+        <AssociationConnector Association="SS_HRM_DBModel.FK_SShop_City" ManuallyRouted="false" />
+        <AssociationConnector Association="SS_HRM_DBModel.FK_DianJian_HumanBasicFile" ManuallyRouted="false" />
+        <AssociationConnector Association="SS_HRM_DBModel.FK_ReplyFeedback_Feedback" ManuallyRouted="false" />
+        <AssociationConnector Association="SS_HRM_DBModel.FK_HumanBasicFile_Managers" ManuallyRouted="false" />
+        <AssociationConnector Association="SS_HRM_DBModel.FK_Train_HumanBasicFile" ManuallyRouted="false" />
+        <AssociationConnector Association="SS_HRM_DBModel.FK_LoginLog_Managers" ManuallyRouted="false" />
+        <AssociationConnector Association="SS_HRM_DBModel.FK_WorkContent_Managers" ManuallyRouted="false" />
+        <AssociationConnector Association="SS_HRM_DBModel.FK_product_ProductCategory" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

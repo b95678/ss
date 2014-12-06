@@ -1,0 +1,87 @@
+﻿@{
+    Layout = null;
+}
+
+@model Management.Models.HumanBasicFile
+
+@{
+    List<Management.Models.DianJian> mm = (List<Management.Models.DianJian>)ViewBag.dj;
+    }
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="~/lib/css/home/home.css" rel="stylesheet" />
+    <link href="~/lib/css/validation/screen.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-common.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-dialog.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-grid-1.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-grid-2.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-icons.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-menu.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-form.css" rel="stylesheet" />
+    <script src="~/lib/js/core/jquery-1.7.2.min.js"></script>
+    <script src="~/lib/js/core/jquery.validate.min.js"></script>
+    <script src="~/lib/js/core/messages_zh.js"></script>
+    <script src="~/lib/js/core/ligerui.min.js"></script>
+    <title>点检情况</title>
+</head>
+<body>
+    <div id="info-wrap">
+            <div class="navbar">
+                <div class="navbar-l"></div>
+                <div class="navbar-r"></div>
+                <div class="navbar-icon">
+                    <img alt=""  src="~/lib/css/icons/tag.gif">
+                </div>
+                <div class="navbar-inner">
+                    <b>点检情况</b>
+                </div>
+            </div>
+        </div>
+    <div id="info-wrap">
+    <div class="navbar">        
+                <div class="navbar-l"></div>
+                <div class="navbar-r"></div>
+    <div class="navbar-inner">
+                <span>点检用户：<b>@Model.Name</b></span> 
+        </div>
+        </div>
+    </div>
+    <div id="info-wrap">
+    <div class="navbar">
+        <div class="info-form">
+        <table cellspacing="0" cellspadding="0" style="width: 80%">
+            <tr align:"center">
+                <th align="center"><b>分数</b></th>
+                <th align="center"><b>仪容仪表</b></th>
+                <th align="center"><b>工作态度</b></th>
+                <th align="center"><b>产品知识</b></th>
+                <th align="center"><b>点检内容</b></th>
+                <th align="center"><b>点检时间</b></th>
+            </tr>
+            @if (ViewBag.dj != null)
+            {
+                foreach (var item in mm)
+                { <tr align:"center"; style="background-color:#F2F2F2;border:1px #E4E4E4 solid;padding: 5px;margin-bottom: 5px;">
+                    <td align="center">@item.Score</td>                   
+                    <td align="center">@item.Face</td>
+                    <td align="center">@item.WorkAttitude</td>
+                    <td align="center">@item.KOP</td>
+                    <td align="center">@item.DJContent</td>
+                    <td align="center">@item.DJTime</td>
+                  </tr>
+                }
+            }
+            
+        </table>
+             </div>
+            </div>   
+        </div>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="~/lib/css/home/home.css" rel="stylesheet" />
+        <link href="~/lib/css/validation/screen.css" rel="stylesheet" />
+        <link href="~/lib/css/core/ligerui-common.css" rel="stylesheet" />
+        <link href="~/lib/css/core/ligerui-dialog.css" rel="stylesheet" />
+        <link href="~/lib/css/core/ligerui-form.css" rel="stylesheet" />
+        <script src="~/lib/js/core/jquery-1.7.2.min.js"></script>
+        <script src="~/lib/js/core/jquery.validate.min.js"></script>
+        <script src="~/lib/js/core/ligerui.min.js"></script>
+        <script src="~/lib/js/core/messages_zh.js"></script>
+        <title>添加公告</title>
+    </head>
+    <body>
+        <div id="info-wrap">
+            <div class="navbar">
+                <div class="navbar-l"></div>
+                <div class="navbar-r"></div>
+                <div class="navbar-icon">
+                    <img alt=""  src="~/lib/css/icons/tag.gif">
+                </div>
+                <div class="navbar-inner">
+                    <b>添加公告</b>
+                </div>
+            </div>
+            <div style="background-color:#F2F2F2;border:1px #E4E4E4 solid;">
+                <form action="/sys/addNews" name="news-form" id="news-form" method="post">
+                    <table cellspacing="0" cellspadding="0" style="width: 80%">
+                        <tr>
+                            <td style="width: 50px">标题*</td>
+                            <td style="width: 500px">
+                                <input name="newsInfo.title" id="title" type="text" value="@ViewBag.title" class="txt" style="width:300px"/>
+                                @Html.ValidationMessage("newsInfo.title")
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>内容*</td>
+                            <td>
+                                <textarea rows="6" cols="60" name="newsInfo.content" id="content">@ViewBag.content</textarea>
+                                @Html.ValidationMessage("newsInfo.content")
+                            </td>
+                        </tr>                     
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>
+                                <input id="submit" class="l-button3" type="submit" value="提交"/>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#news-form").validate({
+                    onkeyup: false,
+                    focusInvalid: true,
+                    rules: {
+                        "newsInfo.title": {
+                            required: true
+                        },
+                        "newsInfo.content": {
+                            required: true
+                        }
+                    },
+                    messages: {
+                        "newsInfo.title": {
+                            required: "请输入标题"
+                        },
+                        "newsInfo.content": {
+                            required: "请输入内容"
+                        }
+                    }
+                });
+            });
+
+        </script>
+    </body>
+</html>
+

@@ -1,0 +1,299 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="~/lib/css/home/home.css" rel="stylesheet" />
+    <link href="~/lib/css/validation/screen.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-common.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-dialog.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-form.css" rel="stylesheet" />
+    <script src="~/lib/js/core/jquery-1.7.2.min.js"></script>
+    <script src="~/lib/js/core/jquery.validate.min.js"></script>
+    <script src="~/lib/js/core/messages_zh.js"></script>
+    <script src="~/lib/js/core/ligerui.min.js"></script>
+    <title>日报状况</title>
+</head>
+<body>
+    <div id="info-wrap">
+        <div class="navbar">
+            <div class="navbar-l"></div>
+            <div class="navbar-r"></div>
+            <div class="navbar-icon">
+                <img alt="" src="~/lib/css/icons/tag.gif">
+            </div>
+            <div class="navbar-inner">
+                <b>日报状况 [带*为必填]</b>
+            </div>
+        </div>
+        <div class="info-form daliy-title">
+            <span id="date"></span><span id="username">@Session["admin"]</span>
+        </div>
+        <div class="info-form daliy daliy-title">
+            <span>上班信息</span><span>总人数：<span id="totalWork"></span></span><span>总薪资：<span id="totalWage"></span></span>
+            <span><input id="addwork" class="l-button3" type="button" value="添加" /></span>
+            <span><input id="workdetail" class="l-button3" type="button" value="详细" /></span>
+        </div>
+        <div class="info-form daliy daliy-title">
+            <span>培训信息</span><span>总人数：<span id="totalTrain"></span></span>
+            <span><input id="addtrain" class="l-button3" type="button" value="添加" /></span>
+            <span><input id="traindetail" class="l-button3" type="button" value="详细" /></span>
+        </div>
+        <form action="/BasicInfo/BasicStatic" name="daliy-form" id="daliy-form" enctype="multipart/form-data" method="post">
+            <div class="info-form daliy daliy-title">
+                <table cellspacing="0" cellspadding="0">
+                    <tr>
+                        <th>督导日报标题<span style="color:red">*</span></th>
+                    </tr>
+                    <tr>
+                        <td><input name="daliyReport.title" id="title" value="@ViewBag.title" class="txt" /></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="info-form daliy">
+                <table cellspacing="0" cellspadding="0">
+                    <tr>
+                        <th>今日工作内容<span style="color:red">*</span></th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <textarea name="daliyReport.todayWork" id="todaywork" rows="6" cols="80">@ViewBag.todaywork</textarea>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="info-form daliy">
+                <table cellspacing="0" cellspadding="0">
+                    <tr>
+                        <th>明日工作内容<span style="color:red">*</span></th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <textarea name="daliyReport.tomorrowWork" id="tomorrowwork" rows="6" cols="80">@ViewBag.tomorrowwork</textarea>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="info-form daliy daliy-title">
+                <table cellspacing="0" cellspadding="0">
+                    <tr>
+                        <th>审核结果</th>
+                        <td id="Ispassornot">@ViewBag.pass</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="info-form daliy">
+                <table cellspacing="0" cellspadding="0">
+                    <tr>
+                        <th>邮件截图</th>
+                    </tr>
+                    <tr>
+                        <td id="mailpic">
+                            <input id="addmail" class="l-button3333" type="button" value="添加邮件" /><br />
+                            <input data-val="true" type="file" id="mail" name="mail" />
+                            @Html.ValidationMessage("mail", new { style = "color:red" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <td>
+                            <input id="amount" type="hidden" name="type" value="1" />
+                            <input id="mailpics" type="hidden" name="mailpics" value="@ViewBag.pic" />
+                            <input id="id" type="hidden" name="daliyReport.id" value="@ViewBag.id" />
+                            <input id="createtime" type="hidden" name="daliyReport.createtime" value="" />
+                            <input id="totalWork_" type="hidden" name="daliyReport.totalWork" value="" />
+                            <input id="totalWage_" type="hidden" name="daliyReport.totalWage" value="" />
+                            <input id="totalTrain_" type="hidden" name="daliyReport.totalTrain" value="" />
+                            <input id="submit" class="l-button3" type="submit" value="提交" />
+                            <input id="caogao" class="l-button3333" type="button" value="保存草稿" />
+                            <input id="flag" type="hidden" value="@ViewBag.flag" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript">
+        function f_show1(url) {
+            window.parent.$.ligerDialog.open(
+            {
+                width: 1200,
+                height: 600,
+                isResize: true,
+                name: "show",
+                url: url,
+                title: '详细',
+                buttons: [
+                    {
+                        text: '关闭',
+                        onclick: function (item, dialog) {
+                            window.location.reload();
+                            dialog.close();
+                        }
+                    }
+                ]
+            });
+        }
+        function f_show(url) {
+            window.parent.$.ligerDialog.open(
+            {
+                width: 1200,
+                height: 500,
+                isResize: true,
+                name: "show",
+                url: url,
+                title: '添加信息',
+                buttons: [
+                    {
+                        text: '关闭',
+                        onclick: function (item, dialog) {
+                            window.location.reload();
+                            dialog.close();
+                        }
+                    }
+                ]
+            });
+        }
+        function createfile() {
+            var amountpic = $("#amount").val();
+            var amount = parseInt(amountpic, 10);
+            if (amount > 4) {
+                $.ligerDialog.warn('已超过最大邮件数！');
+                return;
+            }
+            var newamount = "mail" + amountpic;
+            $("#mailpic").append('<input data-val="true" type="file" id="' + newamount + '" name="' + newamount + '" />' + '<span class="field-validation-valid" data-valmsg-for="' + newamount + '" data-valmsg-replace="true" style="color:red"></span>');
+            $("#amount").val(amount + 1);
+        }
+
+        function showmailpic() {
+            var mailpics = $("#mailpics").val();
+            if (mailpics == "") { return;}
+            var mailpicsarr = mailpics.split("?");
+            for (var i = 0; i < mailpicsarr.length-1; i++) {
+                if (i == 0) {
+                    $("#mail").before('<a href="/uploadImg/MailImg/' + mailpicsarr[i] + '" target="_blank"><img src="/uploadImg/MailImg/suo/' + mailpicsarr[i] + '" width="120" height="60" /></a>');
+                }
+                else {
+                    $("#mailpic").append('<a href="/uploadImg/MailImg/' + mailpicsarr[i] + '" target="_blank"><img src="/uploadImg/MailImg/suo/' + mailpicsarr[i] + '" width="120" height="60" /></a>');
+                    createfile();
+                }
+            }
+        }
+        $(document).ready(function () {
+            showmailpic();
+            $("#addmail").click(function () {
+                createfile();
+            });
+            $("#addwork").click(function () {
+                f_show("../Data_Entry/On_Duty");
+            });
+            $("#addtrain").click(function () {
+                f_show("../Data_Entry/Trian_info");
+            });
+            $("#workdetail").click(function () {
+                var id = $("#id").val();
+                var username = $("#username").html();
+                f_show1("/BasicInfo/WorkInfo?id=" + encodeURIComponent(id, 'UTF-8') + "&usernames=" + encodeURIComponent(username, 'UTF-8'));
+            });
+            $("#traindetail").click(function () {
+                var id = $("#id").val();
+                var username = $("#username").html();
+                f_show1("/BasicInfo/TrainInfo?id=" + encodeURIComponent(id, 'UTF-8') + "&usernames=" + encodeURIComponent(username, 'UTF-8'));
+            });
+            $("#caogao").click(function () {
+                $.ajax({
+                    url: "/BasicInfo/BasicStaticCao",
+                    type: "post",
+                    data: {
+                        "daliyReport.totalWork": $("#totalWork").html(),
+                        "daliyReport.totalWage": $("#totalWage").html(),
+                        "daliyReport.totalTrain": $("#totalTrain").html(),
+                        "daliyReport.todayWork": $("#todaywork").val(),
+                        "daliyReport.tomorrowWork": $("#tomorrowwork").val(),
+                        "daliyReport.title": $("#title").val(),
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        var dialog = $.ligerDialog.tip({ title: "提示", content: "成功保存草稿!" });
+                        setTimeout(function () {
+                            dialog.close();
+                        }, 5000);
+                    }
+                });
+            });
+            if ($("#flag").val() == "1") {
+                var dialog = $.ligerDialog.tip({ title: "提示", content: "成功提交!" });
+                setTimeout(function () {
+                    dialog.close();
+                }, 5000);
+            }
+            var date = new Date();
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            if (month < 10) {
+                month = "0" + month;
+            }
+            var day = date.getDate();
+            if (day < 10) {
+                day = "0" + day;
+            }
+            if ($("#flag").val() == "1") {
+                parent.tab.removeTabItem("daliy");
+            }
+            $("#date").html(year + "年" + month + "月" + day + "日");
+            $("#createtime").val($("#date").html());
+            $.ajax({
+                url: "/BasicInfo/CheckDaliyMessage",
+                type: "post",
+                data: { "username": $("#username").html(), "id": $("#id").val() },
+                dataType: "json",
+                success: function (data) {
+                    $("#totalWork").html(data.totalWork);
+                    $("#totalWage").html(data.totalWage);
+                    $("#totalTrain").html(data.totalTrain);
+                    $("#totalWork_").val(data.totalWork);
+                    $("#totalWage_").val(data.totalWage);
+                    $("#totalTrain_").val(data.totalTrain);
+                }
+            });
+            $("#daliy-form").validate({
+                onkeyup: false,
+                focusInvalid: true,
+                rules: {
+                    "daliyReport.todayWork": {
+                        required: true
+                    },
+                    "daliyReport.tomorrowWork": {
+                        required: true
+                    },
+                    "daliyReport.title": {
+                        required: true
+                    }
+                },
+                messages: {
+                    "daliyReport.todayWork": {
+                        required: "请填写今日工作内容"
+                    },
+                    "daliyReport.tomorrowWork": {
+                        required: "请填写明日工作内容"
+                    },
+                    "daliyReport.title": {
+                        required: "请填写督导日报标题"
+                    }
+                },
+                submitHandler: function (form) {
+                    if ($("#Ispassornot").html() == "通过") {
+                         $.ligerDialog.warn('日报已通过审核！');
+                    }
+                    else { form.submit(); }
+                }
+            });
+
+        })
+    </script>
+</body>
+</html>

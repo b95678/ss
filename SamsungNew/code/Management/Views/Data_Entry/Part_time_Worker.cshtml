@@ -1,0 +1,580 @@
+﻿@{
+    Layout = null;
+}
+@using Management.Models;
+@model List<Managers>
+@{
+    List<Bank> bankList = (List<Bank>)ViewBag.bank;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="~/lib/css/home/home.css" rel="stylesheet" />
+    <link href="~/lib/css/validation/screen.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-common.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-dialog.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-form.css" rel="stylesheet" />
+    <script src="~/Content/js/core/jquery-1.7.2.min.js"></script>
+    <script src="~/Content/js/core/jquery.validate.min.js"></script>
+    <script src="~/Content/js/core/messages_zh.js"></script>
+    <script src="~/Content/js/core/ligerui.min.js"></script>
+    <script src="~/lib/js/md5/md5.js"></script>
+@*    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="~/lib/css/home/home.css" rel="stylesheet" type="text/css" />
+    <link href="~/lib/css/validation/screen.css" rel="stylesheet" type="text/css" />
+    <link type="text/css" rel="stylesheet" href="~/lib/css/core/ligerui-common.css">
+    <link type="text/css" rel="stylesheet" href="~/lib/css/core/ligerui-dialog.css">
+    <link type="text/css" rel="stylesheet" href="~/lib/css/core/ligerui-form.css">
+    <script src="~/lib/js/core/jquery-1.7.2.min.js" type="text/javascript"></script>
+    <script src="~/lib/js/core/jquery.validate.min.js" type="text/javascript"></script>
+    <script src="~/lib/js/core/messages_zh.js" type="text/javascript"></script>
+    <script src="~/lib/js/core/ligerui.min.js" type="text/javascript"></script>*@
+    <title>基本信息</title>
+</head>
+<body>
+    <div id="info-wrap">
+        <div class="navbar">
+            <div class="navbar-l"></div>
+            <div class="navbar-r"></div>
+            <div class="navbar-icon">
+                <img alt="" src="~/lib/css/icons/tag.gif">
+            </div>
+            <div class="navbar-inner">
+                <b>基本信息 [带*为必填]</b>
+            </div>
+        </div>
+        <input id="isdraft" value="0" type="hidden" />
+        <div>
+            <h3 style="color: red;">注：不清楚请留空，然后点击保存草稿箱。</h3>
+        </div>
+        <div class="info-form">
+            <form action="../Data_Entry/Part_time_Worker" name="baseinfo-form" id="baseinfo-form" enctype="multipart/form-data" method="post">
+                <table cellspacing="0" cellspadding="0">
+                    <tr>
+                        <th>上级<span style="color: red">*</span></th>
+                        <td>
+
+                            <select data-val="true" name="staffInfo.captain" id="captain">
+                            </select>
+                            @Html.ValidationMessage("staffInfo.captain", new { id = "captainValid", style = "font-style:italic;color:red;" })
+                        </td>
+                        <th></th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>办事处<span style="color: red">*</span></th>
+                        <td>
+                            <select data-val="true" name="staffInfo.office" id="office">
+                            </select>
+                            @Html.ValidationMessage("staffInfo.office", new { id = "officeValid", style = "font-style:italic;color:red;" })
+                        </td>
+                        <th>城市<span style="color: red">*</span></th>
+                        <td>
+                            <select data-val="true" name="staffInfo.city" id="city">
+                            </select>
+                            @Html.ValidationMessage("staffInfo.city", new { id = "cityValid", style = "font-style:italic;color:red;" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>姓名<span style="color: red">*</span></th>
+                        <td>
+                            <input data-val="true" name="staffInfo.name" id="name" type="text" value="" class="txt" />
+                            @Html.ValidationMessage("staffInfo.name", new { id = "nameValid", style = "font-style:italic;color:red;" })
+                        </td>
+                        <th>唯一号<span style="color: red">*</span></th>
+                        <td>
+                            <input data-val="true" id="uniquenum" type="text" value="" class="txt" disabled="disabled" />
+                            <input name="staffInfo.uniquenum" id="uniquenums" type="hidden" value="" />
+                            <input id="load" class="l-button3" type="button" value="生成" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>性别<span style="color: red">*</span></th>
+                        <td>
+                            <select name="staffInfo.sex" id="sex">
+                                <option value="男">男</option>
+                                <option value="女">女</option>
+                            </select>
+                        </td>
+                        <th>等级<span style="color: red">*</span></th>
+                        <td>
+                            <select name="staffInfo.rank" id="rank">
+                                <option value="S">S</option>
+                                <option value="B" selected="selected">B</option>
+                                <option value="A">A</option>
+                            </select>
+                        </td>
+                        <th>籍贯<span style="color: red">*</span></th>
+                        <td>
+                            <input id="birth" data-val="true" name="staffInfo.birth" type="text" value="">
+                            @Html.ValidationMessage("staffInfo.birth", new { id = "birthValid", style = "font-style:italic;color:red;" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>身份证号码<span style="color: red">*</span></th>
+                        <td>
+                            <input name="staffInfo.identity" data-val="true" id="identity" type="text" value="" class="txt" />
+                            @Html.ValidationMessage("staffInfo.identity", new { id = "identityValid", style = "font-style:italic;color:red;" })
+                        </td>
+                        <th>电话号码<span style="color: red">*</span></th>
+                        <td>
+                            <input name="staffInfo.mobile" data-val="true" id="mobile" type="text" value="" class="txt" />
+                            @Html.ValidationMessage("staffInfo.mobile", new { id = "mobileValid", style = "font-style:italic;color:red;" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>银行卡号<span style="color: red">*</span></th>
+                        <td>
+                            <input name="staffInfo.bank" data-val="true" id="bank" type="text" value="" class="txt" />
+                            @Html.ValidationMessage("staffInfo.bank", new { id = "bankValid", style = "font-style:italic;color:red;" })
+                        </td>
+                        <th>开户行<span style="color: red">*</span></th>
+                        <td>
+                            <select data-val="true" name="staffInfo.account" id="account">
+                                <option value=""></option>
+                                @foreach (var item in bankList)
+                                {
+                                    <option value="@item.Id">@item.Name</option> 
+                                }
+                                @*                           <option value="中国工商银行">中国工商银行</option>
+                              <option value="中国银行总行">中国银行总行</option>
+                                <option value="中国农业银行股份有限公司">中国农业银行股份有限公司</option>
+                                <option value="中国建设银行股份有限公司总行">中国建设银行股份有限公司总行</option>
+                                <option value="交通银行">交通银行</option>
+                                <option value="招商银行股份有限公司">招商银行股份有限公司</option>
+                                <option value="广东发展银行股份有限公司运营作业部">广东发展银行股份有限公司运营作业部</option>
+                                <option value="上海浦东发展银行">上海浦东发展银行</option>*@
+                            </select>
+                            @Html.ValidationMessage("staffInfo.account", new { id = "accountValid", style = "font-style:italic;color:red;" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>学校<span style="color: red">*</span></th>
+                        <td>
+                            <input data-val="true" name="staffInfo.school" id="school" type="text" value="" class="txt" />
+                            @Html.ValidationMessage("staffInfo.school", new { id = "schoolValid", style = "font-style:italic;color:red;" })
+                        </td>
+                        <th>专业<span style="color: red">*</span></th>
+                        <td>
+                            <input data-val="true" name="staffInfo.major" id="major" type="text" value="" class="txt" />
+                            @Html.ValidationMessage("staffInfo.major", new { id = "majorValid", style = "font-style:italic;color:red;" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>毕业时间<span style="color: red">*</span></th>
+                        <td>
+                            <input data-val="true" id="graduationdate" name="staffInfo.graduationdate" type="text">
+                            @Html.ValidationMessage("staffInfo.graduationdate", new { id = "graduationdateValid", style = "font-style:italic;color:red;" })
+                        </td>
+                        <th>学历<span style="color: red">*</span></th>
+                        <td>
+                            <input data-val="true" name="staffInfo.education" id="education" type="text" value="" class="txt" /></td>
+                        @Html.ValidationMessage("staffInfo.education", new { id = "educationValid", style = "font-style:italic;color:red;" })
+                    </tr>
+                    <tr>
+                        <th>身高</th>
+                        <td>
+                            <input data-val="true" placeholder="单位:(166)厘米" name="staffInfo.height" id="height" type="text" value="" class="txt" />
+                            @Html.ValidationMessage("staffInfo.height", new { id = "heightValid", style = "font-style:italic;color:red;" })
+                        </td>
+                        <th>体重</th>
+                        <td>
+                            <input data-val="true" name="staffInfo.weight" id="weight" type="text" value="" class="txt" />
+                            @Html.ValidationMessage("staffInfo.weight", new { id = "weightValid", style = "font-style:italic;color:red;" })
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>三围</th>
+                        <td>
+                            <input data-val="true" placeholder="单位:33,44,55" name="staffInfo.meas" id="meas" type="text" value="" class="txt" />
+                            @Html.ValidationMessage("staffInfo.meas", new { id = "measValid", style = "font-style:italic;color:red;" })
+                        </td>
+                        <th>特长</th>
+                        <td>
+                            <input name="staffInfo.skill" id="skill" type="text" value="" class="txt" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>身份证(图片)<span style="color: red">*</span></th>
+                        <td>
+                            <input data-val="true" name="identityimage" id="identityimage" type="file" /></td>
+                        @Html.ValidationMessage("identityimage", new { style = "color:red" })
+                        <th>银行卡(图片)<span style="color: red">*</span></th>
+                        <td>
+                            <input data-val="true" name="bankimage" id="bankimage" type="file" /></td>
+                        @Html.ValidationMessage("bankimage", new { style = "color:red" })
+                    </tr>
+                    <tr>
+                        <th>面试照片照片</th>
+                        <td>是否上传面试照片
+                            <input type="checkbox" id="isPersonal" name="isPersonal" value="1" /></td>
+                        <th>个人声明照片<span style="color: red">*</span></th>
+                        <td>
+                            <input data-val="true" name="student" id="student" type="file" /></td>
+                        @Html.ValidationMessage("student", new { style = "color:red" })
+                    <tr>
+                        <th>&nbsp;</th>
+                        <td>
+                            <input name="personal" id="personal" type="file" /></td>
+                        @Html.ValidationMessage("personal", new { style = "color:red" })
+                        <th>&nbsp;</th>
+                        @*<td>*@
+                        @*  <input name="student" id="student" type="file" /></td>
+                           @Html.ValidationMessage("student", new { style = "color:red" })*@
+                    </tr>
+
+                    <tr>
+                        <th>&nbsp;</th>
+                        <td>
+                            <input id="type" name="type" type="hidden" value="insert" />
+                            <input id="submit" class="l-button3" type="submit" value="提交" />
+                            <input id="reset" class="l-button3" type="reset" value="重置" />
+                            <input id="draft" class="l-button3" type="button" value="草稿箱" />
+                            <input id="flag" type="hidden" value="@ViewBag.cof" />
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                url: "../Data_Entry/Get_HasPartTimeDraft",
+                type: "post",
+                datatype: "json",
+                success: function (data) {
+                    if (data.hasDraft == 1) {
+                        $.ligerDialog.confirm('是否读取草稿箱最新内容？', function (yes) {
+                            if (yes) {
+                                $("#isdraft").val("1");
+                                $.ajax({
+                                    url: "../Data_Entry/GetDraft",
+                                    type: "post",
+                                    datatype: "json",
+                                    success: function (data) {
+                                        //if (data.Value = true) {
+                                        //$("#city").html(data.cityValue);
+                                        $("#name").val(data.name);
+                                        $("#uniquenum").val(data.uniquenum);
+                                        //$("#sex").val(data.sex);
+                                        $("#birth").val(data.birth);
+                                        $("#identity").val(data.identity);
+                                        $("#mobile").val(data.telephone);
+                                        $("#bank").val(data.bank);
+                                        $("#school").val(data.school);
+                                        $("#major").val(data.major);
+                                        $("#graduationdate").val(data.graduate);
+                                        $("#height").val(data.height);
+                                        $("#weight").val(data.weight);
+                                        $("#meas").val(data.BWH);
+                                        $("#skill").val(data.speciality);
+                                        $("#education").val(data.academic);
+                                        //}
+                                    }
+                                });
+                            }
+                        });
+                    }
+                },
+            });
+            $("#draft").bind("click", function () {
+                $.ligerDialog.confirm('保存草稿箱不包括图片，是否保存？', function (yes) {
+                    if (yes) {
+                        $.ajax({
+                            url: "../Data_Entry/saveDraft",
+                            type: "post",
+                            data: {
+                                "name": $("#name").val(),
+                                "uniquenum": $("#uniquenum").val(),
+                                "birth": $("#birth").val(),
+                                "identity": $("#identity").val(),
+                                "mobile": $("#mobile").val(),
+                                "bank": $("#bank").val(),
+                                "school": $("#school").val(),
+                                "major": $("#major").val(),
+                                "graduationdate": $("#graduationdate").val(),
+                                "academic": $("#education").val(),
+                                "height": $("#height").val(),
+                                "weight": $("#weight").val(),
+                                "BWH": $("#meas").val(),
+                                "speciality": $("#skill").val()
+                            },
+                            dataType: "json",
+                            success: function (data) {
+                                if (Value == true) {
+                                    var dialog = $.ligerDialog.tip({ title: "提示", content: "成功保存人员信息到草稿箱!" });
+                                    setTimeout(function () {
+                                        dialog.close();
+                                    }, 5000)
+                                }
+                                else {
+                                    var dialog = $.ligerDialog.tip({ title: "提示", content: "保存失败!,唯一号不能为空。" });
+                                    setTimeout(function () {
+                                        dialog.close();
+                                    }, 5000)
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+
+            if ($("#flag").val() == "1") {
+                var dialog = $.ligerDialog.tip({ title: "提示", content: "成功录入基本信息!" });
+
+                setTimeout(function () {
+                    dialog.close();
+                }, 5000);
+            }
+            $("#load").bind("click", function () {
+                var captain, office;
+                $("#uniquenum").removeClass("error");
+                $("#load").next("label").html("");
+                $("#captain").each(function () {
+                    if ($(this).attr("selected", true)) {
+                        captain = $(this).val();
+                    }
+                });
+                $("#office").each(function () {
+                    if ($(this).attr("selected", true)) {
+                        office = $(this).val();
+                    }
+                });
+                $.ajax({
+                    url: "../Data_Entry/unique",
+                    type: "post",
+                    dataType: "json",
+                    data: { "staffInfo.captain": captain, "staffInfo.office": office },
+                    success: function (data) {
+                        $("#uniquenum").val(data.staffInfo);
+                        $("#uniquenums").val(data.staffInfo);
+                    }
+                });
+
+            });
+            $.ajax({
+                url: "../Data_Entry/Part_time_Worker1",
+                //url: "/Data_Entry/Part_time_Worker",
+                type: "post",
+                dataType: "json",
+                data: { "type": "base" },
+                success: function (data) {
+                    $("#captain").html(data.captainValue);
+                    $("#office").html(data.officeValue);
+                    $("#city").html(data.cityValue);
+                }
+            });
+            $("#captain").bind("change", function () {
+                $("#uniquenum").val("");
+                $.ajax({
+                    url: "../Data_Entry/fillBaseOfficeValue",
+                    type: "post",
+                    data: { "staffInfo.captain": $(this).val() },
+                    dataType: "json",
+                    success: function (data) {
+                        $("#office").html(data.officeValue);
+                        $("#city").html(data.cityValue);
+                    }
+                });
+            });
+            $("#office").bind("change", function () {
+                $.ajax({
+                    url: "../Data_Entry/fillBaseCityValue",
+                    type: "post",
+                    data: { "staffInfo.office": $(this).val() },
+                    dataType: "json",
+                    success: function (data) {
+                        $("#city").html(data.cityValue);
+                    }
+                });
+            });
+            $("#graduationdate").ligerDateEditor({ format: "yyyy年MM月", label: '', labelWidth: 100, labelAlign: 'center' });
+            $("#personal").hide();
+            //$("#student").hide();
+            $("#reset").bind("click", function () {
+                $("#personal").hide();
+                //$("#student").hide();
+            });
+            $("#isPersonal").bind("click", function () {
+                if ($(this).attr("checked") == "checked") {
+                    $("#personal").show();
+                } else {
+                    $("#personal").hide();
+                }
+            });
+            $("#isStudent").bind("click", function () {
+                if ($(this).attr("checked") == "checked") {
+                    $("#student").show();
+                }
+                else {
+                    $("#student").show();
+                }
+            });
+            $("#baseinfo-form").validate({
+                onkeyup: false,
+                focusInvalid: true,
+                rules: {
+                    "staffInfo.captain": {
+                        required: true
+                    },
+                    "staffInfo.office": {
+                        required: true
+                    },
+                    "staffInfo.city": {
+                        required: true
+                    },
+                    "staffInfo.name": {
+                        required: true
+                    },
+                    "staffInfo.uniquenum": {
+                        required: true
+                    },
+                    "staffInfo.identity": {
+                        required: true,
+                        rangelength: [18, 18],
+                        remote: {
+                            url: "../Data_Entry/validateIdentity",
+                            type: "post",
+                            dataType: "json"
+                        }
+                    },
+                    "staffInfo.mobile": {
+                        required: true,
+                        remote: {
+                            url: "../Data_Entry/validateMobile",
+                            type: "post",
+                            dataType: "json"
+                        }
+                    },
+                    "staffInfo.bank": {
+                        required: true,
+                        remote: {
+                            url: "../Data_Entry/validateBank",
+                            type: "post",
+                            dataType: "json",
+                            digits: true
+                        }
+                    },
+                    "staffInfo.account": {
+                        required: true
+                    },
+                    "staffInfo.school": {
+                        required: true
+                    },
+                    "staffInfo.major": {
+                        required: true
+                    },
+                    "staffInfo.education": {
+                        required: true
+                    },
+                    "identityimage": {
+                        required: true
+                    },
+                    "bankimage": {
+                        required: true
+                    },
+                    "student":
+                      {
+                          required: true
+                      },
+                    "staffInfo.birth": {
+                        required: true
+                    },
+                    "staffInfo.graduationdate": {
+                        required: true
+                    },
+                    "staffInfo.weight": {
+                        digits: true
+                    },
+                    "staffInfo.height": {
+                        digits: true
+                    }
+                },
+                submitHandler: function (form) {
+                    if ($("#uniquenum").val().length <= 0) {
+                        $("#uniquenum").addClass("error");
+                        $("#load").after("<label class=\"error\" for=\"uniquenum\">请生成唯一号</label>");
+                    } else {
+                        $("#submit").attr("disabled", true);
+                        setInterval(function () { $("#submit").attr("disabled", false); }, "5000");
+                        form.submit();
+                        $(".l-dialog,.l-window-mask").remove();
+                    }
+                },
+                messages: {
+                    "staffInfo.captain": {
+                        required: "请输入小队长"
+                    },
+                    "staffInfo.office": {
+                        required: "请输入办事处"
+                    },
+                    "staffInfo.city": {
+                        required: "请输入城市"
+                    },
+                    "staffInfo.name": {
+                        required: "请输入姓名"
+                    },
+                    "staffInfo.uniquenum": {
+                        required: "请输入唯一号"
+                    },
+                    "staffInfo.identity": {
+                        required: "请输入身份证号码",
+                        rangelength: "身份证号码18位",
+                        remote: $.format("身份证号码已存在")
+                    },
+                    "staffInfo.mobile": {
+                        required: "请输入电话号码",
+                        remote: $.format("电话号码11位")
+                    },
+                    "staffInfo.bank": {
+                        required: "请输入银行账号",
+                        remote: $.format("银行账号必须为整数"),
+                        digits: "请输入整数"
+                    },
+                    "staffInfo.account": {
+                        required: "请输入账户"
+                    },
+                    "staffInfo.school": {
+                        required: "请输入学校"
+                    },
+                    "staffInfo.major": {
+                        required: "请输入专业"
+                    },
+                    "staffInfo.education": {
+                        required: "请输入学历"
+                    },
+                    "identityimage": {
+                        required: "必填"
+                    },
+                    "bankimage": {
+                        required: "必填"
+                    },
+                    "student":
+                        {
+                            required: "必填"
+                        },
+                    "staffInfo.graduationdate": {
+                        required: "请输入毕业时间"
+                    },
+                    "staffInfo.height":
+                        {
+                            digits: "请输入整数"
+                        },
+                    "staffInfo.weight": {
+                        digits: "请输入整数"
+                    },
+                    "staffInfo.birth": {
+                        required: "请输入籍贯"
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

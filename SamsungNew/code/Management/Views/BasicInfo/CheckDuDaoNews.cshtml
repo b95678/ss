@@ -1,0 +1,182 @@
+﻿@{
+    Layout = null;
+}
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="~/lib/css/home/home.css" rel="stylesheet" />
+    <link href="~/lib/css/validation/screen.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-common.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-dialog.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-grid-1.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-grid-2.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-icons.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-menu.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-form.css" rel="stylesheet" />
+    <script src="~/Content/js/core/jquery-1.7.2.min.js"></script>
+    <script src="~/Content/js/core/jquery.validate.min.js"></script>
+    <script src="~/Content/js/core/messages_zh.js"></script>
+    <script src="~/Content/js/core/ligerui.min.js"></script>
+    <title>督导日报</title>
+</head>
+<body>
+    <div id="info-wrap">
+        <div class="navbar">
+            <div class="navbar-l"></div>
+            <div class="navbar-r"></div>
+            <div class="navbar-icon">
+                <img alt="" src="~/lib/css/icons/tag.gif">
+            </div>
+            <div class="navbar-inner">
+                <b>督导日报</b>
+            </div>
+        </div>
+        <div class="search">
+            <table cellspacing="0" cellspadding="0">
+                <tr>
+                    <td>
+                        <input id="content" name="content" type="text" value="" />
+                    </td>
+                    <td>
+                        <input type="button" class="l-button3" id="submit" value="确定" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="info-grid">
+            <div class="l-loading" style="display:block" id="pageloading"></div>
+            <div id="grid"></div>
+            <div class="l-panel-bar" id="pager">
+                <div class="l-panel-bbar-inner">
+                    <div class="l-bar-group  l-bar-message"><span class="l-bar-text"></span></div>
+                    <div class="l-bar-group l-bar-selectpagesize">
+                        <select name="rp">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="40">40</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
+                    <div class="l-bar-separator"></div>
+                    <div class="l-bar-group">
+                        <div class="l-bar-button l-bar-btnfirst"><span class=""></span></div>
+                        <div class="l-bar-button l-bar-btnprev"><span class=""></span></div>
+                    </div>
+                    <div class="l-bar-separator"></div>
+                    <div class="l-bar-group">
+                        <span class="pcontrol"> <input type="text" maxlength="3" class="txt" style="width:20px" value="" size="4"> / <span></span></span>
+                    </div>
+                    <div class="l-bar-separator"></div>
+                    <div class="l-bar-group">
+                        <div class="l-bar-button l-bar-btnnext">
+                            <span class=""></span>
+                        </div>
+                        <div class="l-bar-button l-bar-btnlast">
+                            <span class=""></span>
+                        </div>
+                    </div>
+                    <div class="l-bar-separator"></div>
+                    <div class="l-bar-group">
+                        <div class="l-bar-button l-bar-btnload">
+                            <span class="l-abled"></span>
+                        </div>
+                    </div>
+                    <div class="l-bar-separator"></div>
+                    <div class="l-clear"></div>
+                </div>
+            </div>
+            <input type="hidden" id="page" value="" />
+            <input type="hidden" id="pageSize" value="" />
+            <input type="hidden" id="totalPage" value="" />
+        </div>
+    </div>
+    <script type="text/javascript" src="~/lib/js/grid/gridJs.js"></script>
+    <script type="text/javascript">
+        function f_show(id) {
+            window.parent.$.ligerDialog.open(
+            {
+                width: 800,
+                height: 600,
+                isResize: true,
+                name: "show",
+                url: '/BasicInfo/CheckDudaoBasic/' + id,
+                title: '查看基本信息',
+                buttons: [
+                    {
+                        text: '关闭',
+                        onclick: function (item, dialog) {
+                            window.location.reload();
+                            dialog.close();
+                        }
+                    }
+                ]
+            });
+        }
+        $(document).ready(function () {
+            $("#content").ligerDateEditor({ format: "yyyy年MM月dd日", label: '', labelWidth: 100, labelAlign: 'center' });
+            var grid = $("#grid").ligerGrid({
+                height: '92%',
+                width: '99.7%',
+                columns: [
+                    { display: 'ID', name: 'id', width: 80, hide: true },
+                    { display: '督导', name: 'username', isAllowHide: false, width: 80 },
+                    { display: '姓名', name: 'name', width: 80 },
+                     {
+                               display: '标题', name: 'title', isAllowHide: false, width: 120,
+                               render: function (row) {
+                                  var id = '\'' + row.id + '\'';
+                                  var html = '<a href="javascript:;" onclick="f_show(' + id + ')">' + row.title + '</a>';
+                                  return html;
+                                }
+                     },
+                    { display: '办事处', name: 'office', width: 80 },
+                    { display: '填写时间', name: 'createtime', width: 100 },
+                    { display: '上班总人数', name: 'totalWork', width: 150 },
+                    { display: '培训总人数', name: 'totalTrain', width: 150 },
+                    { display: '上班总薪资', name: 'totalWage', width: 150 },
+                                                            { display: '备注', name: 'Remark', width: 150 },
+                    { display: '审核结果', name: 'isaudit', width: 80 },
+                ], dataAction: 'server', usePager: false
+            });
+
+            var date = new Date();
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            if (month < 10) {
+                month = "0" + month;
+            }
+            var day = date.getDate();
+            if (day < 10) {
+                day = "0" + day;
+            }
+
+            $("#submit").bind("click", function () {
+                var params1 = {
+                    "content": $("#content").val(),
+                    "page": "1",
+                    "pageSize": "10"
+                };
+                $.grid.f_getData(grid, '/BasicInfo/GetData', params1);
+            });
+            var params2 = {
+                "page": "1",
+                "pageSize": "10"
+            };
+            $.grid.f_getData(grid, '/BasicInfo/GetData', params2);
+            var params3 = {};
+            $.grid.f_setOverClass();
+            $.grid.f_pagerOnclick(grid, '/BasicInfo/GetData', params3);
+            $.grid.f_pageEnterDown(grid, '/BasicInfo/GetData', params3);
+            $.grid.f_pageSizeSelect(grid, '/BasicInfo/GetData', params3);
+        });
+    </script>
+</body>
+</html>
+

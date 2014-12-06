@@ -1,0 +1,169 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="~/lib/css/home/home.css" rel="stylesheet" />
+    <link href="~/lib/css/validation/screen.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-common.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-dialog.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-grid-1.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-grid-2.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-icons.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-menu.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-form.css" rel="stylesheet" />
+    <script src="~/lib/js/core/jquery-1.7.2.min.js"></script>
+    <script src="~/lib/js/core/jquery.validate.min.js"></script>
+    <script src="~/lib/js/core/messages_zh.js"></script>
+    <script src="~/lib/js/core/ligerui.min.js"></script>
+    <title>等级确认</title>
+</head>
+<body>
+    <div id="info-wrap">
+        <div class="navbar">
+            <div class="navbar-l"></div>
+            <div class="navbar-r"></div>
+            <div class="navbar-icon">
+                <img alt="" src="/lib/css/icons/tag.gif" />
+            </div>
+            <div class="navbar-inner">
+                <b><strong>等级A</strong>升级<strong>等级S</strong>确认</b>
+            </div>
+        </div>
+        <div class="info-grid">
+            <div class="l-loading" style="display: block" id="pageloading"></div>
+            <div id="grid"></div>
+            <div class="l-panel-bar" id="pager">
+                <div class="l-panel-bbar-inner">
+                    <div class="l-bar-group  l-bar-message"><span class="l-bar-text"></span></div>
+                    <div class="l-bar-group l-bar-selectpagesize">
+                        <select name="rp">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="40">40</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
+                    <div class="l-bar-separator"></div>
+                    <div class="l-bar-group">
+                        <div class="l-bar-button l-bar-btnfirst"><span class=""></span></div>
+                        <div class="l-bar-button l-bar-btnprev"><span class=""></span></div>
+                    </div>
+                    <div class="l-bar-separator"></div>
+                    <div class="l-bar-group">
+                        <span class="pcontrol">
+                            <input type="text" maxlength="3" class="txt" style="width: 20px" value="" size="4">
+                            / <span></span></span>
+                    </div>
+                    <div class="l-bar-separator"></div>
+                    <div class="l-bar-group">
+                        <div class="l-bar-button l-bar-btnnext">
+                            <span class=""></span>
+                        </div>
+                        <div class="l-bar-button l-bar-btnlast">
+                            <span class=""></span>
+                        </div>
+                    </div>
+                    <div class="l-bar-separator"></div>
+                    <div class="l-bar-group">
+                        <div class="l-bar-button l-bar-btnload">
+                            <span class="l-abled"></span>
+                        </div>
+                    </div>
+                    <div class="l-bar-separator"></div>
+                    <div class="l-clear"></div>
+                </div>
+            </div>
+            <input type="hidden" id="page" value="" />
+            <input type="hidden" id="pageSize" value="" />
+            <input type="hidden" id="totalPage" value="" />
+            <input type="hidden" id="authority" value="@Session["authority"].ToString()" />
+        </div>
+    </div>
+    <script type="text/javascript" src="~/lib/js/grid/gridJs.js"></script>
+    <script type="text/javascript">
+
+        function f_confirm(id, name) {
+            $.ligerDialog.confirm('是否确认 \'' + name + '\' 提升到S级? ', function (yes) {
+                var params = { "humId": id };
+                if (yes) {
+                    $.grid.f_ajaxSubmit("../Level/levelConfirm1", params, "成功提升" + name + "为S级!", true);
+                }
+            });
+        }
+        function f_show(id) {
+            window.parent.$.ligerDialog.open(
+            {
+                width: 820,
+                height: 400,
+                isResize: true,
+                name: "show",
+                url: '../Level/getPeopleData?id=' + encodeURIComponent(id, 'UTF-8'),
+                title: '查看人员信息',
+                buttons: [
+                    {
+                        text: '关闭',
+                        onclick: function (item, dialog) {
+                            dialog.close();
+                        }
+                    }
+                ]
+            });
+        }
+        $(document).ready(function () {
+            var grid = $("#grid").ligerGrid({
+                height: '92%',
+                width: '99.7%',
+                columns: [
+                    { display: 'Id', name: 'id', width: 30, hide: true },
+                    { display: '唯一号', name: 'uniNum', width: 100 },
+                    {
+                        display: '姓名', name: 'name', isAllowHide: false, width: 80,
+                        render: function (row) {
+                            var id = '\'' + row.id + '\'';
+                            var html = '<a href="javascript:;" onclick="f_show(' + id + ')">' + row.name + '</a>';
+                            return html;
+                        }
+                    },
+                    { display: '性别', name: 'sex', width: 80 },
+                    {
+                        display: '操作', isAllowHide: false, width: 50,
+                        render: function (row) {
+                            if ($("#authority").val() == "小队长" || $("#authority").val() == "督导") {
+                                var id = '\'' + row.id + '\'';
+                                var name = '\'' + row.name + '\'';
+                                var html = '<a href="javascript:;" onclick="f_confirm(' + id + ',' + name + ')">确认</a>';
+                                return html;
+                            }
+                        }
+                    }
+                    //{
+                    //    display: '操作', isAllowHide: false, width: 50,
+                    //    render: function (row) {
+                    //        var id = '\'' + row.id + '\'';
+                    //        var name = '\'' + row.name + '\'';
+                    //        var html = '<a href="javascript:;" onclick="f_delete(' + id + ',' + name + ')">删除</a>';
+                    //        return html;
+                    //    }
+                    //}
+                ], dataAction: 'server', usePager: false
+            });
+            var params1 = {
+                "page": "1",
+                "pageSize": "10"
+            };
+            $.grid.f_getData(grid, '../Level/GetAtoS', params1);
+            $.grid.f_setOverClass();
+            $.grid.f_pagerOnclick(grid, '../Level/GetAtoS', params1);
+            $.grid.f_pageEnterDown(grid, '../Level/GetAtoS', params1);
+            $.grid.f_pageSizeSelect(grid, '../Level/GetAtoS', params1);
+        });
+    </script>
+</body>
+</html>

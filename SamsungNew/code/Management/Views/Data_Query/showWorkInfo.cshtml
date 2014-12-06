@@ -1,0 +1,100 @@
+﻿@{
+    Layout = null;
+}
+
+@using Management.Models
+@{
+    Dictionary<HumanBasicFile, AttendingInfo> codel = (Dictionary<HumanBasicFile, AttendingInfo>)ViewBag.cof;
+}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="~/lib/css/home/home.css" rel="stylesheet" type="text/css" />
+        <title>工作信息</title>
+    </head>
+    <body>
+        <div id="showbase">
+            <table border="1" class="t1">
+                <tr>
+                     @foreach(var item in codel)
+                      { 
+                    <th colspan="2">唯一号</th>
+                    <td colspan="2">@item.Key.uniNum</td>
+                    <th colspan="2">姓名</th>
+                    <td colspan="5">@item.Key.Name</td>
+                     }
+                    </tr>
+                <tr class="a1"> 
+                     @foreach(var item in codel)   
+                     {           
+                    <th colspan="2">办事处</th>
+                    <td colspan="2">@item.Key.City1.Office.Name</td>
+                    <th colspan="2">城市</th>
+                    <td colspan="5">@item.Key.City1.Name</td>
+                     }
+                </tr>               
+                <tr>
+                     @foreach(var item in codel)
+                     {
+                    <th colspan="2">身份证号</th>
+                    <td colspan="7">@item.Key.IDcardNo</td> 
+                     }
+                </tr>
+                <tr class="a1">  
+                      @foreach(var item in codel)
+                      {                 
+                    <th colspan="2">活动名称</th>
+                    <td colspan="2">@item.Value.ActionName</td> 
+                    <th colspan="2">产品名称</th>
+                    <td colspan="5">@item.Value.production</td>
+                      }
+                </tr>
+                <tr>       
+                     @foreach(var item in codel) 
+                      {           
+                    <th colspan="2">上班门店</th>
+                    <td colspan="2">@item.Value.SShop.Name</td>
+                    <th colspan="2">工作职能</th>
+                    <td colspan="5">@item.Value.Functions</td>
+                     }
+                </tr>
+                <tr class="a1">   
+                      @foreach(var item in codel)
+                      {                                    
+                    <th colspan="2">日新标准</th>
+                    <td colspan="2">@item.Value.StandardSalary</td>
+                    <th colspan="2">补助</th>
+                    <td colspan="5">@item.Value.BearFees</td>
+                      }
+                </tr>
+                <tr>
+                      @foreach(var item in codel)
+                      {
+                    <th colspan="2">上班时间</th>
+                    <td colspan="7">@item.Value.Date</td> 
+                      }
+                </tr>
+               
+                <tr class="a1">
+                    @foreach(var item in codel)
+                  {
+                    <th colspan="2">备注</th>
+                    <td colspan="7">@item.Value.Remark</td> 
+                    }
+                </tr>
+                <tr>
+                     @foreach(var item in codel)
+                     {
+                    <th colspan="2">工作照片</th>
+                    <td colspan="7" style="padding: 0">
+                    <a href="~/uploadImg/workimage/@item.Value.WorkPhoto" target="_blank"><img src="~/uploadImg/workimage/suo/@item.Value.WorkPhoto" width="200" height="125" />
+                        </a>
+                    </td> 
+                     }
+                     </tr>
+            </table>
+        </div>
+    </body>
+
+</html>

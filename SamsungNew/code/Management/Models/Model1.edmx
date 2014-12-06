@@ -1,0 +1,1586 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SS_HRM_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityType Name="AttendingInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ActionName" Type="nvarchar" MaxLength="50" />
+          <Property Name="production" Type="nvarchar" MaxLength="50" />
+          <Property Name="StandardSalary" Type="int" />
+          <Property Name="Functions" Type="nvarchar" MaxLength="50" />
+          <Property Name="Date" Type="nvarchar" MaxLength="50" />
+          <Property Name="Department" Type="int" />
+          <Property Name="WorkInfo" Type="nvarchar" MaxLength="50" />
+          <Property Name="WorkMark" Type="nvarchar" MaxLength="50" />
+          <Property Name="WorkPhoto" Type="nvarchar" MaxLength="50" />
+          <Property Name="BearFees" Type="int" />
+          <Property Name="Remark" Type="nvarchar(max)" />
+          <Property Name="HumanId" Type="uniqueidentifier" />
+          <Property Name="IsDraft" Type="bit" Nullable="false" />
+          <Property Name="IsPass" Type="bit" />
+          <Property Name="Creatorname" Type="nvarchar" MaxLength="50" />
+          <Property Name="WorkContentId" Type="int" />
+        </EntityType>
+        <EntityType Name="Authority">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Bank">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Code" Type="int" Nullable="false" />
+          <Property Name="OfficeId" Type="int" />
+        </EntityType>
+        <EntityType Name="DianJian">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Score" Type="int" />
+          <Property Name="DJContent" Type="nvarchar" MaxLength="50" />
+          <Property Name="DJTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="VideoLink" Type="nvarchar" MaxLength="50" />
+          <Property Name="Face" Type="int" />
+          <Property Name="KOP" Type="int" />
+          <Property Name="WorkAttitude" Type="int" />
+          <Property Name="HumanId" Type="uniqueidentifier" />
+          <Property Name="CreatedManager" Type="nvarchar" MaxLength="50" />
+          <Property Name="EditManagerID" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsDraft" Type="bit" Nullable="false" />
+          <Property Name="Remark" Type="nvarchar(max)" />
+          <Property Name="DraftCreateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Feedback">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FBContext" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+          <Property Name="CreatedManagerId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastReplyManager" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HumanBasicFile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="uniNum" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="city" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Birthday" Type="date" />
+          <Property Name="NativePlace" Type="nvarchar" MaxLength="20" />
+          <Property Name="Sex" Type="bit" />
+          <Property Name="IDcardNo" Type="nvarchar" MaxLength="18" />
+          <Property Name="IDcardPhoto" Type="nvarchar" MaxLength="50" />
+          <Property Name="BankCardPhoto" Type="nvarchar" MaxLength="50" />
+          <Property Name="Telephone" Type="nvarchar" MaxLength="11" />
+          <Property Name="BankNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="BankId" Type="int" />
+          <Property Name="School" Type="nvarchar" MaxLength="50" />
+          <Property Name="Major" Type="nvarchar" MaxLength="50" />
+          <Property Name="GraduateTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="Academic" Type="nvarchar" MaxLength="50" />
+          <Property Name="Height" Type="int" />
+          <Property Name="Weight" Type="int" />
+          <Property Name="speciality" Type="nvarchar" MaxLength="50" />
+          <Property Name="BWH" Type="nvarchar" MaxLength="20" />
+          <Property Name="InterfacePhoto" Type="nvarchar" MaxLength="50" />
+          <Property Name="Info" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreatedManagerID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EditManagerId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Boss" Type="uniqueidentifier" />
+          <Property Name="Remark" Type="nvarchar(max)" />
+          <Property Name="IsDraft" Type="bit" Nullable="false" />
+          <Property Name="HumanLevel" Type="nvarchar" MaxLength="2" />
+          <Property Name="TrainTimes" Type="int" Nullable="false" />
+          <Property Name="LevelEditTimes" Type="int" />
+          <Property Name="createTime" Type="datetime" />
+          <Property Name="IsDelete" Type="bit" />
+        </EntityType>
+        <EntityType Name="LoginLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ManagerId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+          <Property Name="IPAddress" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Managers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Authority" Type="int" Nullable="false" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Sex" Type="bit" />
+          <Property Name="Boss" Type="nvarchar" MaxLength="50" />
+          <Property Name="IDcard" Type="nvarchar" MaxLength="18" />
+          <Property Name="BankCard" Type="nvarchar" MaxLength="19" />
+          <Property Name="Bank" Type="int" />
+          <Property Name="School" Type="nvarchar" MaxLength="50" />
+          <Property Name="Telephone" Type="nvarchar" MaxLength="11" />
+          <Property Name="City" Type="int" />
+          <Property Name="Major" Type="nvarchar" MaxLength="50" />
+          <Property Name="Graduate" Type="datetime" />
+          <Property Name="Academic" Type="nvarchar" MaxLength="30" />
+          <Property Name="height" Type="numeric" Precision="3" Scale="0" />
+          <Property Name="weight" Type="numeric" Precision="3" Scale="0" />
+          <Property Name="BWH" Type="nvarchar" MaxLength="20" />
+          <Property Name="Speciality" Type="nvarchar" MaxLength="50" />
+          <Property Name="Photo" Type="nvarchar" MaxLength="20" />
+          <Property Name="StudentCardPhoto" Type="nvarchar" MaxLength="20" />
+          <Property Name="CreatedManId" Type="nvarchar" MaxLength="50" />
+          <Property Name="EditManId" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsDraft" Type="bit" Nullable="false" />
+          <Property Name="IsDelete" Type="bit" />
+        </EntityType>
+        <EntityType Name="MonthTraining">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TrainingCout" Type="int" Nullable="false" />
+          <Property Name="Identification" Type="int" Nullable="false" />
+          <Property Name="TrainContent" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TrainPicture" Type="nvarchar" MaxLength="50" />
+          <Property Name="TrainProduct" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedTime" Type="date" Nullable="false" />
+          <Property Name="ManagerId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="WorkContentid" Type="int" />
+        </EntityType>
+        <EntityType Name="Notice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NoticeTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NoticeContent" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+          <Property Name="ManagerId" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Office">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Code" Type="int" Nullable="false" />
+          <Property Name="mask" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+          <Property Name="ProductCategoryId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductCategory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReplyFeedback">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TitleId" Type="int" Nullable="false" />
+          <Property Name="ReplyContent" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="CreateManId" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Salesman">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ActivityName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ActivityForm" Type="nvarchar" MaxLength="50" />
+          <Property Name="Adress" Type="nvarchar" MaxLength="50" />
+          <Property Name="LinCuCout" Type="int" />
+          <Property Name="LinCuMony" Type="int" />
+          <Property Name="LinCuPicture" Type="nvarchar" MaxLength="50" />
+          <Property Name="XingCuCout" Type="int" />
+          <Property Name="XingCuMony" Type="int" />
+          <Property Name="XingCuPicture" Type="nvarchar" MaxLength="50" />
+          <Property Name="Overfulfil" Type="nvarchar" MaxLength="50" />
+          <Property Name="Uncomplete" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsDraft" Type="bit" Nullable="false" />
+          <Property Name="CreatedTime" Type="date" />
+          <Property Name="ManagerId" Type="uniqueidentifier" />
+          <Property Name="WorkContentid" Type="int" />
+        </EntityType>
+        <EntityType Name="SShop">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Code" Type="int" Nullable="false" />
+          <Property Name="CityId" Type="int" />
+        </EntityType>
+        <EntityType Name="TodayWork">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ManagerId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Product" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="WorkContent" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ToWhere" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LeftProblem" Type="nvarchar" MaxLength="50" />
+          <Property Name="needWhoseSupport" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedTime" Type="date" Nullable="false" />
+          <Property Name="WorkContentid" Type="int" />
+        </EntityType>
+        <EntityType Name="TomorrowWorkPlan">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ManagerId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Product" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="WorkContent" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsFinish" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Problem" Type="nvarchar" MaxLength="50" />
+          <Property Name="NeedWhoseSupport" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedTime" Type="date" Nullable="false" />
+          <Property Name="WorkContentid" Type="int" />
+        </EntityType>
+        <EntityType Name="Train">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TrainDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="TrainStartTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="TrainEndTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="TrainProduction" Type="nvarchar" MaxLength="50" />
+          <Property Name="TrainScore" Type="int" />
+          <Property Name="Trainlecturer" Type="nvarchar" MaxLength="50" />
+          <Property Name="HumanrId" Type="uniqueidentifier" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsDraft" Type="bit" Nullable="false" />
+          <Property Name="Creatorname" Type="nvarchar" MaxLength="50" />
+          <Property Name="Trainpro" Type="nvarchar" MaxLength="50" />
+          <Property Name="WorkContentId" Type="int" />
+        </EntityType>
+        <EntityType Name="WorkContent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreatedTime" Type="date" Nullable="false" />
+          <Property Name="CreatorId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ISPass" Type="bit" />
+          <Property Name="MailPicture" Type="nvarchar(max)" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="Todaywork" Type="nvarchar(max)" />
+          <Property Name="Tomorrowplan" Type="nvarchar(max)" />
+          <Property Name="IsDraft" Type="nvarchar" MaxLength="50" />
+          <Property Name="AttendCount" Type="int" />
+          <Property Name="TrainCount" Type="int" />
+          <Property Name="MoneyCount" Type="int" />
+          <Property Name="Remark" Type="nvarchar(max)" />
+          <Property Name="IsDelete" Type="bit" />
+        </EntityType>
+        <Association Name="FK_AttendingInfo_HumanBasicFile">
+          <End Role="HumanBasicFile" Type="Self.HumanBasicFile" Multiplicity="0..1" />
+          <End Role="AttendingInfo" Type="Self.AttendingInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HumanBasicFile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AttendingInfo">
+              <PropertyRef Name="HumanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AttendingInfo_SShop">
+          <End Role="SShop" Type="Self.SShop" Multiplicity="0..1" />
+          <End Role="AttendingInfo" Type="Self.AttendingInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SShop">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AttendingInfo">
+              <PropertyRef Name="Department" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_City_Office">
+          <End Role="Office" Type="Self.Office" Multiplicity="0..1" />
+          <End Role="City" Type="Self.City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Office">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="OfficeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DianJian_HumanBasicFile">
+          <End Role="HumanBasicFile" Type="Self.HumanBasicFile" Multiplicity="0..1" />
+          <End Role="DianJian" Type="Self.DianJian" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HumanBasicFile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DianJian">
+              <PropertyRef Name="HumanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HumanBasicFile_Bank">
+          <End Role="Bank" Type="Self.Bank" Multiplicity="0..1" />
+          <End Role="HumanBasicFile" Type="Self.HumanBasicFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bank">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HumanBasicFile">
+              <PropertyRef Name="BankId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HumanBasicFile_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="HumanBasicFile" Type="Self.HumanBasicFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HumanBasicFile">
+              <PropertyRef Name="city" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HumanBasicFile_Managers">
+          <End Role="Managers" Type="Self.Managers" Multiplicity="0..1" />
+          <End Role="HumanBasicFile" Type="Self.HumanBasicFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Managers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HumanBasicFile">
+              <PropertyRef Name="Boss" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoginLog_Managers">
+          <End Role="Managers" Type="Self.Managers" Multiplicity="1" />
+          <End Role="LoginLog" Type="Self.LoginLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Managers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LoginLog">
+              <PropertyRef Name="ManagerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Managers_Authority">
+          <End Role="Authority" Type="Self.Authority" Multiplicity="1" />
+          <End Role="Managers" Type="Self.Managers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Authority">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Managers">
+              <PropertyRef Name="Authority" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Managers_Bank">
+          <End Role="Bank" Type="Self.Bank" Multiplicity="0..1" />
+          <End Role="Managers" Type="Self.Managers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bank">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Managers">
+              <PropertyRef Name="Bank" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Managers_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="Managers" Type="Self.Managers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Managers">
+              <PropertyRef Name="City" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_product_ProductCategory">
+          <End Role="ProductCategory" Type="Self.ProductCategory" Multiplicity="1" />
+          <End Role="product" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductCategory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="ProductCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReplyFeedback_Feedback">
+          <End Role="Feedback" Type="Self.Feedback" Multiplicity="1" />
+          <End Role="ReplyFeedback" Type="Self.ReplyFeedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Feedback">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ReplyFeedback">
+              <PropertyRef Name="TitleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SShop_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="SShop" Type="Self.SShop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SShop">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Train_HumanBasicFile">
+          <End Role="HumanBasicFile" Type="Self.HumanBasicFile" Multiplicity="0..1" />
+          <End Role="Train" Type="Self.Train" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HumanBasicFile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Train">
+              <PropertyRef Name="HumanrId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkContent_Managers">
+          <End Role="Managers" Type="Self.Managers" Multiplicity="1" />
+          <End Role="WorkContent" Type="Self.WorkContent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Managers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WorkContent">
+              <PropertyRef Name="CreatorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SS_HRM_DBModelStoreContainer">
+          <EntitySet Name="AttendingInfo" EntityType="Self.AttendingInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Authority" EntityType="Self.Authority" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bank" EntityType="Self.Bank" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DianJian" EntityType="Self.DianJian" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Feedback" EntityType="Self.Feedback" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HumanBasicFile" EntityType="Self.HumanBasicFile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoginLog" EntityType="Self.LoginLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Managers" EntityType="Self.Managers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MonthTraining" EntityType="Self.MonthTraining" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notice" EntityType="Self.Notice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Office" EntityType="Self.Office" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="product" EntityType="Self.product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductCategory" EntityType="Self.ProductCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReplyFeedback" EntityType="Self.ReplyFeedback" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Salesman" EntityType="Self.Salesman" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SShop" EntityType="Self.SShop" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TodayWork" EntityType="Self.TodayWork" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TomorrowWorkPlan" EntityType="Self.TomorrowWorkPlan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Train" EntityType="Self.Train" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorkContent" EntityType="Self.WorkContent" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AttendingInfo_HumanBasicFile" Association="Self.FK_AttendingInfo_HumanBasicFile">
+            <End Role="HumanBasicFile" EntitySet="HumanBasicFile" />
+            <End Role="AttendingInfo" EntitySet="AttendingInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AttendingInfo_SShop" Association="Self.FK_AttendingInfo_SShop">
+            <End Role="SShop" EntitySet="SShop" />
+            <End Role="AttendingInfo" EntitySet="AttendingInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_City_Office" Association="Self.FK_City_Office">
+            <End Role="Office" EntitySet="Office" />
+            <End Role="City" EntitySet="City" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DianJian_HumanBasicFile" Association="Self.FK_DianJian_HumanBasicFile">
+            <End Role="HumanBasicFile" EntitySet="HumanBasicFile" />
+            <End Role="DianJian" EntitySet="DianJian" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HumanBasicFile_Bank" Association="Self.FK_HumanBasicFile_Bank">
+            <End Role="Bank" EntitySet="Bank" />
+            <End Role="HumanBasicFile" EntitySet="HumanBasicFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HumanBasicFile_City" Association="Self.FK_HumanBasicFile_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="HumanBasicFile" EntitySet="HumanBasicFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HumanBasicFile_Managers" Association="Self.FK_HumanBasicFile_Managers">
+            <End Role="Managers" EntitySet="Managers" />
+            <End Role="HumanBasicFile" EntitySet="HumanBasicFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoginLog_Managers" Association="Self.FK_LoginLog_Managers">
+            <End Role="Managers" EntitySet="Managers" />
+            <End Role="LoginLog" EntitySet="LoginLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Managers_Authority" Association="Self.FK_Managers_Authority">
+            <End Role="Authority" EntitySet="Authority" />
+            <End Role="Managers" EntitySet="Managers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Managers_Bank" Association="Self.FK_Managers_Bank">
+            <End Role="Bank" EntitySet="Bank" />
+            <End Role="Managers" EntitySet="Managers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Managers_City" Association="Self.FK_Managers_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="Managers" EntitySet="Managers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_product_ProductCategory" Association="Self.FK_product_ProductCategory">
+            <End Role="ProductCategory" EntitySet="ProductCategory" />
+            <End Role="product" EntitySet="product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReplyFeedback_Feedback" Association="Self.FK_ReplyFeedback_Feedback">
+            <End Role="Feedback" EntitySet="Feedback" />
+            <End Role="ReplyFeedback" EntitySet="ReplyFeedback" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SShop_City" Association="Self.FK_SShop_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="SShop" EntitySet="SShop" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Train_HumanBasicFile" Association="Self.FK_Train_HumanBasicFile">
+            <End Role="HumanBasicFile" EntitySet="HumanBasicFile" />
+            <End Role="Train" EntitySet="Train" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkContent_Managers" Association="Self.FK_WorkContent_Managers">
+            <End Role="Managers" EntitySet="Managers" />
+            <End Role="WorkContent" EntitySet="WorkContent" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SS_HRM_DBModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityType Name="AttendingInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ActionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="production" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StandardSalary" Type="Int32" />
+          <Property Name="Functions" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Department" Type="Int32" />
+          <Property Name="WorkInfo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WorkMark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WorkPhoto" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BearFees" Type="Int32" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HumanId" Type="Guid" />
+          <Property Name="IsDraft" Type="Boolean" Nullable="false" />
+          <Property Name="IsPass" Type="Boolean" />
+          <Property Name="Creatorname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WorkContentId" Type="Int32" />
+          <NavigationProperty Name="HumanBasicFile" Relationship="Self.FK_AttendingInfo_HumanBasicFile" FromRole="AttendingInfo" ToRole="HumanBasicFile" />
+          <NavigationProperty Name="SShop" Relationship="Self.FK_AttendingInfo_SShop" FromRole="AttendingInfo" ToRole="SShop" />
+        </EntityType>
+        <EntityType Name="Authority">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Managers" Relationship="Self.FK_Managers_Authority" FromRole="Authority" ToRole="Managers" />
+        </EntityType>
+        <EntityType Name="Bank">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="HumanBasicFile" Relationship="Self.FK_HumanBasicFile_Bank" FromRole="Bank" ToRole="HumanBasicFile" />
+          <NavigationProperty Name="Managers" Relationship="Self.FK_Managers_Bank" FromRole="Bank" ToRole="Managers" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Code" Type="Int32" Nullable="false" />
+          <Property Name="OfficeId" Type="Int32" />
+          <NavigationProperty Name="Office" Relationship="Self.FK_City_Office" FromRole="City" ToRole="Office" />
+          <NavigationProperty Name="HumanBasicFile" Relationship="Self.FK_HumanBasicFile_City" FromRole="City" ToRole="HumanBasicFile" />
+          <NavigationProperty Name="Managers" Relationship="Self.FK_Managers_City" FromRole="City" ToRole="Managers" />
+          <NavigationProperty Name="SShop" Relationship="Self.FK_SShop_City" FromRole="City" ToRole="SShop" />
+        </EntityType>
+        <EntityType Name="DianJian">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Score" Type="Int32" />
+          <Property Name="DJContent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DJTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VideoLink" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Face" Type="Int32" />
+          <Property Name="KOP" Type="Int32" />
+          <Property Name="WorkAttitude" Type="Int32" />
+          <Property Name="HumanId" Type="Guid" />
+          <Property Name="CreatedManager" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EditManagerID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDraft" Type="Boolean" Nullable="false" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DraftCreateTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="HumanBasicFile" Relationship="Self.FK_DianJian_HumanBasicFile" FromRole="DianJian" ToRole="HumanBasicFile" />
+        </EntityType>
+        <EntityType Name="Feedback">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FBContext" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedManagerId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastReplyManager" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ReplyFeedback" Relationship="Self.FK_ReplyFeedback_Feedback" FromRole="Feedback" ToRole="ReplyFeedback" />
+        </EntityType>
+        <EntityType Name="HumanBasicFile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="uniNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="city" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Birthday" Type="DateTime" Precision="0" />
+          <Property Name="NativePlace" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Sex" Type="Boolean" />
+          <Property Name="IDcardNo" Type="String" MaxLength="18" FixedLength="false" Unicode="true" />
+          <Property Name="IDcardPhoto" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BankCardPhoto" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Telephone" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="BankNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BankId" Type="Int32" />
+          <Property Name="School" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Major" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GraduateTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Academic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Height" Type="Int32" />
+          <Property Name="Weight" Type="Int32" />
+          <Property Name="speciality" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BWH" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="InterfacePhoto" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Info" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedManagerID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EditManagerId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Boss" Type="Guid" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsDraft" Type="Boolean" Nullable="false" />
+          <Property Name="HumanLevel" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="TrainTimes" Type="Int32" Nullable="false" />
+          <Property Name="LevelEditTimes" Type="Int32" />
+          <Property Name="createTime" Type="DateTime" Precision="3" />
+          <Property Name="IsDelete" Type="Boolean" />
+          <NavigationProperty Name="AttendingInfo" Relationship="Self.FK_AttendingInfo_HumanBasicFile" FromRole="HumanBasicFile" ToRole="AttendingInfo" />
+          <NavigationProperty Name="Bank" Relationship="Self.FK_HumanBasicFile_Bank" FromRole="HumanBasicFile" ToRole="Bank" />
+          <NavigationProperty Name="City1" Relationship="Self.FK_HumanBasicFile_City" FromRole="HumanBasicFile" ToRole="City" />
+          <NavigationProperty Name="DianJian" Relationship="Self.FK_DianJian_HumanBasicFile" FromRole="HumanBasicFile" ToRole="DianJian" />
+          <NavigationProperty Name="Managers" Relationship="Self.FK_HumanBasicFile_Managers" FromRole="HumanBasicFile" ToRole="Managers" />
+          <NavigationProperty Name="Train" Relationship="Self.FK_Train_HumanBasicFile" FromRole="HumanBasicFile" ToRole="Train" />
+        </EntityType>
+        <EntityType Name="LoginLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ManagerId" Type="Guid" Nullable="false" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IPAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Managers" Relationship="Self.FK_LoginLog_Managers" FromRole="LoginLog" ToRole="Managers" />
+        </EntityType>
+        <EntityType Name="Managers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Authority" Type="Int32" Nullable="false" />
+          <Property Name="Remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Sex" Type="Boolean" />
+          <Property Name="Boss" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IDcard" Type="String" MaxLength="18" FixedLength="false" Unicode="true" />
+          <Property Name="BankCard" Type="String" MaxLength="19" FixedLength="false" Unicode="true" />
+          <Property Name="Bank" Type="Int32" />
+          <Property Name="School" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Telephone" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="Int32" />
+          <Property Name="Major" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Graduate" Type="DateTime" Precision="3" />
+          <Property Name="Academic" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="height" Type="Decimal" Precision="3" Scale="0" />
+          <Property Name="weight" Type="Decimal" Precision="3" Scale="0" />
+          <Property Name="BWH" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Speciality" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Photo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="StudentCardPhoto" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedManId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EditManId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDraft" Type="Boolean" Nullable="false" />
+          <Property Name="IsDelete" Type="Boolean" />
+          <NavigationProperty Name="Authority1" Relationship="Self.FK_Managers_Authority" FromRole="Managers" ToRole="Authority" />
+          <NavigationProperty Name="Bank1" Relationship="Self.FK_Managers_Bank" FromRole="Managers" ToRole="Bank" />
+          <NavigationProperty Name="City1" Relationship="Self.FK_Managers_City" FromRole="Managers" ToRole="City" />
+          <NavigationProperty Name="HumanBasicFile" Relationship="Self.FK_HumanBasicFile_Managers" FromRole="Managers" ToRole="HumanBasicFile" />
+          <NavigationProperty Name="LoginLog" Relationship="Self.FK_LoginLog_Managers" FromRole="Managers" ToRole="LoginLog" />
+          <NavigationProperty Name="WorkContent" Relationship="Self.FK_WorkContent_Managers" FromRole="Managers" ToRole="WorkContent" />
+        </EntityType>
+        <EntityType Name="MonthTraining">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="TrainingCout" Type="Int32" Nullable="false" />
+          <Property Name="Identification" Type="Int32" Nullable="false" />
+          <Property Name="TrainContent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TrainPicture" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TrainProduct" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ManagerId" Type="Guid" Nullable="false" />
+          <Property Name="WorkContentid" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Notice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NoticeTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NoticeContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ManagerId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Office">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Code" Type="Int32" Nullable="false" />
+          <Property Name="mask" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="City" Relationship="Self.FK_City_Office" FromRole="Office" ToRole="City" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ProductCategoryId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ProductCategory" Relationship="Self.FK_product_ProductCategory" FromRole="product" ToRole="ProductCategory" />
+        </EntityType>
+        <EntityType Name="ProductCategory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="product" Relationship="Self.FK_product_ProductCategory" FromRole="ProductCategory" ToRole="product" />
+        </EntityType>
+        <EntityType Name="ReplyFeedback">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TitleId" Type="Int32" Nullable="false" />
+          <Property Name="ReplyContent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateManId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Feedback" Relationship="Self.FK_ReplyFeedback_Feedback" FromRole="ReplyFeedback" ToRole="Feedback" />
+        </EntityType>
+        <EntityType Name="Salesman">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ActivityName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ActivityForm" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Adress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LinCuCout" Type="Int32" />
+          <Property Name="LinCuMony" Type="Int32" />
+          <Property Name="LinCuPicture" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="XingCuCout" Type="Int32" />
+          <Property Name="XingCuMony" Type="Int32" />
+          <Property Name="XingCuPicture" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Overfulfil" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Uncomplete" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDraft" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedTime" Type="DateTime" Precision="0" />
+          <Property Name="ManagerId" Type="Guid" />
+          <Property Name="WorkContentid" Type="Int32" />
+        </EntityType>
+        <EntityType Name="SShop">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Code" Type="Int32" Nullable="false" />
+          <Property Name="CityId" Type="Int32" />
+          <NavigationProperty Name="AttendingInfo" Relationship="Self.FK_AttendingInfo_SShop" FromRole="SShop" ToRole="AttendingInfo" />
+          <NavigationProperty Name="City" Relationship="Self.FK_SShop_City" FromRole="SShop" ToRole="City" />
+        </EntityType>
+        <EntityType Name="TodayWork">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ManagerId" Type="Guid" Nullable="false" />
+          <Property Name="Product" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="WorkContent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ToWhere" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LeftProblem" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="needWhoseSupport" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="WorkContentid" Type="Int32" />
+        </EntityType>
+        <EntityType Name="TomorrowWorkPlan">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ManagerId" Type="Guid" Nullable="false" />
+          <Property Name="Product" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="WorkContent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsFinish" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Problem" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NeedWhoseSupport" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="WorkContentid" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Train">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="TrainDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TrainStartTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TrainEndTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TrainProduction" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TrainScore" Type="Int32" />
+          <Property Name="Trainlecturer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HumanrId" Type="Guid" />
+          <Property Name="Remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDraft" Type="Boolean" Nullable="false" />
+          <Property Name="Creatorname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Trainpro" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WorkContentId" Type="Int32" />
+          <NavigationProperty Name="HumanBasicFile" Relationship="Self.FK_Train_HumanBasicFile" FromRole="Train" ToRole="HumanBasicFile" />
+        </EntityType>
+        <EntityType Name="WorkContent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CreatorId" Type="Guid" Nullable="false" />
+          <Property Name="ISPass" Type="Boolean" />
+          <Property Name="MailPicture" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Todaywork" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Tomorrowplan" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsDraft" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AttendCount" Type="Int32" />
+          <Property Name="TrainCount" Type="Int32" />
+          <Property Name="MoneyCount" Type="Int32" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsDelete" Type="Boolean" />
+          <NavigationProperty Name="Managers" Relationship="Self.FK_WorkContent_Managers" FromRole="WorkContent" ToRole="Managers" />
+        </EntityType>
+        <Association Name="FK_AttendingInfo_HumanBasicFile">
+          <End Role="HumanBasicFile" Type="Self.HumanBasicFile" Multiplicity="0..1" />
+          <End Role="AttendingInfo" Type="Self.AttendingInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HumanBasicFile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AttendingInfo">
+              <PropertyRef Name="HumanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AttendingInfo_SShop">
+          <End Role="SShop" Type="Self.SShop" Multiplicity="0..1" />
+          <End Role="AttendingInfo" Type="Self.AttendingInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SShop">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AttendingInfo">
+              <PropertyRef Name="Department" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Managers_Authority">
+          <End Role="Authority" Type="Self.Authority" Multiplicity="1" />
+          <End Role="Managers" Type="Self.Managers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Authority">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Managers">
+              <PropertyRef Name="Authority" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HumanBasicFile_Bank">
+          <End Role="Bank" Type="Self.Bank" Multiplicity="0..1" />
+          <End Role="HumanBasicFile" Type="Self.HumanBasicFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bank">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HumanBasicFile">
+              <PropertyRef Name="BankId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Managers_Bank">
+          <End Role="Bank" Type="Self.Bank" Multiplicity="0..1" />
+          <End Role="Managers" Type="Self.Managers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bank">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Managers">
+              <PropertyRef Name="Bank" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_City_Office">
+          <End Role="Office" Type="Self.Office" Multiplicity="0..1" />
+          <End Role="City" Type="Self.City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Office">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="OfficeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HumanBasicFile_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="HumanBasicFile" Type="Self.HumanBasicFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HumanBasicFile">
+              <PropertyRef Name="city" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Managers_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="Managers" Type="Self.Managers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Managers">
+              <PropertyRef Name="City" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SShop_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="SShop" Type="Self.SShop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SShop">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DianJian_HumanBasicFile">
+          <End Role="HumanBasicFile" Type="Self.HumanBasicFile" Multiplicity="0..1" />
+          <End Role="DianJian" Type="Self.DianJian" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HumanBasicFile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DianJian">
+              <PropertyRef Name="HumanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReplyFeedback_Feedback">
+          <End Role="Feedback" Type="Self.Feedback" Multiplicity="1" />
+          <End Role="ReplyFeedback" Type="Self.ReplyFeedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Feedback">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ReplyFeedback">
+              <PropertyRef Name="TitleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HumanBasicFile_Managers">
+          <End Role="Managers" Type="Self.Managers" Multiplicity="0..1" />
+          <End Role="HumanBasicFile" Type="Self.HumanBasicFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Managers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HumanBasicFile">
+              <PropertyRef Name="Boss" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Train_HumanBasicFile">
+          <End Role="HumanBasicFile" Type="Self.HumanBasicFile" Multiplicity="0..1" />
+          <End Role="Train" Type="Self.Train" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HumanBasicFile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Train">
+              <PropertyRef Name="HumanrId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoginLog_Managers">
+          <End Role="Managers" Type="Self.Managers" Multiplicity="1" />
+          <End Role="LoginLog" Type="Self.LoginLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Managers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LoginLog">
+              <PropertyRef Name="ManagerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkContent_Managers">
+          <End Role="Managers" Type="Self.Managers" Multiplicity="1" />
+          <End Role="WorkContent" Type="Self.WorkContent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Managers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WorkContent">
+              <PropertyRef Name="CreatorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_product_ProductCategory">
+          <End Role="ProductCategory" Type="Self.ProductCategory" Multiplicity="1" />
+          <End Role="product" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductCategory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="ProductCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SS_HRM_DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AttendingInfo" EntityType="Self.AttendingInfo" />
+          <EntitySet Name="Authority" EntityType="Self.Authority" />
+          <EntitySet Name="Bank" EntityType="Self.Bank" />
+          <EntitySet Name="City" EntityType="Self.City" />
+          <EntitySet Name="DianJian" EntityType="Self.DianJian" />
+          <EntitySet Name="Feedback" EntityType="Self.Feedback" />
+          <EntitySet Name="HumanBasicFile" EntityType="Self.HumanBasicFile" />
+          <EntitySet Name="LoginLog" EntityType="Self.LoginLog" />
+          <EntitySet Name="Managers" EntityType="Self.Managers" />
+          <EntitySet Name="MonthTraining" EntityType="Self.MonthTraining" />
+          <EntitySet Name="Notice" EntityType="Self.Notice" />
+          <EntitySet Name="Office" EntityType="Self.Office" />
+          <EntitySet Name="product" EntityType="Self.product" />
+          <EntitySet Name="ProductCategory" EntityType="Self.ProductCategory" />
+          <EntitySet Name="ReplyFeedback" EntityType="Self.ReplyFeedback" />
+          <EntitySet Name="Salesman" EntityType="Self.Salesman" />
+          <EntitySet Name="SShop" EntityType="Self.SShop" />
+          <EntitySet Name="TodayWork" EntityType="Self.TodayWork" />
+          <EntitySet Name="TomorrowWorkPlan" EntityType="Self.TomorrowWorkPlan" />
+          <EntitySet Name="Train" EntityType="Self.Train" />
+          <EntitySet Name="WorkContent" EntityType="Self.WorkContent" />
+          <AssociationSet Name="FK_AttendingInfo_HumanBasicFile" Association="Self.FK_AttendingInfo_HumanBasicFile">
+            <End Role="HumanBasicFile" EntitySet="HumanBasicFile" />
+            <End Role="AttendingInfo" EntitySet="AttendingInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AttendingInfo_SShop" Association="Self.FK_AttendingInfo_SShop">
+            <End Role="SShop" EntitySet="SShop" />
+            <End Role="AttendingInfo" EntitySet="AttendingInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Managers_Authority" Association="Self.FK_Managers_Authority">
+            <End Role="Authority" EntitySet="Authority" />
+            <End Role="Managers" EntitySet="Managers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HumanBasicFile_Bank" Association="Self.FK_HumanBasicFile_Bank">
+            <End Role="Bank" EntitySet="Bank" />
+            <End Role="HumanBasicFile" EntitySet="HumanBasicFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Managers_Bank" Association="Self.FK_Managers_Bank">
+            <End Role="Bank" EntitySet="Bank" />
+            <End Role="Managers" EntitySet="Managers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_City_Office" Association="Self.FK_City_Office">
+            <End Role="Office" EntitySet="Office" />
+            <End Role="City" EntitySet="City" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HumanBasicFile_City" Association="Self.FK_HumanBasicFile_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="HumanBasicFile" EntitySet="HumanBasicFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Managers_City" Association="Self.FK_Managers_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="Managers" EntitySet="Managers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SShop_City" Association="Self.FK_SShop_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="SShop" EntitySet="SShop" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DianJian_HumanBasicFile" Association="Self.FK_DianJian_HumanBasicFile">
+            <End Role="HumanBasicFile" EntitySet="HumanBasicFile" />
+            <End Role="DianJian" EntitySet="DianJian" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReplyFeedback_Feedback" Association="Self.FK_ReplyFeedback_Feedback">
+            <End Role="Feedback" EntitySet="Feedback" />
+            <End Role="ReplyFeedback" EntitySet="ReplyFeedback" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HumanBasicFile_Managers" Association="Self.FK_HumanBasicFile_Managers">
+            <End Role="Managers" EntitySet="Managers" />
+            <End Role="HumanBasicFile" EntitySet="HumanBasicFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Train_HumanBasicFile" Association="Self.FK_Train_HumanBasicFile">
+            <End Role="HumanBasicFile" EntitySet="HumanBasicFile" />
+            <End Role="Train" EntitySet="Train" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoginLog_Managers" Association="Self.FK_LoginLog_Managers">
+            <End Role="Managers" EntitySet="Managers" />
+            <End Role="LoginLog" EntitySet="LoginLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkContent_Managers" Association="Self.FK_WorkContent_Managers">
+            <End Role="Managers" EntitySet="Managers" />
+            <End Role="WorkContent" EntitySet="WorkContent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_product_ProductCategory" Association="Self.FK_product_ProductCategory">
+            <End Role="ProductCategory" EntitySet="ProductCategory" />
+            <End Role="product" EntitySet="product" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SS_HRM_DBModelStoreContainer" CdmEntityContainer="SS_HRM_DBEntities">
+          <EntitySetMapping Name="AttendingInfo">
+            <EntityTypeMapping TypeName="SS_HRM_DBModel.AttendingInfo">
+              <MappingFragment StoreEntitySet="AttendingInfo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+                <ScalarProperty Name="production" ColumnName="production" />
+                <ScalarProperty Name="StandardSalary" ColumnName="StandardSalary" />
+                <ScalarProperty Name="Functions" ColumnName="Functions" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="WorkInfo" ColumnName="WorkInfo" />
+                <ScalarProperty Name="WorkMark" ColumnName="WorkMark" />
+                <ScalarProperty Name="WorkPhoto" ColumnName="WorkPhoto" />
+                <ScalarProperty Name="BearFees" ColumnName="BearFees" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="HumanId" ColumnName="HumanId" />
+                <ScalarProperty Name="IsDraft" ColumnName="IsDraft" />
+                <ScalarProperty Name="IsPass" ColumnName="IsPass" />
+                <ScalarProperty Name="Creatorname" ColumnName="Creatorname" />
+                <ScalarProperty Name="WorkContentId" ColumnName="WorkContentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Authority">
+            <EntityTypeMapping TypeName="SS_HRM_DBModel.Authority">
+              <MappingFragment StoreEntitySet="Authority">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bank">
+            <EntityTypeMapping TypeName="SS_HRM_DBModel.Bank">
+              <MappingFragment StoreEntitySet="Bank">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="City">
+            <EntityTypeMapping TypeName="SS_HRM_DBModel.City">
+              <MappingFragment StoreEntitySet="City">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="OfficeId" ColumnName="OfficeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DianJian">
+            <EntityTypeMapping TypeName="SS_HRM_DBModel.DianJian">
+              <MappingFragment StoreEntitySet="DianJian">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="DJContent" ColumnName="DJContent" />
+                <ScalarProperty Name="DJTime" ColumnName="DJTime" />
+                <ScalarProperty Name="VideoLink" ColumnName="VideoLink" />
+                <ScalarProperty Name="Face" ColumnName="Face" />
+                <ScalarProperty Name="KOP" ColumnName="KOP" />
+                <ScalarProperty Name="WorkAttitude" ColumnName="WorkAttitude" />
+                <ScalarProperty Name="HumanId" ColumnName="HumanId" />
+                <ScalarProperty Name="CreatedManager" ColumnName="CreatedManager" />
+                <ScalarProperty Name="EditManagerID" ColumnName="EditManagerID" />
+                <ScalarProperty Name="IsDraft" ColumnName="IsDraft" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="DraftCreateTime" ColumnName="DraftCreateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Feedback">
+            <EntityTypeMapping TypeName="SS_HRM_DBModel.Feedback">
+              <MappingFragment StoreEntitySet="Feedback">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="FBContext" ColumnName="FBContext" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="CreatedManagerId" ColumnName="CreatedManagerId" />
+                <ScalarProperty Name="LastReplyManager" ColumnName="LastReplyManager" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HumanBasicFile">
+            <EntityTypeMapping TypeName="SS_HRM_DBModel.HumanBasicFile">
+              <MappingFragment StoreEntitySet="HumanBasicFile">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="uniNum" ColumnName="uniNum" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="NativePlace" ColumnName="NativePlace" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="IDcardNo" ColumnName="IDcardNo" />
+                <ScalarProperty Name="IDcardPhoto" ColumnName="IDcardPhoto" />
+                <ScalarProperty Name="BankCardPhoto" ColumnName="BankCardPhoto" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="BankNum" ColumnName="BankNum" />
+                <ScalarProperty Name="BankId" ColumnName="BankId" />
+                <ScalarProperty Name="School" ColumnName="School" />
+                <ScalarProperty Name="Major" ColumnName="Major" />
+                <ScalarProperty Name="GraduateTime" ColumnName="GraduateTime" />
+                <ScalarProperty Name="Academic" ColumnName="Academic" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="speciality" ColumnName="speciality" />
+                <ScalarProperty Name="BWH" ColumnName="BWH" />
+                <ScalarProperty Name="InterfacePhoto" ColumnName="InterfacePhoto" />
+                <ScalarProperty Name="Info" ColumnName="Info" />
+                <ScalarProperty Name="CreatedManagerID" ColumnName="CreatedManagerID" />
+                <ScalarProperty Name="EditManagerId" ColumnName="EditManagerId" />
+                <ScalarProperty Name="Boss" ColumnName="Boss" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="IsDraft" ColumnName="IsDraft" />
+                <ScalarProperty Name="HumanLevel" ColumnName="HumanLevel" />
+                <ScalarProperty Name="TrainTimes" ColumnName="TrainTimes" />
+                <ScalarProperty Name="LevelEditTimes" ColumnName="LevelEditTimes" />
+                <ScalarProperty Name="createTime" ColumnName="createTime" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoginLog">
+            <EntityTypeMapping TypeName="SS_HRM_DBModel.LoginLog">
+              <MappingFragment StoreEntitySet="LoginLog">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ManagerId" ColumnName="ManagerId" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Managers">
+            <EntityTypeMapping TypeName="SS_HRM_DBModel.Managers">
+              <MappingFragment StoreEntitySet="Managers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Authority" ColumnName="Authority" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Boss" ColumnName="Boss" />
+                <ScalarProperty Name="IDcard" ColumnName="IDcard" />
+                <ScalarProperty Name="BankCard" ColumnName="BankCard" />
+                <ScalarProperty Name="Bank" ColumnName="Bank" />
+                <ScalarProperty Name="School" ColumnName="School" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Major" ColumnName="Major" />
+                <ScalarProperty Name="Graduate" ColumnName="Graduate" />
+                <ScalarProperty Name="Academic" ColumnName="Academic" />
+                <ScalarProperty Name="height" ColumnName="height" />
+                <ScalarProperty Name="weight" ColumnName="weight" />
+                <ScalarProperty Name="BWH" ColumnName="BWH" />
+                <ScalarProperty Name="Speciality" ColumnName="Speciality" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="StudentCardPhoto" ColumnName="StudentCardPhoto" />
+                <ScalarProperty Name="CreatedManId" ColumnName="CreatedManId" />
+                <ScalarProperty Name="EditManId" ColumnName="EditManId" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IsDraft" ColumnName="IsDraft" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MonthTraining">
+            <EntityTypeMapping TypeName="SS_HRM_DBModel.MonthTraining">
+              <MappingFragment StoreEntitySet="MonthTraining">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TrainingCout" ColumnName="TrainingCout" />
+                <ScalarProperty Name="Identification" ColumnName="Identification" />
+                <ScalarProperty Name="TrainContent" ColumnName="TrainContent" />
+                <ScalarProperty Name="TrainPicture" ColumnName="TrainPicture" />
+                <ScalarProperty Name="TrainProduct" ColumnName="TrainProduct" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="ManagerId" ColumnName="ManagerId" />
+                <ScalarProperty Name="WorkContentid" ColumnName="WorkContentid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notice">
+            <EntityTypeMapping TypeName="SS_HRM_DBModel.Notice">
+              <MappingFragment StoreEntitySet="Notice">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="NoticeTitle" ColumnName="NoticeTitle" />
+                <ScalarProperty Name="NoticeContent" ColumnName="NoticeContent" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="ManagerId" ColumnName="ManagerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Office">
+            <EntityTypeMapping TypeName="SS_HRM_DBModel.Office">
+              <MappingFragment StoreEntitySet="Office">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="mask" ColumnName="mask" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="product">
+            <EntityTypeMapping TypeName="SS_HRM_DBModel.product">
+              <MappingFragment StoreEntitySet="product">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="ProductCategoryId" ColumnName="ProductCategoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductCategory">
+            <EntityTypeMapping TypeName="SS_HRM_DBModel.ProductCategory">
+              <MappingFragment StoreEntitySet="ProductCategory">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReplyFeedback">
+            <EntityTypeMapping TypeName="SS_HRM_DBModel.ReplyFeedback">
+              <MappingFragment StoreEntitySet="ReplyFeedback">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TitleId" ColumnName="TitleId" />
+                <ScalarProperty Name="ReplyContent" ColumnName="ReplyContent" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="CreateManId" ColumnName="CreateManId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Salesman">
+            <EntityTypeMapping TypeName="SS_HRM_DBModel.Salesman">
+              <MappingFragment StoreEntitySet="Salesman">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
+                <ScalarProperty Name="ActivityForm" ColumnName="ActivityForm" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="LinCuCout" ColumnName="LinCuCout" />
+                <ScalarProperty Name="LinCuMony" ColumnName="LinCuMony" />
+                <ScalarProperty Name="LinCuPicture" ColumnName="LinCuPicture" />
+                <ScalarProperty Name="XingCuCout" ColumnName="XingCuCout" />
+                <ScalarProperty Name="XingCuMony" ColumnName="XingCuMony" />
+                <ScalarProperty Name="XingCuPicture" ColumnName="XingCuPicture" />
+                <ScalarProperty Name="Overfulfil" ColumnName="Overfulfil" />
+                <ScalarProperty Name="Uncomplete" ColumnName="Uncomplete" />
+                <ScalarProperty Name="IsDraft" ColumnName="IsDraft" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="ManagerId" ColumnName="ManagerId" />
+                <ScalarProperty Name="WorkContentid" ColumnName="WorkContentid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SShop">
+            <EntityTypeMapping TypeName="SS_HRM_DBModel.SShop">
+              <MappingFragment StoreEntitySet="SShop">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TodayWork">
+            <EntityTypeMapping TypeName="SS_HRM_DBModel.TodayWork">
+              <MappingFragment StoreEntitySet="TodayWork">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ManagerId" ColumnName="ManagerId" />
+                <ScalarProperty Name="Product" ColumnName="Product" />
+                <ScalarProperty Name="WorkContent" ColumnName="WorkContent" />
+                <ScalarProperty Name="ToWhere" ColumnName="ToWhere" />
+                <ScalarProperty Name="LeftProblem" ColumnName="LeftProblem" />
+                <ScalarProperty Name="needWhoseSupport" ColumnName="needWhoseSupport" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="WorkContentid" ColumnName="WorkContentid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TomorrowWorkPlan">
+            <EntityTypeMapping TypeName="SS_HRM_DBModel.TomorrowWorkPlan">
+              <MappingFragment StoreEntitySet="TomorrowWorkPlan">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ManagerId" ColumnName="ManagerId" />
+                <ScalarProperty Name="Product" ColumnName="Product" />
+                <ScalarProperty Name="WorkContent" ColumnName="WorkContent" />
+                <ScalarProperty Name="IsFinish" ColumnName="IsFinish" />
+                <ScalarProperty Name="Problem" ColumnName="Problem" />
+                <ScalarProperty Name="NeedWhoseSupport" ColumnName="NeedWhoseSupport" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="WorkContentid" ColumnName="WorkContentid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Train">
+            <EntityTypeMapping TypeName="SS_HRM_DBModel.Train">
+              <MappingFragment StoreEntitySet="Train">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TrainDate" ColumnName="TrainDate" />
+                <ScalarProperty Name="TrainStartTime" ColumnName="TrainStartTime" />
+                <ScalarProperty Name="TrainEndTime" ColumnName="TrainEndTime" />
+                <ScalarProperty Name="TrainProduction" ColumnName="TrainProduction" />
+                <ScalarProperty Name="TrainScore" ColumnName="TrainScore" />
+                <ScalarProperty Name="Trainlecturer" ColumnName="Trainlecturer" />
+                <ScalarProperty Name="HumanrId" ColumnName="HumanrId" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="IsDraft" ColumnName="IsDraft" />
+                <ScalarProperty Name="Creatorname" ColumnName="Creatorname" />
+                <ScalarProperty Name="Trainpro" ColumnName="Trainpro" />
+                <ScalarProperty Name="WorkContentId" ColumnName="WorkContentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkContent">
+            <EntityTypeMapping TypeName="SS_HRM_DBModel.WorkContent">
+              <MappingFragment StoreEntitySet="WorkContent">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="CreatorId" ColumnName="CreatorId" />
+                <ScalarProperty Name="ISPass" ColumnName="ISPass" />
+                <ScalarProperty Name="MailPicture" ColumnName="MailPicture" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Todaywork" ColumnName="Todaywork" />
+                <ScalarProperty Name="Tomorrowplan" ColumnName="Tomorrowplan" />
+                <ScalarProperty Name="IsDraft" ColumnName="IsDraft" />
+                <ScalarProperty Name="AttendCount" ColumnName="AttendCount" />
+                <ScalarProperty Name="TrainCount" ColumnName="TrainCount" />
+                <ScalarProperty Name="MoneyCount" ColumnName="MoneyCount" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

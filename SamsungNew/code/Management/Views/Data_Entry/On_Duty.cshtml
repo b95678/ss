@@ -1,0 +1,448 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="~/lib/css/home/home.css" rel="stylesheet" />
+    <link href="~/lib/css/validation/screen.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-common.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-dialog.css" rel="stylesheet" />
+    <link href="~/lib/css/core/ligerui-form.css" rel="stylesheet" />
+    <script src="~/Content/js/core/jquery-1.7.2.min.js"></script>
+    <script src="~/Content/js/core/jquery.validate.min.js"></script>
+    <script src="~/Content/js/core/messages_zh.js"></script>
+    <script src="~/Content/js/core/ligerui.min.js"></script>
+    <script src="~/lib/js/md5/md5.js"></script>
+    <title>上班信息</title>
+</head>
+<body>
+    <div id="info-wrap">
+        <div class="navbar">
+            <div class="navbar-l"></div>
+            <div class="navbar-r"></div>
+            <div class="navbar-icon">
+                <img alt="" src="~/lib/css/icons/tag.gif">
+            </div>
+            <div class="navbar-inner">
+                <b>上班信息 [带*为必填]</b>
+            </div>
+        </div>
+        <div class="info-form">
+            <form action="../Data_Entry/On_Duty" name="workinfo-form" id="workinfo-form" method="post" enctype="multipart/form-data">
+                <table cellspacing="0" cellspadding="0">
+                    <tr>
+                        <th>上级<span style="color:red">*</span></th>
+                        <td><select name="trainInfo.captain" id="captain"></select></td>
+                        <th>唯一号<span style="color:red">*</span></th>
+                        <td><input type="text" id="chooseunique" style="width:50px" />&nbsp;筛选唯一号(可不填)
+                            <select name="trainInfo.uniquenum" id="uniquenum"></select></td>
+                    </tr>
+                    <tr>
+                        <th>姓名<span style="color:red">*</span></th>
+                        <td>
+                             <input type="text" id="choosename" style="width:50px" />&nbsp;筛选姓名(可不填)
+                            <input name="staffInfo.name" id="name" type="text" value="" class="txt" disabled="disabled">
+                            <input name="workInfo.name" id="names" type="hidden" value="" />
+                            <span><input id="Part_time_Worker" class="l-button3333" type="button" value="添加人员" /></span>
+                        </td>
+                        <th>身份证号码<span style="color:red">*</span></th>
+                        <td>
+                            <input name="workInfo.name" id="identity" type="text" value="" class="txt" disabled="disabled">
+                            @*<input name="staffInfo.identity" id="identity" type="hidden" value="" class="txt"></td>*@
+                    </tr>
+                    <tr>
+                        <th>办事处<span style="color:red">*</span></th>
+                        <td>
+                            <input name="workInfo.office" id="office" type="text" value="" class="txt" disabled="disabled">
+                            @*<input name="staffInfo.office" id="office" type="hidden" value="" class="txt">*@
+                        </td>
+                        <th>城市<span style="color:red">*</span></th>
+                        <td>
+                            <input name="workInfo.city" id="city" type="text" value="" class="txt" disabled="disabled">
+                            @*<input name="staffInfo.city" id="city" type="hidden" value="" class="txt">*@
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>活动名称<span style="color:red">*</span></th>
+                        <td>
+                            <input data-val="true" id="activity" name="workInfo.activity" type="text" value="" class="txt" />
+                            @Html.ValidationMessage("workInfo.activity", new { style = "font-style:italic;color:red;" })
+                        </td>
+                        <th>产品名称<span style="color:red">*</span></th>
+                        <td>
+                            <select data-val="true" id="product" name="workInfo.product"></select>
+                            @Html.ValidationMessage("workInfo.product", new { style = "font-style:italic;color:red;" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>补助</th>
+                        <td><input id="subsidy" name="workInfo.subsidy" type="text" value="" class="txt" /></td>
+                        <th>日薪标准<span style="color:red">*</span></th>
+                        <td>
+                            <input data-val="true" id="wage" name="workInfo.wage" type="text" value="" class="txt" />
+                            @Html.ValidationMessage("workInfo.wage", new { style = "font-style:italic;color:red;" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>上班时间<span style="color:red">*</span></th>
+                        <td>
+                            <input data-val="true" id="date" name="workInfo.date" type="text" value="" />
+                            @Html.ValidationMessage("workInfo.date", new { style = "font-style:italic;color:red;" })
+                        </td>
+                        <th>工作职能<span style="color:red">*</span></th>
+                        <td>
+                            <select data-val="true" name="workInfo.work" id="work">
+                                <option value="临促">临促</option>
+                                <option value="形促">形促</option>
+                                <option value="小队长">小队长</option>
+                                <option value="画师">画师</option>
+                                <option value="其他">其他</option>
+                            </select>
+                            @*<input id="work"  data-val="true" name="workInfo.work" type="text" value="" class="txt"/>*@
+                            @Html.ValidationMessage("workInfo.work", new { style = "font-style:italic;color:red;" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>工作照<span style="color:red">*</span></th>
+                        <td><input name="workimage" id="workimage" type="file" /></td>
+                    </tr>
+                    <tr>
+                        <th>搜索门店<span style="color:red">*</span></th>
+                        <td colspan="3">
+                            <input id="content" type="text" value="" class="txt" />
+                            <input id="search" class="l-button3" type="button" value="确定" />
+                            <select id="storeStore" data-val="true" name="workInfo.store">
+                                @Html.ValidationMessage("workInfo.store", new { style = "font-style:italic;color:red;" })
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>备注</th>
+                        <td colspan="3"><textarea name="workInfo.remark" id="remark" rows="3" cols="24"></textarea></td>
+                        <th>&nbsp;</th>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <td>
+                            <input id="type" name="type" type="hidden" value="insert" />
+                            <input id="id" name="id" type="hidden" value="" />
+                            <input id="newsId" name="newsId" type="hidden" value="@ViewBag.newId"/>
+                            <input id="shangban" name="shangban" type="hidden" value="@ViewBag.shangban" />
+                            <input id="submit" class="l-button3" type="submit" value="提交" />
+                            <input id="reset" class="l-button3" type="reset" value="重置" />
+                            <input id="caogao" class="l-button3" type="button" value="草稿箱">
+                            <input id="flag" type="hidden" value="@ViewBag.cof" />
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function f_show(url) {
+            window.parent.$.ligerDialog.open(
+            {
+                width: 1200,
+                height: 600,
+                isResize: true,
+                name: "show",
+                url: url,
+                title: '添加信息',
+                buttons: [
+                    {
+                        text: '关闭',
+                        onclick: function (item, dialog) {
+                            window.location.reload();
+                            dialog.close();
+                        }
+                    }
+                ]
+            });
+        }
+
+
+        $(document).ready(function () {
+
+            $("#date").ligerDateEditor({ format: "yyyy年MM月dd日", label: '', labelWidth: 100, labelAlign: 'center' });
+            $("#Part_time_Worker").click(function () {
+                f_show("../Data_Entry/Part_time_Worker");
+            });
+            $("#caogao").click(function () {
+                $.ajax({
+                    url: "../Data_Entry/Caogao",
+                    type: "post",
+                    data: {
+                        "activity": $("#activity").val(),
+                        "subsidy": $("#subsidy").val(),
+                        "wage": $("#wage").val(),
+                        "date": $("#date").val(),
+                        "uniquenum": $("#uniquenum").val(),
+                        "remark": $("#remark").html(),
+                        "id":$("#id").val(),
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        var dialog = $.ligerDialog.tip({ title: "提示", content: "成功保存上班草稿!" });
+                        setTimeout(function () {
+                            dialog.close();
+                        }, 5000);
+                    }
+                });
+            });
+
+                if ($("#shangban").val() == "0") {
+                    $.ligerDialog.warn('一天上班超过1次！');
+                }
+
+
+            if ($("#flag").val() == "1") {
+                var dialog = $.ligerDialog.tip({ title: "提示", content: "成功录入上班信息!" });
+                setTimeout(function () {
+                    dialog.close();
+                }, 5000);
+            }
+
+            $.ajax({
+                url: "../Data_Entry/unionUniquenumHtmlValue1",
+                type: "post",
+                dataType: "json",
+                data: { "work": "work" },
+                success: function (data) {
+                    if (data.staffInfo != null) {
+                        $("#name").val(data.name);
+                        $("#names").val(data.name);
+                        $("#identity").val(data.identity);
+                        $("#city").val(data.city);
+                        $("#uniquenum").html(data.uniquenumValue);
+                        $("#captain").html(data.captainValue);
+                        $("#office").val(data.office);
+                        $("#product").html(data.product2);
+                    }
+                }
+            });
+            $("#search").bind("click", function () {
+               
+                    $.ajax({
+                        url: "../Data_Entry/selectCityForStore",
+                        type: "post",
+                        data: {
+                            "content": $("#content").val(),
+                            "city":$("#city").val()
+                        },
+                        dataType: "json",
+                        success: function (data) {
+                            $("#storeStore").html(data.storeStoreHtml);
+                        }
+                    });
+               
+            });
+
+
+            $("#chooseunique").change(function () {
+                $.ajax({
+                    url: "../Data_Entry/getunique1",
+                    type: "post",
+                    data: {
+                        "chooseunique": $("#chooseunique").val(),
+                        "uniquen": $("#uniquenum").val()
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        $("#uniquenum").html(data.chooseuniqueValue);
+                        $("#name").val(data.name);
+                        $("#names").val(data.name);
+                        $("#identity").val(data.identity);
+                        $("#office").val(data.office);
+                        $("#city").val(data.city);
+                    }
+                });
+            });
+
+            $("#choosename").change(function () {
+                $.ajax({
+                    url: "../Data_Entry/getname1",
+                    type: "post",
+                    data: {
+                        "choosename": $("#choosename").val(),
+                        "uniquen": $("#uniquenum").val()
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        $("#uniquenum").html(data.chooseuniqueValue);
+                        $("#name").val(data.name);
+                        $("#names").val(data.name);
+                        $("#identity").val(data.identity);
+                        $("#office").val(data.office);
+                        $("#city").val(data.city);
+                    }
+                });
+            });
+
+            $("#uniquenum").bind("change", function () {
+                $.ajax({
+                    url: "../Data_Entry/fillTrainFormValue",
+                    type: "post",
+                    data: { "trainInfo.uniquenum": $(this).val() },
+                    dataType: "json",
+                    success: function (data) {
+                        $("#name").val(data.name);
+                        $("#names").val(data.name);
+                        $("#identity").val(data.identity);
+                        $("#office").val(data.office);
+                        $("#city").val(data.city);
+                    }
+                });
+            });
+            $("#captain").bind("change", function () {
+                $.ajax({
+                    url: "../Data_Entry/fillTrainUniquenumValue",
+                    type: "post",
+                    data: { "trainInfo.captain": $(this).val() },
+                    dataType: "json",
+                    success: function (data) {
+                        $("#uniquenum").html(data.uniquenumValue);
+                        $("#name").val(data.name);
+                        $("#names").val(datao.name);
+                        $("#identity").val(data.identity);
+                        $("#office").val(data.office);
+                        $("#city").val(data.city);
+                    }
+                });
+            });
+
+            $.ajax({
+                url: "../Data_Entry/Getcao",
+                type: "post",
+                dataType: "json",
+                data: { "trainInfo.uniquenum": $("#uniquenum").val() },
+                success: function (data) {
+                    $("#activity").val(data.activity);
+                    $("#subsidy").val(data.subsidy);
+                    $("#wage").val(data.wage);
+                    $("#date").val(data.date);
+                    $("#id").val(data.id);
+                    $("#remark").val(data.remark);
+                }
+            });
+
+
+
+            
+
+            $("#workinfo-form").validate({
+                onkeyup: false,
+                focusInvalid: true,
+                rules: {
+                    "workInfo.uniquenum": {
+                        required: true
+                    },
+                    "workInfo.activity": {
+                        required: true
+                    },
+                    "workInfo.date": {
+                        required: true,
+                        remote: {
+                            url: "../Data_Entry/validateIsAttend",
+                            data: {
+                                "date": function () {
+                                    var date = $("#date").val();
+                                    return date;
+                                },
+                                "uniquenum": function () {
+                                    return $("#uniquenum").val();
+                                }
+                            },
+                            type: "post",
+                            dataType: "json"
+                        }
+                    },
+                    "workInfo.product": {
+                        required: true
+                    },
+                    "workInfo.store": {
+                        required: true
+                    },
+                    "workInfo.work": {
+                        required: true
+                    },
+                    "workInfo.wage": {
+                        required: true,
+                        number: true
+                    },
+                    "workimage": {
+                        required: true
+                    },
+                    "workInfo.subsidy": {
+                        number: true
+                    }
+                },
+                messages: {
+                    "workInfo.activity": {
+                        required: "请输入活动名称"
+                    },
+                    "workInfo.date": {
+                        required: "请输入上班时间",
+                        remote: $.format("当天已上班")
+                    },
+                    "workimage": {
+                        required: "必填"
+                    },
+                    "workInfo.product": {
+                        required: "请输入产品名称"
+                    },
+                    "workInfo.store": {
+                        required: "请输入上班门店"
+                    },
+                    "workInfo.work": {
+                        required: "请输入工作职能"
+                    },
+                    "workInfo.wage": {
+                        required: "请输入日薪标准",
+                        number: "请输入整数"
+                    },
+                    "workInfo.subsidy": {
+                        number: "请输入整数"
+                    },
+                    "workInfo.uniquenum": {
+                        required: "请输入唯一号"
+                    }
+                },
+                submitHandler: function (form) {
+                    var flag1 = true;
+                    var flag2 = false;
+                    var formDate = $("#date").val();
+                    var formYear = formDate.substring(0, 4);
+                    var formMonth = formDate.substring(5, 7);
+                    var date = new Date();
+                    var year = date.getFullYear();
+                    var month = date.getMonth() + 1;
+                    if ($("#subsidy").val().length > 0) {
+                        if ($("#remark").val().length > 0) {
+                            flag1 = true;
+                        } else {
+                            flag1 = true;
+                            //$("#remark").after("<label class=\"error\" for=\"remark\" style=\"display: inline;\">请输入备注</label>");
+                        }
+                    }
+                    if ((formYear == year) && (formMonth == month)) {
+                        flag2 = true;
+                    } else {
+                        flag2 = false;
+                        $.ligerDialog.warn('不能录入非本月的数据！');
+                    }
+                    if ((flag1 == true) && (flag2 == true)) {
+                        $("#submit").attr("disabled", true);
+                        setInterval(function () { $("#submit").attr("disabled", false); }, "5000");
+                        form.submit();
+                        $(".l-dialog,.l-window-mask").remove();
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="~/lib/css/home/home.css" rel="stylesheet" />
+        <link href="~/lib/css/validation/screen.css" rel="stylesheet" />
+        <link href="~/lib/css/core/ligerui-common.css" rel="stylesheet" />
+        <link href="~/lib/css/core/ligerui-dialog.css" rel="stylesheet" />
+        <link href="~/lib/css/core/ligerui-grid-1.css" rel="stylesheet" />
+        <link href="~/lib/css/core/ligerui-grid-2.css" rel="stylesheet" />
+        <link href="~/lib/css/core/ligerui-icons.css" rel="stylesheet" />
+        <link href="~/lib/css/core/ligerui-menu.css" rel="stylesheet" />
+        <link href="~/lib/css/core/ligerui-form.css" rel="stylesheet" />
+        <script src="~/lib/js/core/jquery-1.7.2.min.js"></script>
+        <script src="~/lib/js/core/jquery.validate.min.js"></script>
+        <script src="~/lib/js/core/messages_zh.js"></script>
+        <script src="~/lib/js/core/ligerui.min.js"></script>
+        <title>查看登陆信息</title>
+    </head>
+    <body>
+        <div id="info-wrap">
+            <div class="navbar">
+                <div class="navbar-l"></div>
+                <div class="navbar-r"></div>
+                <div class="navbar-icon">
+                    <img alt=""  src="~/lib/css/icons/tag.gif">
+                </div>
+                <div class="navbar-inner">
+                    <b>登陆信息</b>
+                </div>
+            </div>
+            <div class="info-grid">
+                <div class="l-loading" style="display:block" id="pageloading"></div>
+                <div id="grid"></div>
+                <div class="l-panel-bar"  id="pager">
+                    <div class="l-panel-bbar-inner">
+                        <div class="l-bar-group  l-bar-message"><span class="l-bar-text"></span></div>
+                        <div class="l-bar-group l-bar-selectpagesize">
+                            <select name="rp">
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="40">40</option>
+                                <option value="50">50</option>
+                            </select>
+                        </div>
+                        <div class="l-bar-separator"></div>
+                        <div class="l-bar-group">
+                            <div class="l-bar-button l-bar-btnfirst"><span class=""></span></div>
+                            <div class="l-bar-button l-bar-btnprev"><span class=""></span></div>
+                        </div>
+                        <div class="l-bar-separator"></div>
+                        <div class="l-bar-group">
+                            <span class="pcontrol"> <input type="text" maxlength="3" class="txt" style="width:20px" value="" size="4"> / <span></span></span>
+                        </div>
+                        <div class="l-bar-separator"></div>
+                        <div class="l-bar-group">
+                            <div class="l-bar-button l-bar-btnnext">
+                                <span class=""></span>
+                            </div>
+                            <div class="l-bar-button l-bar-btnlast">
+                                <span class=""></span>
+                            </div>
+                        </div>
+                        <div class="l-bar-separator"></div>
+                        <div class="l-bar-group">
+                            <div class="l-bar-button l-bar-btnload">
+                                <span class="l-abled"></span>
+                            </div>
+                        </div>
+                        <div class="l-bar-separator"></div>
+                        <div class="l-clear"></div>
+                    </div>
+                </div>
+                <input type="hidden" id="page" value=""/>
+                <input type="hidden" id="pageSize" value=""/>
+                <input type="hidden" id="totalPage" value=""/>
+            </div>
+        </div>
+        <script type="text/javascript" src="~/lib/js/grid/gridJs.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var grid = $("#grid").ligerGrid({
+                    height: '92%',
+                    width: '99.7%',
+                    columns: [
+                        { display: 'ID', name: 'id', width: 80 },
+                        { display: '用户名', name: 'username', width: 100 },
+                        { display: 'IP地址', name: 'ip', width: 200 },
+                        { display: '日期', name: 'date', width: 200 }
+                    ], dataAction: 'server', usePager: false
+                });
+                var params = {
+                    "page": "1",
+                    "pageSize": "10"
+                };
+                $.grid.f_getData(grid, '../sys/LoginInfo', params);
+                var params3 = {};
+                $.grid.f_setOverClass();
+                $.grid.f_pagerOnclick(grid, '../sys/LoginInfo', params3);
+                $.grid.f_pageEnterDown(grid, '../sys/LoginInfo', params3);
+                $.grid.f_pageSizeSelect(grid, '../sys/LoginInfo', params3);
+            });
+        </script>
+    </body>
+</html>
+

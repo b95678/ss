@@ -1,0 +1,138 @@
+﻿@{
+    Layout = null;
+}
+
+@model Management.Models.HumanBasicFile
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="~/lib/css/home/home.css" rel="stylesheet" type="text/css" />
+        <script src="~/lib/js/core/jquery-1.7.2.min.js" type="text/javascript"></script> 
+        <title>基本信息</title>
+    </head>
+    <body>
+        <div id="showbase">
+            <input type="hidden" value="" id="personals"/>
+            <input type="hidden" value="" id="students"/>
+            <input type="hidden" value="~/uploadImg/managerImg/identity/@Model.IDcardPhoto" id="identityimages" />
+            <input type="hidden" value="~/uploadImg/managerImg/bankimage/@Model.BankCardPhoto" id="bankimages" />
+            <input type="hidden" value="~/uploadImg/managerImg/interviewimg/@Model.InterfacePhoto" id="interviewimages" />
+            <input type="hidden" value="~/uploadImg/managerImg/personal/@Model.Info" id="declareimages" />
+            <table border="1" class="t1">
+                <tr class="a1">
+                    <td>唯一号</td>
+                    <td>@Model.uniNum</td>
+                    <td>姓名</td>
+                    <td>@Model.Name</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>办事处</td>
+                    <td>@Model.City1.Office.Name</td>
+                    <td>性别</td>
+                    @if(Model.Sex==false)
+                    {
+                    <td>女</td>   
+                    }
+                    else
+                    {
+                        <td>男</td>
+                    }
+                    <td rowspan="4" id="personal" style="padding: 0"></td>
+                </tr>
+                <tr class="a1">
+                    <td>城市</td>
+                    <td>@Model.City1.Name</td>
+                    <td>籍贯</td>
+                    <td>@Model.NativePlace</td>
+                </tr>
+                <tr>
+                    <td>银行卡</td>
+                    <td colspan="3">@Model.BankNum</td>
+                </tr>
+                <tr class="a1">
+                    <td>账户</td>
+                    <td colspan="3">@Model.Bank.Name</td>
+                </tr>
+                <tr>
+                    <td>身份证</td>
+                    <td colspan="3">@Model.IDcardNo</td>
+                </tr>
+                <tr class="a1">
+                    <td>电话号码</td>
+                    <td colspan="3">@Model.Telephone</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>专业</td>
+                    <td>@Model.Major</td>
+                    <td>学历</td>
+                    <td>@Model.Academic</td>
+                    <td rowspan="4" id="student" style="padding: 0"></td>
+                </tr>
+                <tr class="a1">
+                    <td>毕业时间</td>
+                    <td>@Model.GraduateTime</td>
+                    <td>身高</td>
+                    <td>@Model.Height</td>
+                </tr>
+                <tr>
+                    <td>体重</td>
+                    <td>@Model.Weight</td>
+                    <td>三围</td>
+                    <td>@Model.BWH</td>
+                </tr>
+                <tr class="a1">
+                    <td>特长</td>
+                    <td colspan="3">@Model.speciality</td>
+                </tr>
+                <tr>
+                    <td>身份证照片</td>
+                    <td colspan="4" id="identityimage" style="padding: 0">@Model.IDcardPhoto</td>
+                </tr>
+                <tr>
+                    <td>银行卡照片</td>
+                    <td colspan="4" id="bankimage" style="padding: 0">@Model.BankCardPhoto</td>
+                </tr>
+                <tr>
+                    <td>面试照片</td>
+                    <td colspan="4" id="interviewimage" style="padding: 0">@Model.InterfacePhoto</td>
+                </tr>
+                <tr>
+                    <td>个人声明照片</td>
+                    <td colspan="4" id="declareimage" style="padding: 0">@Model.Info</td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var html;
+                if ($("#personals").val().length > 0) {
+                    html = "<a href=" + $("#personals").val() + " target=\"_blank\"><img src=" + $("#personals").val() + " width=\"114px\" height=\"125px\"/></a>";
+                    $("#personal").html(html);
+                }
+                if ($("#students").val().length > 0) {
+                    html = "<a href=\"" + $("#students").val() + "\" target=\"_blank\"><img src=\"" + $("#students").val() + "\" width=\"114px\" height=\"125px\"/></a>";
+                    $("#student").html(html);
+                }
+                if ($("#identityimages").val().length > 0) {
+                    html = "<a href=" + "/uploadImg/Humanbasic/identityImg/@Model.IDcardPhoto" + " target=\"_blank\"><img src=" + $("#identityimages").val() + " width=\"200px\" height=\"125px\"/></a>";
+                    $("#identityimage").html(html);
+                }
+                if ($("#bankimages").val().length > 0) {
+                    html = "<a href=" + "/uploadImg/Humanbasic/bankImg/@Model.BankCardPhoto" + " target=\"_blank\"><img src=" + $("#bankimages").val() + " width=\"200px\" height=\"125px\"/></a>";
+                    $("#bankimage").html(html);
+                }
+                if ($("#interviewimages").val().length > 0) {
+                    html = "<a href=" + "/uploadImg/Humanbasic/InterviewImg/@Model.InterfacePhoto" + " target=\"_blank\"><img src=" + $("#interviewimages").val() + " width=\"200px\" height=\"125px\"/></a>";
+                    $("#interviewimage").html(html);
+                }
+                if ($("#declareimages").val().length > 0) {
+                    html = "<a href=" + "/uploadImg/Humanbasic/InfoImg/@Model.Info" + " target=\"_blank\"><img src=" + $("#declareimages").val() + " width=\"200px\" height=\"125px\"/></a>";
+                    $("#declareimage").html(html);
+                }
+            })
+        </script>
+    </body>
+</html>
